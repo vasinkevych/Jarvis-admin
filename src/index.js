@@ -5,17 +5,14 @@ const UsersService = require('./services/users.servise');
 
 const Router = require('koa2-router');
 const router = Router();
-router.get('/send-email/:car_number', (ctx, next) => {
-  UsersService.getUserByNumber(ctx.params.car_number)
+router.get('/send-email/:car_number', (ctx) => {
+  return UsersService.getUserByNumber(ctx.params.car_number)
     .then(user => EmailService.sendEmail({
       to: user.email,
       subject: 'test subject',
       html: '<div>Test html...</div>'
     }))
-    .then((response) => {
-      ctx.body = {status: 'ok'};
-      next();
-    })
+    .then(() => ctx.body = {status: 'ok'})
     .catch(() => {
     });
 });
