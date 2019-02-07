@@ -1,0 +1,29 @@
+{
+  "name": "react-native-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node src/index.js",
+    "test": "node ./node_modules/mocha/bin/mocha test --recursive --timeout 10000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vasinkevych/react-native-node.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vasinkevych/react-native-node/issues"
+  },
+  "homepage": "https://github.com/vasinkevych/react-native-node#readme",
+  "dependencies": {
+    "koa": "^2.0.0-alpha.8",
+    "koa2-router": "^1.0.6",
+    "nodemailer": "^5.1.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0"
+  }
+}
