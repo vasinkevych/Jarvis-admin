@@ -1,0 +1,8 @@
+{
+  "email": {
+    "service": "gmail",
+    "user": "react.native.softserveinc@gmail.com",
+    "password": "test12345qwe",
+    "from": "react.native.softserveinc@gmail.com"
+  }
+}
