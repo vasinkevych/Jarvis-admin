@@ -4,7 +4,7 @@
 npm i
 
 npm start  - start backend;
-npm start:frontend - start frontend;
+npm run dev:frontend - start frontend;
 
 
 http://localhost:3000/
