@@ -20,3 +20,5 @@ router.get('/send-email/:car_number', ctx => {
 app.use(router);
 
 app.listen(process.env.PORT || 3000);
+
+console.log('listen ', process.env.PORT || 3000);
