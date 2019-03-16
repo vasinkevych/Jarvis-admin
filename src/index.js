@@ -22,7 +22,7 @@ router.get('/send-email/:car_number', ctx => {
     });
 });
 
-// probably need to use koa-views or something... but if we need only one index.html.....
+// probably need to use koa-views or something... but if we have only one index.html.....
 router.get('/admin-panel', (ctx) => {
   const reader = createReadStream(__dirname + '/public/index.html');
   return new Promise(resolve => {

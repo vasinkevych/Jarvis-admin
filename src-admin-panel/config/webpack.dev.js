@@ -2,7 +2,6 @@ var debug = process.env.NODE_ENV !== "production";
 var webpack = require('webpack');
 
 module.exports = {
-  //context: path.join(__dirname, "src"),
   devtool: debug ? "inline-sourcemap" : null,
   entry: "./src-admin-panel/js/client.js",
   module: {
