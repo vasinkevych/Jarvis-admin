@@ -1,10 +1,10 @@
 import {put, takeEvery, call, select} from 'redux-saga/effects';
 import axios from 'axios';
-import {urlSelector} from '../reducers/urlReducers';
+import { getBaseUrl } from '../constants';
 
 function* fetchMigrations() {
   try {
-    const baseUrl = yield select(urlSelector);
+    const baseUrl = getBaseUrl();
     const data = yield call(axios.get, `${baseUrl}/admin/api/migrations`);
     yield put({type: "FETCH_MIGRATIONS_SUCCESS", payload: data.data});
   } catch (error) {
@@ -14,7 +14,7 @@ function* fetchMigrations() {
 
 function* migrationsUp() {
   try {
-    const baseUrl = yield select(urlSelector);
+    const baseUrl = getBaseUrl();
     const data = yield call(axios.get, `${baseUrl}/admin/api/up-migrations`);
     yield put({type: "MIGRATIONS_UP_SUCCESS", payload: data.data});
     yield put({type: "FETCH_MIGRATIONS"});
@@ -25,7 +25,7 @@ function* migrationsUp() {
 
 function* migrationsDown() {
   try {
-    const baseUrl = yield select(urlSelector);
+    const baseUrl = getBaseUrl();
     const data = yield call(axios.get, `${baseUrl}/admin/api/down-migrations`);
     yield put({type: "MIGRATIONS_DOWN_SUCCESS", payload: data.data});
     yield put({type: "FETCH_MIGRATIONS"});
@@ -36,7 +36,7 @@ function* migrationsDown() {
 
 function* migrationsDownOne() {
   try {
-    const baseUrl = yield select(urlSelector);
+    const baseUrl = getBaseUrl();
     const data = yield call(axios.get, `${baseUrl}/admin/api/down-migrations-one`);
     yield put({type: "MIGRATIONS_DOWN_SUCCESS", payload: data.data});
     yield put({type: "FETCH_MIGRATIONS"});
