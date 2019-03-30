@@ -9,9 +9,7 @@ class NavItem extends React.Component {
   };
 
   render() {
-    console.log(this.props.location.pathname, this.props.to);
     const isActive = this.props.location.pathname === this.props.to;
-
     return (
       <li className={isActive ? 'nav-item active' : 'nav-item'}>
         <Link className={'nav-link'} {...this.props}></Link>

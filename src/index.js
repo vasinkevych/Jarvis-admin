@@ -35,12 +35,9 @@ router.get('/admin/api/execute-sql', (ctx) => {
   return DatabaseService.runSql(ctx.query.query)
     .then((result) => {
       ctx.status = 200;
-      ctx.body = { result, env: process.env };
+      ctx.body = { result };
     })
-    .catch((err) => {
-      console.log(err);
-      ctx.body = err;
-    });
+    .catch((err) => ctx.body = err);
 });
 
 /* APIs */
