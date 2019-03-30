@@ -1,21 +1,23 @@
 import React from "react";
-import {Link,} from 'react-router-dom';
+import {Link, IndexLink, withRouter} from "react-router-dom";
 import PropTypes from 'prop-types';
 
-export default class NavItem extends React.Component {
+class NavItem extends React.Component {
 
-    static contextTypes = {
-        router: PropTypes.object
-    };
+  static contextTypes = {
+    router: PropTypes.object
+  };
 
-    render() {
-        const {router} = this.context;
-        //const isActive = router.isActive(this.props.to);
+  render() {
+    console.log(this.props.location.pathname, this.props.to);
+    const isActive = this.props.location.pathname === this.props.to;
 
-        return (
-            <li className={'nav-item active'}>
-                <Link className={'nav-link'} {...this.props}></Link>
-            </li>
-        )
-    }
+    return (
+      <li className={isActive ? 'nav-item active' : 'nav-item'}>
+        <Link className={'nav-link'} {...this.props}></Link>
+      </li>
+    )
+  }
 }
+
+export default withRouter(NavItem);

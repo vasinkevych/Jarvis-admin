@@ -4,5 +4,13 @@
     "user": "react.native.softserveinc@gmail.com",
     "password": "test12345qwe",
     "from": "react.native.softserveinc@gmail.com"
+  },
+  "database": {
+    "driver": "mysql",
+    "host": "localhost",
+    "database": "reactnativess",
+    "user": "root",
+    "password": "root",
+    "charset": "utf8"
   }
 }
