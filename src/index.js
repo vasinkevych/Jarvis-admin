@@ -12,16 +12,16 @@ app.use(serve(__dirname + '/public'));
 const Router = require('koa2-router');
 const router = Router();
 
-app.use(async (ctx, next) => {
+app.use(async(ctx, next) => {
   ctx.set('Access-Control-Allow-Origin', '*');
   await next();
 });
 
 // probably need to use koa-views or something... but if we have only one index.html.....
-router.get('/admin-panel', (ctx) => {
+router.get('/admin-panel', ctx => {
   const reader = createReadStream(__dirname + '/public/index.html');
   return new Promise(resolve => {
-    reader.on('data', (chunk) => {
+    reader.on('data', chunk => {
       ctx.type = 'html';
       ctx.body = chunk.toString();
       resolve();
@@ -31,13 +31,13 @@ router.get('/admin-panel', (ctx) => {
 
 /* admin panel  */
 // TODO: need to add middleware to check permission;
-router.get('/admin/api/execute-sql', (ctx) => {
+router.get('/admin/api/execute-sql', ctx => {
   return DatabaseService.runSql(ctx.query.query)
-    .then((result) => {
+    .then(result => {
       ctx.status = 200;
       ctx.body = { result };
     })
-    .catch((err) => ctx.body = err);
+    .catch(err => ctx.body = err);
 });
 
 /* APIs */

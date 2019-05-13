@@ -1,19 +1,18 @@
 const mysql = require('mysql');
 const config = require('../configs/config.json');
 
-//const env = process.argv[2] || 'prod';
+// const env = process.argv[2] || 'prod';
 
 module.exports = {
-
   getConnection() {
     let connection = mysql.createConnection({
       host: process.env.DATABASE_HOST || config.database.host,
       database: process.env.DATABASE_NAME || config.database.database,
       user: process.env.DATABASE_USER || config.database.user,
       password: process.env.DATABASE_PASSWORD || config.database.password,
-      charset: config.database.charset
+      charset: config.database.charset,
     });
-    connection.connect((err) => {
+    connection.connect(err => {
       if (err) {
         console.log('database error...', err);
       }
@@ -33,5 +32,5 @@ module.exports = {
       });
       connection.end();
     });
-  }
+  },
 };
