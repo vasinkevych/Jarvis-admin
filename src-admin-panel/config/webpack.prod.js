@@ -12,20 +12,24 @@ module.exports = {
         loader: 'babel-loader',
         query: {
           presets: ['react', 'es2015', 'stage-0'],
-          plugins: ['react-html-attrs', 'transform-decorators-legacy', 'transform-class-properties']
-        }
+          plugins: [
+            'react-html-attrs',
+            'transform-decorators-legacy',
+            'transform-class-properties',
+          ],
+        },
       },
-      { test: /\.css$/, loader: 'style-loader!css-loader' }
-    ]
+      { test: /\.css$/, loader: 'style-loader!css-loader' },
+    ],
   },
   output: {
     path: __dirname + " '/../../src/public/",
     publicPath: '/',
-    filename: 'client.min.js'
+    filename: 'client.min.js',
   },
   plugins: [
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false })
-  ]
+    new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
+  ],
 };

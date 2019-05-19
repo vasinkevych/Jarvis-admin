@@ -1,3 +1,5 @@
 export const getBaseUrl = () => {
-  return `${location.protocol}//${location.hostname}${(location.port ? ':3000' : '')}`;
+  return `${location.protocol}//${location.hostname}${
+    location.port ? ':3000' : ''
+  }`;
 };
