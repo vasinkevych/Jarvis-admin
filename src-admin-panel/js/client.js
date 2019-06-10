@@ -16,19 +16,20 @@ import 'bootstrap-css-only/css/bootstrap.min.css';
 const app = document.getElementById('app');
 
 const containerStyle = {
-  marginTop: '60px'
+  marginTop: '60px',
 };
 
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <Header/>
+      <Header />
       <div class="container-fluid" style={containerStyle}>
-        <Route path="/migrations" component={Migrations}></Route>
-        <Route path="/users" component={Users}></Route>
-        <Route path="/sql" component={Sql}></Route>
+        <Route path="/migrations" component={Migrations} />
+        <Route path="/users" component={Users} />
+        <Route path="/sql" component={Sql} />
       </div>
-      <Footer/>
+      <Footer />
     </Router>
   </Provider>,
-  app);
+  app
+);

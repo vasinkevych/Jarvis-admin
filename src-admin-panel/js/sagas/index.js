@@ -2,12 +2,12 @@ import {
   watchFetchMigrations,
   watchMigrationsUp,
   watchMigrationsDown,
-  watchMigrationsDownOne
+  watchMigrationsDownOne,
 } from './migrations.saga';
 import { fork } from 'redux-saga/effects';
 import { watchExecuteSql } from './mysql.saga';
 
-export default function * rootSaga() {
+export default function* rootSaga() {
   yield fork(watchFetchMigrations);
   yield fork(watchMigrationsUp);
   yield fork(watchMigrationsDown);

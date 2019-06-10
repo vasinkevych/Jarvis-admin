@@ -12,7 +12,7 @@ app.use(serve(__dirname + '/public'));
 const Router = require('koa2-router');
 const router = Router();
 
-app.use(async(ctx, next) => {
+app.use(async (ctx, next) => {
   ctx.set('Access-Control-Allow-Origin', '*');
   await next();
 });
@@ -37,20 +37,21 @@ router.get('/admin/api/execute-sql', ctx => {
       ctx.status = 200;
       ctx.body = { result };
     })
-    .catch(err => ctx.body = err);
+    .catch(err => (ctx.body = err));
 });
 
 /* APIs */
 router.get('/api/send-email/:car_number', ctx => {
   return UsersService.getUserByNumber(ctx.params.car_number)
-    .then(user => EmailService.sendEmail({
-      to: user.email,
-      subject: 'test subject',
-      html: '<div>Test html...</div>'
-    }))
-    .then(() => ctx.body = { status: 'ok' })
-    .catch(() => {
-    });
+    .then(user =>
+      EmailService.sendEmail({
+        to: user.email,
+        subject: 'test subject',
+        html: '<div>Test html...</div>',
+      })
+    )
+    .then(() => (ctx.body = { status: 'ok' }))
+    .catch(() => {});
 });
 
 app.use(router);

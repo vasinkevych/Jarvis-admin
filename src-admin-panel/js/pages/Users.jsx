@@ -1,5 +1,5 @@
-import React from "react";
-import {connect} from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 class Users extends React.Component {
@@ -8,7 +8,9 @@ class Users extends React.Component {
   }
 }
 
-export default withRouter(connect(
-  (state) => ({}),
-  {}
-)(Users));
+export default withRouter(
+  connect(
+    state => ({}),
+    {}
+  )(Users)
+);

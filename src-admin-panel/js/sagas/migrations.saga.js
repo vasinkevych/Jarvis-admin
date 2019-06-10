@@ -2,7 +2,7 @@ import { put, takeEvery, call, select } from 'redux-saga/effects';
 import axios from 'axios';
 import { getBaseUrl } from '../constants';
 
-function * fetchMigrations() {
+function* fetchMigrations() {
   try {
     const baseUrl = getBaseUrl();
     const data = yield call(axios.get, `${baseUrl}/admin/api/migrations`);
@@ -12,7 +12,7 @@ function * fetchMigrations() {
   }
 }
 
-function * migrationsUp() {
+function* migrationsUp() {
   try {
     const baseUrl = getBaseUrl();
     const data = yield call(axios.get, `${baseUrl}/admin/api/up-migrations`);
@@ -23,7 +23,7 @@ function * migrationsUp() {
   }
 }
 
-function * migrationsDown() {
+function* migrationsDown() {
   try {
     const baseUrl = getBaseUrl();
     const data = yield call(axios.get, `${baseUrl}/admin/api/down-migrations`);
@@ -34,10 +34,13 @@ function * migrationsDown() {
   }
 }
 
-function * migrationsDownOne() {
+function* migrationsDownOne() {
   try {
     const baseUrl = getBaseUrl();
-    const data = yield call(axios.get, `${baseUrl}/admin/api/down-migrations-one`);
+    const data = yield call(
+      axios.get,
+      `${baseUrl}/admin/api/down-migrations-one`
+    );
     yield put({ type: 'MIGRATIONS_DOWN_SUCCESS', payload: data.data });
     yield put({ type: 'FETCH_MIGRATIONS' });
   } catch (error) {
@@ -45,18 +48,18 @@ function * migrationsDownOne() {
   }
 }
 
-export function * watchFetchMigrations() {
+export function* watchFetchMigrations() {
   yield takeEvery('FETCH_MIGRATIONS', fetchMigrations);
 }
 
-export function * watchMigrationsUp() {
+export function* watchMigrationsUp() {
   yield takeEvery('MIGRATIONS_UP', migrationsUp);
 }
 
-export function * watchMigrationsDown() {
+export function* watchMigrationsDown() {
   yield takeEvery('MIGRATIONS_DOWN', migrationsDown);
 }
 
-export function * watchMigrationsDownOne() {
+export function* watchMigrationsDownOne() {
   yield takeEvery('MIGRATIONS_DOWN_ONE', migrationsDownOne);
 }

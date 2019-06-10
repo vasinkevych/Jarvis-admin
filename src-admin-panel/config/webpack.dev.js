@@ -12,16 +12,20 @@ module.exports = {
         loader: 'babel-loader',
         query: {
           presets: ['react', 'es2015', 'stage-0'],
-          plugins: ['react-html-attrs', 'transform-decorators-legacy', 'transform-class-properties']
-        }
+          plugins: [
+            'react-html-attrs',
+            'transform-decorators-legacy',
+            'transform-class-properties',
+          ],
+        },
       },
-      { test: /\.css$/, loader: 'style-loader!css-loader' }
-    ]
+      { test: /\.css$/, loader: 'style-loader!css-loader' },
+    ],
   },
   output: {
     path: __dirname + '/src-admin-panel/',
     publicPath: 'http://localhost:3001/',
-    filename: 'client.min.js'
+    filename: 'client.min.js',
   },
-  plugins: []
+  plugins: [],
 };
