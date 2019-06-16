@@ -6,11 +6,11 @@ const config = require('../configs/config.json');
 module.exports = {
   getConnection() {
     let connection = mysql.createConnection({
-      host: process.env.DATABASE_HOST || config.database.host,
-      database: process.env.DATABASE_NAME || config.database.database,
-      user: process.env.DATABASE_USER || config.database.user,
-      password: process.env.DATABASE_PASSWORD || config.database.password,
-      charset: config.database.charset,
+      host: process.env.DATABASE_HOST || config.dev.host,
+      database: process.env.DATABASE_NAME || config.dev.database,
+      user: process.env.DATABASE_USER || config.dev.user,
+      password: process.env.DATABASE_PASSWORD || config.dev.password,
+      charset: config.dev.charset,
     });
     connection.connect(err => {
       if (err) {

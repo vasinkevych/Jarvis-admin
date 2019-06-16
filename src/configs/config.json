@@ -5,12 +5,20 @@
     "password": "test12345qwe",
     "from": "react.native.softserveinc@gmail.com"
   },
-  "database": {
+  "dev": {
     "driver": "mysql",
     "host": "localhost",
     "database": "reactnativess",
     "user": "root",
     "password": "root",
+    "charset": "utf8"
+  },
+  "prod": {
+    "driver": "mysql",
+    "host": {"ENV": "DATABASE_HOST"},
+    "database": {"ENV": "DATABASE_NAME"},
+    "user": {"ENV": "DATABASE_USER"},
+    "password": {"ENV": "DATABASE_PASSWORD"},
     "charset": "utf8"
   }
 }
