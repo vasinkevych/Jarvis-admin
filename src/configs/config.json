@@ -13,6 +13,14 @@
     "password": "root",
     "charset": "utf8"
   },
+  "test": {
+    "driver": "mysql",
+    "host": "localhost",
+    "database": "reactnativesstest",
+    "user": "root",
+    "password": "root",
+    "charset": "utf8"
+  },
   "prod": {
     "driver": "mysql",
     "host": {"ENV": "DATABASE_HOST"},
