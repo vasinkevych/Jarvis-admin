@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const EmailService = require('../src/services/email.service');
+const EmailService = require('../services/email.service');
 
 describe('emailer', () => {
   it('should send email', done => {
