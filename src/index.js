@@ -1,10 +1,15 @@
 const Koa = require('koa');
+const mount = require('koa-mount');
 const app = new Koa();
 const serve = require('koa-static');
 const createReadStream = require('fs').createReadStream;
 const EmailService = require('./services/email.service');
 const UsersService = require('./services/users.servise');
 const DatabaseService = require('./services/database.service');
+
+const graphqlHttp = require('koa-graphql');
+const graphqlSchema = require('./graphql/schema');
+const graphqlResolver = require('./graphql/resolvers');
 
 app.use(serve(__dirname + '/public'));
 
@@ -53,6 +58,12 @@ router.get('/api/send-email/:car_number', ctx => {
     .then(() => (ctx.body = { status: 'ok' }))
     .catch(() => {});
 });
+
+app.use(mount('/graphql', graphqlHttp({
+  schema: graphqlSchema,
+  rootValue: graphqlResolver,
+  graphiql: true
+})));
 
 app.use(router);
 
