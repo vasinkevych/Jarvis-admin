@@ -47,7 +47,7 @@ router.get('/api/send-email/:car_number', ctx => {
       EmailService.sendEmail({
         to: user.email,
         subject: 'test subject',
-        html: '<div>Test html...</div>',
+        html: '<div>Test html...</div>'
       })
     )
     .then(() => (ctx.body = { status: 'ok' }))

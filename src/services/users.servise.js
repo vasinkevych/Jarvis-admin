@@ -5,7 +5,7 @@ module.exports = {
       name: 'test name',
       email: 'vivanch@softserveinc.com',
       skype: 'kori_qwe',
-      phoneNumber: '0685435102',
+      phoneNumber: '0685435102'
     });
-  },
+  }
 };

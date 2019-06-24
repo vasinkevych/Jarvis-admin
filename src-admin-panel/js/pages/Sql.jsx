@@ -15,7 +15,7 @@ class Sql extends React.Component {
     super(props);
 
     this.state = {
-      query: '',
+      query: ''
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -27,7 +27,7 @@ class Sql extends React.Component {
     const name = target.name;
 
     this.setState({
-      [name]: value,
+      [name]: value
     });
   }
 
@@ -68,7 +68,7 @@ class Sql extends React.Component {
                 class="form-control"
                 style={{
                   fontSize: '24px',
-                  fontFamily: 'Courier New, monospace',
+                  fontFamily: 'Courier New, monospace'
                 }}
                 rows="5"
                 id="query"
@@ -94,10 +94,10 @@ class Sql extends React.Component {
 export default withRouter(
   connect(
     state => ({
-      sqlResult: state.system.sqlResult,
+      sqlResult: state.system.sqlResult
     }),
     {
-      executeSql,
+      executeSql
     }
   )(Sql)
 );

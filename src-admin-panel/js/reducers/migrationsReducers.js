@@ -1,6 +1,6 @@
 export default function reducer(
   state = {
-    migrations: [],
+    migrations: []
   },
   action
 ) {
@@ -20,24 +20,24 @@ export default function reducer(
 
 export function fetchMigrations() {
   return {
-    type: 'FETCH_MIGRATIONS',
+    type: 'FETCH_MIGRATIONS'
   };
 }
 
 export function migrationsUp() {
   return {
-    type: 'MIGRATIONS_UP',
+    type: 'MIGRATIONS_UP'
   };
 }
 
 export function migrationsDown() {
   return {
-    type: 'MIGRATIONS_DOWN',
+    type: 'MIGRATIONS_DOWN'
   };
 }
 
 export function migrationsDownOne() {
   return {
-    type: 'MIGRATIONS_DOWN_ONE',
+    type: 'MIGRATIONS_DOWN_ONE'
   };
 }

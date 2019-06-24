@@ -5,7 +5,7 @@ export default class Nav extends React.Component {
   constructor() {
     super();
     this.state = {
-      collapsed: true,
+      collapsed: true
     };
   }
 
