@@ -29,43 +29,38 @@ class ParseService {
     return phonesArray;
   }
 
-  normalizeCarNumber(carNumber) {
-    // TODO create parse function
-    return carNumber;
+  normalizeCarNumber(carNumbers) {
+    const MAX_CAR_NUMBER_LENGTH = 11;
+    // remove all special symbols for one car number
+    carNumbers =
+      carNumbers < MAX_CAR_NUMBER_LENGTH
+        ? carNumbers.replace(/[^a-zA-Zа-яА-Я\d]+/g, '')
+        : carNumbers
+          .split(/;|,|\n/)
+          .map(carNumber => carNumber.replace(/[^a-zA-Zа-яА-Я\d]+/g, ''));
+
+    return carNumbers;
   }
 
-  normalizeName(name) {
-    return name.trim();
+  normalizeName(user, rawData, i) {
+    if (user.trim().length < 1 && i > 0) {
+      // get name from previous row when user cell is empty
+      return rawData[i - 1][0].trim();
+    }
+    return user.trim();
   }
 
   normalizeRows(rawData) {
-    const MAX_CAR_NUMBER_LENGTH = 11;
-
     return rawData.map((row, i) => {
       let [user, brand, carNumber, phones, room, internalPhone, skype] = row;
-
-      if (user.length < 1 && i > 0) {
-        // get name from previous row when user cell is empty
-        user = this.normalizeName(rawData[i - 1][0]);
-      } else {
-        user = this.normalizeName(user);
-      }
-
-      carNumber =
-        carNumber > MAX_CAR_NUMBER_LENGTH
-          ? this.normalizeCarNumber(carNumber)
-          : carNumber;
-
-      phones = phones ? this.parsePhoneNumbers(phones) : [];
-
       return {
-        user,
-        brand,
-        carNumber,
-        phones,
-        room,
-        internalPhone,
-        skype
+        user: this.normalizeName(user, rawData, i),
+        brand: brand.trim() || null,
+        carNumber: this.normalizeCarNumber(carNumber),
+        phones: phones.trim() ? this.parsePhoneNumbers(phones) : [],
+        room: room.trim() || null,
+        internalPhone: internalPhone.trim() || null,
+        skype: skype.trim() || null
       };
     });
   }
