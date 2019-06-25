@@ -34,7 +34,7 @@ class ParseService {
     // remove all special symbols for one car number
     carNumbers =
       carNumbers < MAX_CAR_NUMBER_LENGTH
-        ? carNumbers.trim().replace(/[^a-zA-Zа-яА-Я\d]+/g, '')
+        ? carNumbers.replace(/[^a-zA-Zа-яА-Я\d]+/g, '')
         : carNumbers
           .split(/;|,|\n/)
           .map(carNumber => carNumber.replace(/[^a-zA-Zа-яА-Я\d]+/g, ''));
@@ -45,9 +45,9 @@ class ParseService {
   normalizeName(user, rawData, i) {
     if (user.trim().length < 1 && i > 0) {
       // get name from previous row when user cell is empty
-      return (user = rawData[i - 1][0].trim());
+      return rawData[i - 1][0].trim();
     }
-    return (user = user.trim());
+    return user.trim();
   }
 
   normalizeRows(rawData) {
