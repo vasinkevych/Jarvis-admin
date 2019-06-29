@@ -61,4 +61,6 @@ typings/
 .next
 
 /.idea
+credentials.json
+token.json
 ./src-admin-panel/config/dist
