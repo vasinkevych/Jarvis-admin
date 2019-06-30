@@ -36,8 +36,8 @@ class ParseService {
       carNumbers < MAX_CAR_NUMBER_LENGTH
         ? carNumbers.replace(/[^a-zA-Zа-яА-Я\d]+/g, '')
         : carNumbers
-          .split(/;|,|\n/)
-          .map(carNumber => carNumber.replace(/[^a-zA-Zа-яА-Я\d]+/g, ''));
+            .split(/;|,|\n/)
+            .map(carNumber => carNumber.replace(/[^a-zA-Zа-яА-Я\d]+/g, ''));
 
     return carNumbers;
   }

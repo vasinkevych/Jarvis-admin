@@ -22,7 +22,7 @@ app.use(serve(path.join(__dirname, '/public')));
 const Router = require('koa2-router');
 const router = Router();
 
-app.use(async(ctx, next) => {
+app.use(async (ctx, next) => {
   ctx.set('Access-Control-Allow-Origin', '*');
   await next();
 });
