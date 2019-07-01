@@ -15,12 +15,13 @@ module.exports = {
   },
 
   getCarById(carId) {
-    return DatabaseService.runSql(`SELECT * FROM cars WHERE id = ${carId}`)
-      .then(data => {
-        if (data && data[0]) {
-          return data[0];
-        }
-      });
+    return DatabaseService.runSql(
+      `SELECT * FROM cars WHERE id = ${carId}`
+    ).then(data => {
+      if (data && data[0]) {
+        return data[0];
+      }
+    });
   },
 
   getAllUsersInCar(carId) {

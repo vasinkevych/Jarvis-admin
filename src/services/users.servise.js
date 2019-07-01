@@ -7,7 +7,7 @@ module.exports = {
       name: 'test name',
       email: 'vivanch@softserveinc.com',
       skype: 'kori_qwe',
-      phoneNumber: '0685435102',
+      phoneNumber: '0685435102'
     });
   },
 
@@ -16,12 +16,12 @@ module.exports = {
   },
 
   getUserById(userID) {
-    return DatabaseService
-      .runSql(`SELECT * FROM users WHERE id = ${userID}`)
-      .then(data => {
-        if (data && data[0]) {
-          return data[0];
-        }
-      });
+    return DatabaseService.runSql(
+      `SELECT * FROM users WHERE id = ${userID}`
+    ).then(data => {
+      if (data && data[0]) {
+        return data[0];
+      }
+    });
   }
 };

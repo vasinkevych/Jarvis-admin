@@ -10,7 +10,7 @@ module.exports = {
       database: process.env.DATABASE_NAME || config.dev.database,
       user: process.env.DATABASE_USER || config.dev.user,
       password: process.env.DATABASE_PASSWORD || config.dev.password,
-      charset: config.dev.charset,
+      charset: config.dev.charset
     });
     connection.connect(err => {
       if (err) {
@@ -32,5 +32,5 @@ module.exports = {
       });
       connection.end();
     });
-  },
+  }
 };

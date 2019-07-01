@@ -4,5 +4,5 @@ import system from './mysqlReducers';
 
 export default combineReducers({
   migrations,
-  system,
+  system
 });

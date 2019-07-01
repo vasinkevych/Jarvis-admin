@@ -1,4 +1,4 @@
-const {buildSchema} = require('graphql');
+const { buildSchema } = require('graphql');
 const usersSchemas = require('./schemas/users');
 const carsSchemas = require('./schemas/cars');
 
@@ -12,4 +12,3 @@ module.exports = buildSchema(`
     ${carsSchemas.CarQueries}
   }
 `);
-

@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 export default function reducer(
   state = {
-    sqlResult: '',
+    sqlResult: ''
   },
   action
 ) {
@@ -23,6 +23,6 @@ export default function reducer(
 export function executeSql(queryStr) {
   return {
     type: 'EXECUTE_SQL',
-    payload: queryStr,
+    payload: queryStr
   };
 }

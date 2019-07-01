@@ -2,7 +2,7 @@ import {
   watchFetchMigrations,
   watchMigrationsUp,
   watchMigrationsDown,
-  watchMigrationsDownOne,
+  watchMigrationsDownOne
 } from './migrations.saga';
 import { fork } from 'redux-saga/effects';
 import { watchExecuteSql } from './mysql.saga';

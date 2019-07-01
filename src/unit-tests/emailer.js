@@ -6,7 +6,7 @@ describe('emailer', () => {
     EmailService.sendEmail({
       to: 'vivanch@softserveinc.com',
       subject: 'test subject',
-      html: '<div>Test html...</div>',
+      html: '<div>Test html...</div>'
     }).then(result => {
       assert.equal(result.accepted[0], 'vivanch@softserveinc.com');
       done();

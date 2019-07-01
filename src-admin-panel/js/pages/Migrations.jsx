@@ -5,7 +5,7 @@ import {
   fetchMigrations,
   migrationsUp,
   migrationsDown,
-  migrationsDownOne,
+  migrationsDownOne
 } from '../reducers/migrationsReducers';
 
 class Migrations extends React.Component {
@@ -22,7 +22,7 @@ export default withRouter(
   connect(
     state => ({}),
     {
-      fetchMigrations,
+      fetchMigrations
     }
   )(Migrations)
 );

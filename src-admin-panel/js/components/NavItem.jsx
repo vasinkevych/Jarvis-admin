@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 class NavItem extends React.Component {
   static contextTypes = {
-    router: PropTypes.object,
+    router: PropTypes.object
   };
 
   render() {

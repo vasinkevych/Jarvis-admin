@@ -16,7 +16,7 @@ import 'bootstrap-css-only/css/bootstrap.min.css';
 const app = document.getElementById('app');
 
 const containerStyle = {
-  marginTop: '60px',
+  marginTop: '60px'
 };
 
 ReactDOM.render(

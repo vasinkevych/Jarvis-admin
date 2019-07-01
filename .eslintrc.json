@@ -1,8 +1,9 @@
 {
-  "extends": ["koa"],
+  "extends": ["koa", "plugin:prettier/recommended"],
   "plugins": ["mocha"],
   "rules": {
-    "mocha/no-exclusive-tests": "error"
+    "mocha/no-exclusive-tests": "error",
+    "prettier/prettier": ["error", { "singleQuote": true }]
   },
   "env": {
     "mocha": true

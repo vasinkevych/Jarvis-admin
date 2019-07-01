@@ -7,8 +7,8 @@ module.exports = {
       service: config.email.service,
       auth: {
         user: config.email.user,
-        pass: config.email.password,
-      },
+        pass: config.email.password
+      }
     });
   },
 
@@ -16,7 +16,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       const transporter = this.getTransporter();
       const options = Object.assign({}, mailOptions, {
-        from: config.email.from,
+        from: config.email.from
       });
       transporter.sendMail(options, (err, info) => {
         if (err) {
@@ -26,5 +26,5 @@ module.exports = {
         resolve(info);
       });
     });
-  },
+  }
 };

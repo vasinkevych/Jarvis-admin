@@ -4,11 +4,13 @@ const HelpersGraphQLService = require('../helpers');
 
 module.exports = {
   users() {
-    return UsersService.getAllUsers()
-      .then(users => HelpersGraphQLService.resolverAttachCarsToUsers(users))
+    return UsersService.getAllUsers().then(users =>
+      HelpersGraphQLService.resolverAttachCarsToUsers(users)
+    );
   },
   user(args) {
-    return UsersService.getUserById(args.id)
-      .then(user => HelpersGraphQLService.resolverAttachCarsToUser(user));
+    return UsersService.getUserById(args.id).then(user =>
+      HelpersGraphQLService.resolverAttachCarsToUser(user)
+    );
   }
 };
