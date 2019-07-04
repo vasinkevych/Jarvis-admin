@@ -55,7 +55,10 @@ router.get('/admin/api/parse', ctx => {
   const gSheetToJSON = new GoogleSheetToJSON({ CLIENT_EMAIL, PRIVATE_KEY });
 
   return gSheetToJSON
-    .getJson({ spreadsheetId: SPREAD_SHEET_ID, range: 'contacts' })
+    .getJson({
+      spreadsheetId: SPREAD_SHEET_ID,
+      range: 'Список власників автомобілів!A2:I1000'
+    })
     .then(({ data, status = 401, statusText }) => {
       ctx.status = status;
       ctx.statusText = statusText;

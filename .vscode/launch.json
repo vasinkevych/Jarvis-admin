@@ -7,8 +7,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "parser.service.",
-      "program": "${workspaceFolder}/src/services/parser.service.js"
+      "name": "google.service",
+      "program": "${workspaceFolder}/src/services/google-api.service.js"
     },
     {
       "type": "node",

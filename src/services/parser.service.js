@@ -55,12 +55,12 @@ class ParseService {
       let [user, brand, carNumber, phones, room, internalPhone, skype] = row;
       return {
         user: this.normalizeName(user, rawData, i),
-        brand: brand.trim() || null,
+        brand: (brand && brand.trim()) || null,
         carNumber: this.normalizeCarNumber(carNumber),
-        phones: phones.trim() ? this.parsePhoneNumbers(phones) : [],
-        room: room.trim() || null,
-        internalPhone: internalPhone.trim() || null,
-        skype: skype.trim() || null
+        phones: phones && phones.trim() ? this.parsePhoneNumbers(phones) : [],
+        room: (room && room.trim()) || null,
+        internalPhone: (internalPhone && internalPhone.trim()) || null,
+        skype: (skype && skype.trim()) || null
       };
     });
   }
