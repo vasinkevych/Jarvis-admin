@@ -1,0 +1,8 @@
+FROM mysql:5.7.15
+
+MAINTAINER me
+
+ENV MYSQL_DATABASE=reactnativess \
+    MYSQL_ROOT_PASSWORD=root
+
+EXPOSE 3306
