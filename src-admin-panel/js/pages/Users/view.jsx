@@ -8,7 +8,7 @@ class Users extends React.Component {
   render() {
     const { users } = this.props;
     return users && users.length ? (
-      <table className="table table-striped">
+      <table className="table table-dark table-hover">
         <thead>
           <tr>
             {Object.keys(users[0]).map(el => (
@@ -20,9 +20,9 @@ class Users extends React.Component {
         </thead>
         <tbody>
           {users.map((user, i) => (
-            <tr title={user} key={i}>
+            <tr key={i}>
               {Object.values(user).map((value, index) => (
-                <td key={`${i}-${index}`} scope="col">
+                <td title={value} key={`${i}-${index}`} scope="col">
                   {Array.isArray(value)
                     ? value.map(val => <div key={val}>{val}</div>)
                     : value}
