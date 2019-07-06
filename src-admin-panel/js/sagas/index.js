@@ -6,6 +6,7 @@ import {
 } from './migrations.saga';
 import { fork } from 'redux-saga/effects';
 import { watchExecuteSql } from './mysql.saga';
+import { watchFetchUsers } from './users';
 
 export default function* rootSaga() {
   yield fork(watchFetchMigrations);
@@ -13,4 +14,5 @@ export default function* rootSaga() {
   yield fork(watchMigrationsDown);
   yield fork(watchMigrationsDownOne);
   yield fork(watchExecuteSql);
+  yield fork(watchFetchUsers);
 }

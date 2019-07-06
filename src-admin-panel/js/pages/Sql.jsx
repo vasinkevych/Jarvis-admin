@@ -6,7 +6,7 @@ import { executeSql } from '../reducers/mysqlReducers';
 
 class Sql extends React.Component {
   executeMySql() {
-    if (confirm('Are you sure?')) {
+    if (window.confirm('Are you sure?')) {
       this.props.executeSql(this.state.query);
     }
   }
