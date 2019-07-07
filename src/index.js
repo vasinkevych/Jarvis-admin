@@ -47,7 +47,9 @@ router.get('/admin/api/execute-sql', ctx => {
       ctx.status = 200;
       ctx.body = { result };
     })
-    .catch(err => (ctx.body = err));
+    .catch(err => {
+      ctx.throw(400, err);
+    });
 });
 
 router.get('/admin/api/parse', ctx => {
@@ -64,7 +66,9 @@ router.get('/admin/api/parse', ctx => {
       ctx.statusText = statusText;
       ctx.body = new ParseService().normalizeRows(data.values);
     })
-    .catch(err => (ctx.body = err));
+    .catch(err => {
+      ctx.throw(400, err);
+    });
 });
 
 /* APIs */
