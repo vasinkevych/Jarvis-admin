@@ -81,8 +81,7 @@ router.get('/admin/api/parse', ctx => {
         };
       },
       err => {
-        ctx.body = err;
-        ctx.throw(501, err);
+        ctx.throw(502, err);
       }
     )
     .catch(err => {
