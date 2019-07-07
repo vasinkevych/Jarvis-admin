@@ -78,15 +78,10 @@ router.get('/admin/api/parse', ctx => {
           data: new ParseService().normalizeRows(data.values),
           vars: { CLIENT_EMAIL, PRIVATE_KEY, SPREAD_SHEET_ID }
         };
-      },
-      ({ response }) => {
-        ctx.status = response.status;
-        ctx.statusText = response.statusText;
-        ctx = ctx.body = response;
       }
     )
     .catch(err => {
-      ctx.body = err;
+      ctx.throw(400, err);
     });
 });
 
