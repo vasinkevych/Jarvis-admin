@@ -53,18 +53,37 @@ router.get('/admin/api/execute-sql', ctx => {
 router.get('/admin/api/parse', ctx => {
   const { CLIENT_EMAIL, PRIVATE_KEY, SPREAD_SHEET_ID } = process.env;
   const gSheetToJSON = new GoogleSheetToJSON({ CLIENT_EMAIL, PRIVATE_KEY });
-
+  if (!CLIENT_EMAIL || !PRIVATE_KEY || !SPREAD_SHEET_ID) {
+    const undefinedEnvVars = Object.keys(process.env).filter(
+      key => !process.env[key]
+    );
+    ctx.status = 400;
+    ctx.statusText = 'Bad request';
+    ctx.body = {
+      message: `Next env vars is not defined ${undefinedEnvVars.join('; ')}`
+    };
+    return;
+  }
   return gSheetToJSON
     .getJson({
       spreadsheetId: SPREAD_SHEET_ID,
       range: 'Список власників автомобілів!A2:I1000'
     })
-    .then(({ data, status = 401, statusText }) => {
-      ctx.status = status;
-      ctx.statusText = statusText;
-      ctx.body = new ParseService().normalizeRows(data.values);
-    })
-    .catch(err => (ctx.body = err));
+    .then(
+      ({ data, status, statusText }) => {
+        ctx.status = status;
+        ctx.statusText = statusText;
+        ctx.body = new ParseService().normalizeRows(data.values);
+      },
+      ({ response }) => {
+        ctx.status = response.status;
+        ctx.statusText = response.statusText;
+        ctx = ctx.body = response;
+      }
+    )
+    .catch(err => {
+      ctx.body = err;
+    });
 });
 
 /* APIs */
