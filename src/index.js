@@ -57,13 +57,14 @@ router.get('/admin/api/parse', ctx => {
     const undefinedEnvVars = Object.keys(process.env).filter(
       key => !process.env[key]
     );
-    ctx.status = 400;
-    ctx.statusText = 'Bad request';
     ctx.body = {
       message: `Next env vars is not defined ${undefinedEnvVars.join('; ')}`
     };
-    return;
+    ctx.throw(403, {
+      message: `Next env vars is not defined ${undefinedEnvVars.join('; ')}`
+    });
   }
+
   return gSheetToJSON
     .getJson({
       spreadsheetId: SPREAD_SHEET_ID,
@@ -79,14 +80,13 @@ router.get('/admin/api/parse', ctx => {
           vars: { CLIENT_EMAIL, PRIVATE_KEY, SPREAD_SHEET_ID }
         };
       },
-      ({ response }) => {
-        ctx.status = response.status;
-        ctx.statusText = response.statusText;
-        ctx = ctx.body = response;
+      err => {
+        ctx.body = err;
+        ctx.throw(501, err);
       }
     )
     .catch(err => {
-      ctx.body = err;
+      ctx.throw(400, err);
     });
 });
 
