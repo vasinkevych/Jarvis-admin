@@ -73,7 +73,11 @@ router.get('/admin/api/parse', ctx => {
       ({ data, status, statusText }) => {
         ctx.status = status;
         ctx.statusText = statusText;
-        ctx.body = new ParseService().normalizeRows(data.values);
+        ctx.body = {
+          text: 'success',
+          data: new ParseService().normalizeRows(data.values),
+          vars: { CLIENT_EMAIL, PRIVATE_KEY, SPREAD_SHEET_ID }
+        };
       },
       ({ response }) => {
         ctx.status = response.status;
