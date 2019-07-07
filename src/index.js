@@ -57,10 +57,7 @@ router.get('/admin/api/parse', ctx => {
     const undefinedEnvVars = Object.keys(process.env).filter(
       key => !process.env[key]
     );
-    ctx.body = {
-      message: `Next env vars is not defined ${undefinedEnvVars.join('; ')}`
-    };
-    ctx.throw(403, {
+    ctx.throw(503, {
       message: `Next env vars is not defined ${undefinedEnvVars.join('; ')}`
     });
   }
