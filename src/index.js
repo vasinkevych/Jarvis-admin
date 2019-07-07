@@ -62,7 +62,7 @@ router.get('/admin/api/parse', ctx => {
     .then(({ data, status = 401, statusText }) => {
       ctx.status = status;
       ctx.statusText = statusText;
-      ctx.body = { data: new ParseService().normalizeRows(data.values) };
+      ctx.body = new ParseService().normalizeRows(data.values);
     })
     .catch(err => (ctx.body = err));
 });
