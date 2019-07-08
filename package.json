@@ -18,7 +18,7 @@
     "mup": "node ./node_modules/db-migrate/bin/db-migrate up --config ./src/configs/config.json --migrations-dir ./src/migrations -e dev",
     "mdown": "node ./node_modules/db-migrate/bin/db-migrate down -c 99 --config ./src/configs/config.json --migrations-dir ./src/migrations -e dev",
     "mup-prod": "node ./node_modules/db-migrate/bin/db-migrate up --config ./src/configs/config.json --migrations-dir ./src/migrations -e prod",
-    "postinstall": "npm run mup-prod"
+    "postinstall": "npm run mup-prod && npm run build:frontend"
   },
   "repository": {
     "type": "git",

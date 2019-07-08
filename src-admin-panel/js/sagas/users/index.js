@@ -5,7 +5,7 @@ import * as actions from '../../reducers/users/actions';
 
 function* doFetchUsers() {
   try {
-    const { data } = yield call(axios.get, `${getBaseUrl()}${API.USERS}`);
+    const data = yield call(axios.get, `${getBaseUrl()}${API.USERS}`);
     yield put(actions.fetchUsersSuccess(data));
   } catch (error) {
     yield put(actions.fetchUsersError(error));

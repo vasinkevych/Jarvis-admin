@@ -1,4 +1,4 @@
-require('dotenv').config({ silent: true });
+require('dotenv').config();
 
 const Koa = require('koa');
 const mount = require('koa-mount');
@@ -54,7 +54,9 @@ router.get('/admin/api/execute-sql', ctx => {
 
 router.get('/admin/api/parse', ctx => {
   const { CLIENT_EMAIL, PRIVATE_KEY, SPREAD_SHEET_ID } = process.env;
-  const gSheetToJSON = new GoogleSheetToJSON({ CLIENT_EMAIL, PRIVATE_KEY });
+  const privateKey = PRIVATE_KEY.replace(/\\n/g, '\n');
+
+  const gSheetToJSON = new GoogleSheetToJSON({ CLIENT_EMAIL, PRIVATE_KEY: privateKey });
 
   return gSheetToJSON
     .getJson({
