@@ -54,8 +54,8 @@ router.get('/admin/api/execute-sql', ctx => {
 
 router.get('/admin/api/parse', ctx => {
   let { CLIENT_EMAIL, PRIVATE_KEY, SPREAD_SHEET_ID } = process.env;
-  //ctx.body = process.env;
-  //return;
+  ctx.body = { CLIENT_EMAIL, PRIVATE_KEY, SPREAD_SHEET_ID };
+  return;
 
   const gSheetToJSON = new GoogleSheetToJSON({ CLIENT_EMAIL, PRIVATE_KEY });
 
