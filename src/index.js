@@ -60,6 +60,7 @@ router.get('/admin/api/test-2', ctx => {
 
 router.get('/admin/api/parse', ctx => {
   let { CLIENT_EMAIL, PRIVATE_KEY, SPREAD_SHEET_ID } = process.env;
+  PRIVATE_KEY = PRIVATE_KEY.replace(/\\n/g, '\n');
 
   const gSheetToJSON = new GoogleSheetToJSON({ CLIENT_EMAIL, PRIVATE_KEY });
 
