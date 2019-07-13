@@ -4,6 +4,8 @@ module.exports = {
       id: ID
       name: String
       cars: [Car!]
+      mobile: [String]
+      skype: String
     }
   `,
   UserQueries: `

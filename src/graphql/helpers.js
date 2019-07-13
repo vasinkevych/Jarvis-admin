@@ -20,7 +20,9 @@ module.exports = {
 
   resolverAttachCarsToUser(user) {
     return Object.assign({}, user, {
-      cars: this.getAllCarsByUser.bind(this, user.id)
+      cars: this.getAllCarsByUser.bind(this, user.id),
+      mobile: UsersService.getMobilePhonesByUser(user.id),
+      skype: UsersService.getSkypeByUser(user.id)
     });
   },
 

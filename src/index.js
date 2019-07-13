@@ -64,9 +64,15 @@ router.get('/admin/api/parse', ctx => {
       range: 'Список власників автомобілів!A2:I1000'
     })
     .then(({ data, status = 401, statusText }) => {
-      ctx.status = status;
-      ctx.statusText = statusText;
-      ctx.body = new ParseService().normalizeRows(data.values);
+      return new ParseService().normalizeRows(data.values);
+    })
+    .then((data) => {
+      return UsersService.bulkAddUsers(data);
+    })
+    .then((data) => {
+      ctx.status = 200;
+      //ctx.statusText = statusText;
+      ctx.body = 'ok';
     })
     .catch(err => {
       ctx.throw(400, err);
