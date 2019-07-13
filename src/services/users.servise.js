@@ -165,7 +165,6 @@ module.exports = {
   },
 
   bulkAddUsers(data) {
-    console.log('--------------------', data.length);
     return this.addUsersRecursive(data,0);
   }
 };

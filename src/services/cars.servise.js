@@ -25,7 +25,6 @@ module.exports = {
   },
 
   getCarByNumber(carNumber) {
-    console.log(`SELECT * FROM cars WHERE number = '${carNumber}';`);
     return DatabaseService.runSql(
       `SELECT * FROM cars WHERE number = '${carNumber}';`
     ).then(data => {
