@@ -34,6 +34,12 @@ module.exports = {
     });
   },
 
+  getCarsLikeNumber(number) {
+    return DatabaseService.runSql(
+      `SELECT * FROM cars WHERE number LIKE '%${number}%';`
+    )
+  },
+
   getAllUsersInCar(carId) {
     return DatabaseService.runSql(`
       SELECT * 
