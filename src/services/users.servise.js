@@ -133,6 +133,9 @@ module.exports = {
     return this.insertUserIfNotExist({name: data.user})
       .then((user) => {
         user_id = user.id;
+        if (!data.carNumber || !data.carNumber.length) {
+          return;
+        }
         return Promise.all(data.carNumber.map((number) =>
           CarService.insertCarIfNotExist({
             user_id,
@@ -153,7 +156,16 @@ module.exports = {
       });
   },
 
+  addUsersRecursive(data, n) {
+    if (!data[n]) {
+      return;
+    }
+    return this.addUserAndDetails(data[n])
+      .then(() => this.addUsersRecursive(data, n+1));
+  },
+
   bulkAddUsers(data) {
-    return this.addUserAndDetails(data[0]);
+    console.log('--------------------', data.length);
+    return this.addUsersRecursive(data,0);
   }
 };
