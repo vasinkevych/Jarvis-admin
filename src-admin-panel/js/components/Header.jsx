@@ -1,5 +1,7 @@
 import React from 'react';
-import NavItem from './NavItem.jsx';
+import NavItem from './NavItem';
+import { Link } from 'react-router-dom';
+import LoginButton from './LoginButton';
 
 export default class Nav extends React.Component {
   constructor() {
@@ -21,29 +23,32 @@ export default class Nav extends React.Component {
 
     return (
       <nav
-        class="navbar navbar-expand-lg navbar-toggleable-md navbar-light bg-light"
+        className="navbar navbar-expand-lg navbar-toggleable-md navbar-light bg-light"
         role="navigation"
       >
-        <div class="container">
+        <div className="container">
           <button
-            class="navbar-toggler navbar-toggler-right"
+            className="navbar-toggler navbar-toggler-right"
             type="button"
             onClick={this.toggleCollapse.bind(this)}
           >
-            <span class="navbar-toggler-icon" />
+            <span className="navbar-toggler-icon" />
           </button>
-          <a class="navbar-brand" href="#">
+          <Link className="navbar-brand" href="#">
             ARSS Admin Panel
-          </a>
+          </Link>
 
           <div
-            class={'navbar-collapse ' + navClass}
+            className={'navbar-collapse ' + navClass}
             id="bs-example-navbar-collapse-1"
           >
-            <ul class="navbar-nav mr-auto">
+            <ul className="navbar-nav mr-auto">
               <NavItem to="migrations">Migrations</NavItem>
               <NavItem to="users">Users</NavItem>
               <NavItem to="sql">mySQL</NavItem>
+              <li className="nav-item">
+                <LoginButton />
+              </li>
             </ul>
           </div>
         </div>

@@ -5,8 +5,8 @@ import rootSaga from './sagas/index';
 import reducers from './reducers';
 
 const sagaMiddleware = createSagaMiddleware();
-let devtools = window['devToolsExtension']
-  ? window['devToolsExtension']()
+let devtools = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__']
+  ? window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__']()
   : f => f;
 
 export default createStore(
