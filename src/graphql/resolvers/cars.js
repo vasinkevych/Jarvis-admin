@@ -11,5 +11,11 @@ module.exports = {
     return CarsService.getCarById(args.id).then(car =>
       HelpersGraphQLService.resolverAttachUsersToCar(car)
     );
+  },
+
+  carsLikeNumber(args) {
+    return CarsService.getCarsLikeNumber(args.number).then(cars =>
+      HelpersGraphQLService.resolverAttachUsersToCars(cars)
+    );
   }
 };

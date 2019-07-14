@@ -10,5 +10,6 @@ module.exports = {
   CarQueries: `
     cars: [Car!]!
     car(id: ID!): Car  
+    carsLikeNumber(number: String): [Car]
   `
 };
