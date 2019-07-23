@@ -12,9 +12,7 @@ class Users extends React.Component {
         <thead>
           <tr>
             {Object.keys(users[0]).map(el => (
-              <th key={el} scope="col">
-                {el}
-              </th>
+              <th key={el}>{el}</th>
             ))}
           </tr>
         </thead>
@@ -22,7 +20,7 @@ class Users extends React.Component {
           {users.map((user, i) => (
             <tr key={i}>
               {Object.values(user).map((value, index) => (
-                <td title={value} key={`${i}-${index}`} scope="col">
+                <td title={value} key={`${i}-${index}`}>
                   {Array.isArray(value)
                     ? value.map(val => <div key={val}>{val}</div>)
                     : value}

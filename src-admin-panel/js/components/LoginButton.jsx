@@ -8,7 +8,7 @@ const LoginButton = () => {
     <div>
       {!isAuthenticated && (
         <button className="btn btn-link" onClick={() => loginWithRedirect({})}>
-          Log in
+          Log in with Google
         </button>
       )}
 

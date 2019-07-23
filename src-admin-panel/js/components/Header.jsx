@@ -1,7 +1,6 @@
 import React from 'react';
 import NavItem from './NavItem';
 import { Link } from 'react-router-dom';
-import LoginButton from './LoginButton';
 
 export default class Nav extends React.Component {
   constructor() {
@@ -46,9 +45,6 @@ export default class Nav extends React.Component {
               <NavItem to="migrations">Migrations</NavItem>
               <NavItem to="users">Users</NavItem>
               <NavItem to="sql">mySQL</NavItem>
-              <li className="nav-item">
-                <LoginButton />
-              </li>
             </ul>
           </div>
         </div>

@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter as Router, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
 
-import Migrations from './pages/Migrations';
 import Users from './pages/users';
+import Login from './pages/login';
+import Migrations from './pages/Migrations';
 import Sql from './pages/Sql';
 import Profile from './pages/Profile';
 import Header from './components/Header';
@@ -43,13 +44,12 @@ ReactDOM.render(
     >
       <Router>
         <Switch>
-          {/* <Redirect to="/" exact component={Login} /> */}
-          {/* <Route path="/" exact component={Login} /> */}
+          <Route path="/" exact component={Login} />
           <div className="container-fluid" style={containerStyle}>
             <Switch>
               <Header />
               <PrivateRoute path="/migrations" component={Migrations} />
-              <PrivateRoute path="/users" component={Users} />
+              <Route path="/users" component={Users} />
               <PrivateRoute path="/sql" component={Sql} />
               <PrivateRoute path="/profile" component={Profile} />
               <Footer />
