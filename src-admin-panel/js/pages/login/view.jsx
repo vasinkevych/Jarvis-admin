@@ -2,7 +2,7 @@ import React from 'react';
 import useForm from './useForm';
 import LoginButton from '../../components/LoginButton';
 
-function Login({ login }) {
+function Login({ login, error }) {
   const loginCallback = () => {
     login(values);
   };
@@ -38,13 +38,20 @@ function Login({ login }) {
               onChange={handleChange}
             />
           </div>
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
+          <div className="form-group">
+            <button type="submit" className="btn btn-primary">
+              Submit
+            </button>
+            <LoginButton />
+          </div>
+          <div className="form-group">
+            {error && (
+              <div className="alert alert-danger" role="alert">
+                {error}
+              </div>
+            )}
+          </div>
         </form>
-      </section>
-      <section>
-        <LoginButton />
       </section>
     </div>
   );

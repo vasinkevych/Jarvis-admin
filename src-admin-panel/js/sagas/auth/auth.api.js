@@ -7,17 +7,14 @@ export const auth0Client = new auth0.WebAuth({
   clientID: process.env.AUTH0_CLIENT_ID,
   redirectUri: `${window.location.origin}/`,
   responseType: 'token id_token'
-  // scope: 'openid profile email'
 });
 
 export function login({ username, password }) {
   return new Promise((resolve, reject) => {
-    console.log('lsakdasldkj');
     auth0Client.client.login(
       {
         realm: 'Username-Password-Authentication', //connection name or HRD domain
         audience: `https://${process.env.AUTH0_DOMAIN}/api/v2/`,
-        scope: 'read:order write:order',
         username,
         password
       },

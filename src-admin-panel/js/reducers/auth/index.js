@@ -5,11 +5,13 @@ export default function reducer(state = {}, action) {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        user: action.payload
+        user: action.payload,
+        err: null
       };
     case LOGIN_ERROR:
       return {
         ...state,
+        user: null,
         err: action.payload
       };
     default:

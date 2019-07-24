@@ -5,7 +5,7 @@ const LoginButton = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
   return (
-    <div>
+    <span>
       {!isAuthenticated && (
         <button className="btn btn-link" onClick={() => loginWithRedirect({})}>
           Log in with Google
@@ -17,7 +17,7 @@ const LoginButton = () => {
           Log out
         </button>
       )}
-    </div>
+    </span>
   );
 };
 
