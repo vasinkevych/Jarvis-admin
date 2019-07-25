@@ -80,6 +80,9 @@ module.exports = ({ router }) => {
     const data = ctx.request.body;
     const number = data[0].text;
 
+    // name: "",
+    // tel: "+",
+    // skype: ""
     return UsersService.getUserByNumber(number)
       .then(user => (ctx.body = { user }))
       .catch(() => {});
