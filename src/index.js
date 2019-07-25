@@ -1,5 +1,6 @@
 const Koa = require('koa');
 const mount = require('koa-mount');
+const bodyParser = require('koa-bodyparser');
 const app = new Koa();
 const serve = require('koa-static');
 const path = require('path');
@@ -9,6 +10,7 @@ const graphqlSchema = require('./graphql/schema');
 const graphqlResolver = require('./graphql/resolvers');
 const checkJwt = require('./services/auth');
 
+app.use(bodyParser());
 app.use(serve(path.join(__dirname, '/public')));
 
 app.use(checkJwt());

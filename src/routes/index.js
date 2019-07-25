@@ -75,4 +75,13 @@ module.exports = ({ router }) => {
       .then(() => (ctx.body = { status: 'ok' }))
       .catch(() => {});
   });
+
+  router.post('/api/v1/process-number', ctx => {
+    const data = ctx.request.body;
+    const number = data[0].text;
+
+    return UsersService.getUserByNumber(number)
+      .then(user => (ctx.body = { user }))
+      .catch(() => {});
+  });
 };

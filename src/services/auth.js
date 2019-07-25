@@ -12,7 +12,7 @@ const verify = jwt({
   }),
 
   // Validate the audience and the issuer.
-  audience: process.env.AUTH0_AUDIENCE,
+  audience: configs.AUTH0_AUDIENCE,
   issuer: `https://${configs.AUTH0_DOMAIN}/`,
   algorithms: ['RS256']
 });
