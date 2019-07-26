@@ -37,7 +37,7 @@ module.exports = {
   getCarsLikeNumber(number) {
     return DatabaseService.runSql(
       `SELECT * FROM cars WHERE number LIKE '%${number}%';`
-    )
+    );
   },
 
   getAllUsersInCar(carId) {
@@ -49,29 +49,33 @@ module.exports = {
       WHERE users_cars.car_id = ${carId};`);
   },
 
-  insertCar({brand, number}) {
-    return DatabaseService.runSql(`INSERT INTO cars (brand, number) VALUES ('${brand}', '${number}');`)
-      .then(data => this.getCarById(data.insertId));
+  insertCar({ brand, number }) {
+    return DatabaseService.runSql(
+      `INSERT INTO cars (brand, number) VALUES ('${brand}', '${number}');`
+    ).then(data => this.getCarById(data.insertId));
   },
 
-  addRelationBeetwenCarAndNumber({user_id, car_id}) {
-    return DatabaseService.runSql(`SELECT * FROM users_cars WHERE user_id = ${user_id} AND car_id=${car_id};`)
-      .then(data => {
-        if (data.length) {
-          return;
-        }
-        return DatabaseService.runSql(`INSERT INTO users_cars (user_id, car_id) VALUES ('${user_id}', '${car_id}');`);
-      });
+  addRelationBeetwenCarAndNumber({ user_id, car_id }) {
+    return DatabaseService.runSql(
+      `SELECT * FROM users_cars WHERE user_id = ${user_id} AND car_id=${car_id};`
+    ).then(data => {
+      if (data.length) {
+        return;
+      }
+      return DatabaseService.runSql(
+        `INSERT INTO users_cars (user_id, car_id) VALUES ('${user_id}', '${car_id}');`
+      );
+    });
   },
 
-  insertCarIfNotExist({user_id, brand, number}) {
+  insertCarIfNotExist({ user_id, brand, number }) {
     let resultCar;
     return this.getCarByNumber(number)
-      .then((car) => {
+      .then(car => {
         if (car) {
           return car;
         }
-        return this.insertCar({brand, number})
+        return this.insertCar({ brand, number });
       })
       .then(car => {
         resultCar = car;
@@ -81,5 +85,5 @@ module.exports = {
         });
       })
       .then(() => resultCar);
-  },
+  }
 };

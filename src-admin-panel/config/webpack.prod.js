@@ -7,6 +7,6 @@ module.exports = merge(common, {
   output: {
     path: __dirname + " '/../../src/public/",
     publicPath: '/',
-    filename: 'client.min.js',
-  },
+    filename: 'client.min.js'
+  }
 });

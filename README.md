@@ -41,6 +41,8 @@ npm rum mdown
 
 ## ENV VARS
 
+```json
 PRIVATE_KEY - google sheet api key
 CLIENT_EMAIL - google sheet service email
 SPREAD_SHEET_ID - google spreadsheet id
+```
