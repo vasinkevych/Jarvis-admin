@@ -20,9 +20,24 @@ module.exports = {
 
   resolverAttachCarsToUser(user) {
     return Object.assign({}, user, {
-      cars: this.getAllCarsByUser.bind(this, user.id),
-      mobile: UsersService.getMobilePhonesByUser(user.id),
-      skype: UsersService.getSkypeByUser(user.id)
+      cars: () => {
+        if (user.cars) {
+          return this.resolverAttachUsersToCars(user.cars);
+        }
+        return this.getAllCarsByUser(user.id);
+      },
+      mobile: () => {
+        if (user.mobile) {
+          return user.mobile;
+        }
+        return UsersService.getMobilePhonesByUser(user.id);
+      },
+      skype: () => {
+        if (user.skype !== undefined) {
+          return user.skype;
+        }
+        return UsersService.getSkypeByUser(user.id);
+      }
     });
   },
 
