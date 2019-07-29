@@ -54,7 +54,7 @@ module.exports = ({ router }) => {
       })
       .then(data => {
         ctx.status = 200;
-        //ctx.statusText = statusText;
+        // ctx.statusText = statusText;
         ctx.body = 'ok';
       })
       .catch(err => {

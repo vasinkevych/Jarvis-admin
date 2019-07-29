@@ -1,8 +1,8 @@
 'use strict';
 
-var dbm;
-var type;
-var seed;
+let dbm;
+let type;
+let seed;
 
 /**
   * We receive the dbmigrate dependency from dbmigrate initially.
@@ -15,7 +15,7 @@ exports.setup = function(options, seedLink) {
 };
 
 exports.up = function(db, cb) {
-  var sql = 'ALTER TABLE cars CONVERT TO CHARACTER SET utf8;';
+  let sql = 'ALTER TABLE cars CONVERT TO CHARACTER SET utf8;';
   db.runSql(sql, cb);
 };
 
