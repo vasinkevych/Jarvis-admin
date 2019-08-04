@@ -4,6 +4,10 @@ import { Link, withRouter } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 
+import Login from './Login';
+
+import auth from '../services/Auth';
+
 class Header extends React.Component {
   render() {
     return (
@@ -14,21 +18,39 @@ class Header extends React.Component {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto" activeKey={this.props.location.pathname}>
             <Nav.Item>
-              <Nav.Link href="/migrations" as={Link} to="migrations">
+              <Nav.Link
+                href="/migrations"
+                as={Link}
+                to="migrations"
+                disabled={!auth.isAuthenticated()}
+              >
                 Migrations
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="/users" as={Link} to="users">
+              <Nav.Link
+                href="/users"
+                as={Link}
+                to="users"
+                disabled={!auth.isAuthenticated()}
+              >
                 Users
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="/mysql" as={Link} to="mysql">
+              <Nav.Link
+                href="/mysql"
+                as={Link}
+                to="mysql"
+                disabled={!auth.isAuthenticated()}
+              >
                 MySQL
               </Nav.Link>
             </Nav.Item>
           </Nav>
+          <Nav.Item>
+            <Login />
+          </Nav.Item>
         </Navbar.Collapse>
       </Navbar>
     );
