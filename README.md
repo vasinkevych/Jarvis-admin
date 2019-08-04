@@ -19,8 +19,10 @@ Docker & MySQL (optional if you don't want to install MySQL)
 -------------------------------------------------------
 initially:
 
-run docker in windows
+run docker
+
 `docker build -t koriifua/mysql-react-native .`
+
 `docker run -p 3306:3306 -d koriifua/mysql-react-native`
 
 regularly:
