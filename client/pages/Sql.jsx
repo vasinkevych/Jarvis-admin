@@ -1,8 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-
-import { executeSql } from '../reducers/mysqlReducers';
 
 class Sql extends React.Component {
   executeMySql() {
@@ -44,7 +40,7 @@ class Sql extends React.Component {
         );
       });
       return (
-        <table class="table table-striped">
+        <table className="table table-striped">
           <tbody>{trs}</tbody>
         </table>
       );
@@ -59,13 +55,13 @@ class Sql extends React.Component {
     }
     return (
       <div>
-        <div class="row">
+        <div className="row">
           <div className="col-12">
             <h1>MySQL</h1>
-            <div class="form-group">
-              <label for="comment">write your query:</label>
+            <div className="form-group">
+              <label htmlFor="comment">write your query:</label>
               <textarea
-                class="form-control"
+                className="form-control"
                 style={{
                   fontSize: '24px',
                   fontFamily: 'Courier New, monospace'
@@ -77,7 +73,7 @@ class Sql extends React.Component {
                 onChange={this.handleInputChange}
               />
               <button
-                class="btn btn-secondary btn-sm"
+                className="btn btn-secondary btn-sm"
                 onClick={this.executeMySql.bind(this)}
               >
                 Execute query
@@ -91,13 +87,4 @@ class Sql extends React.Component {
   }
 }
 
-export default withRouter(
-  connect(
-    state => ({
-      sqlResult: state.system.sqlResult
-    }),
-    {
-      executeSql
-    }
-  )(Sql)
-);
+export default Sql;

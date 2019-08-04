@@ -3,7 +3,7 @@ const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
   mode: 'production',
-  entry: './src-admin-panel/js/client.js',
+  entry: './client/client.js',
   output: {
     path: __dirname + " '/../../src/public/",
     publicPath: '/',

@@ -64,22 +64,22 @@ module.exports = {
     });
   },
 
-  insertUser({name}) {
+  insertUser({ name }) {
     return DatabaseService.runSql(
       `INSERT INTO users (name) VALUES ('${name}');`
     ).then(data => this.getUserById(data.insertId));
   },
 
-  insertUserIfNotExist({name}) {
+  insertUserIfNotExist({ name }) {
     return this.getUserByName(name).then(user => {
       if (user) {
         return user;
       }
-      return this.insertUser({name});
+      return this.insertUser({ name });
     });
   },
 
-  getMobilePhoneByUserIdAndPhone({user_id, mobilePhone}) {
+  getMobilePhoneByUserIdAndPhone({ user_id, mobilePhone }) {
     return DatabaseService.runSql(
       `SELECT * from user_contacts WHERE 
         user_id=${user_id} AND 
@@ -94,8 +94,8 @@ module.exports = {
     });
   },
 
-  addMobilePhone({user_id, mobilePhone}) {
-    this.getMobilePhoneByUserIdAndPhone({user_id, mobilePhone}).then(
+  addMobilePhone({ user_id, mobilePhone }) {
+    this.getMobilePhoneByUserIdAndPhone({ user_id, mobilePhone }).then(
       mobile => {
         if (mobile) {
           return mobile;
@@ -103,7 +103,7 @@ module.exports = {
         return DatabaseService.runSql(`INSERT INTO user_contacts (user_id, type, value) 
           VALUES ('${user_id}', '${
           ConstantServie.MOBILE_PHONE
-          }', '${mobilePhone}');`);
+        }', '${mobilePhone}');`);
       }
     );
   },
@@ -136,7 +136,7 @@ module.exports = {
     });
   },
 
-  getSkypeByUserIdAndSkypeValue({user_id, skype}) {
+  getSkypeByUserIdAndSkypeValue({ user_id, skype }) {
     return DatabaseService.runSql(
       `SELECT * from user_contacts WHERE 
         user_id=${user_id} AND 
@@ -151,8 +151,8 @@ module.exports = {
     });
   },
 
-  addSkype({user_id, skype}) {
-    this.getSkypeByUserIdAndSkypeValue({user_id, skype}).then(skype => {
+  addSkype({ user_id, skype }) {
+    this.getSkypeByUserIdAndSkypeValue({ user_id, skype }).then(skype => {
       if (skype) {
         return skype;
       }
@@ -163,7 +163,7 @@ module.exports = {
 
   addUserAndDetails(data) {
     let user_id;
-    return this.insertUserIfNotExist({name: data.user})
+    return this.insertUserIfNotExist({ name: data.user })
       .then(user => {
         user_id = user.id;
         if (!data.carNumber || !data.carNumber.length) {
@@ -183,14 +183,14 @@ module.exports = {
         if (data.phones && data.phones.length) {
           return Promise.all(
             data.phones.map(mobilePhone =>
-              this.addMobilePhone({user_id, mobilePhone})
+              this.addMobilePhone({ user_id, mobilePhone })
             )
           );
         }
       })
       .then(() => {
         if (data.skype) {
-          return this.addSkype({user_id, skype: data.skype});
+          return this.addSkype({ user_id, skype: data.skype });
         }
       });
   },
@@ -221,7 +221,8 @@ module.exports = {
         usersMap[row.users_id].mobile = {};
       }
       if (parseInt(row.user_contacts_type) === ConstantServie.MOBILE_PHONE) {
-        usersMap[row.users_id].mobile[row.user_contacts_id] = row.user_contacts_value;
+        usersMap[row.users_id].mobile[row.user_contacts_id] =
+          row.user_contacts_value;
       }
       if (parseInt(row.user_contacts_type) === ConstantServie.SKYPE) {
         usersMap[row.users_id].skype = row.user_contacts_value;
@@ -238,14 +239,20 @@ module.exports = {
       }
     });
     const result = Object.keys(usersMap).reduce((previousValue, key) => {
-      const cars = Object.keys(usersMap[key].cars).reduce((previousValue, carKey) => {
-        previousValue.push(usersMap[key].cars[carKey]);
-        return previousValue;
-      }, []);
-      const mobile = Object.keys(usersMap[key].mobile).reduce((previousValue, mobileKey) => {
-        previousValue.push(usersMap[key].mobile[mobileKey]);
-        return previousValue;
-      }, []);
+      const cars = Object.keys(usersMap[key].cars).reduce(
+        (previousValue, carKey) => {
+          previousValue.push(usersMap[key].cars[carKey]);
+          return previousValue;
+        },
+        []
+      );
+      const mobile = Object.keys(usersMap[key].mobile).reduce(
+        (previousValue, mobileKey) => {
+          previousValue.push(usersMap[key].mobile[mobileKey]);
+          return previousValue;
+        },
+        []
+      );
       previousValue.push({
         ...usersMap[key],
         cars,

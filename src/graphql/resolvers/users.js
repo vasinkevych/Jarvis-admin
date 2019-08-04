@@ -10,8 +10,7 @@ module.exports = {
   },
 
   user(args) {
-    return UsersService
-      .getUserDetails(args.id)
+    return UsersService.getUserDetails(args.id)
       .then(data => UsersService.parseUserData(data))
       .then(data => {
         if (data[0]) {
@@ -19,8 +18,6 @@ module.exports = {
         }
         return null;
       })
-      .then(user =>
-        HelpersGraphQLService.resolverAttachCarsToUser(user)
-      );
+      .then(user => HelpersGraphQLService.resolverAttachCarsToUser(user));
   }
 };

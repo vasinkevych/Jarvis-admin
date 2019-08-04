@@ -3,10 +3,11 @@ const webpack = require('webpack');
 const path = require('path');
 
 const config = {
-  entry: './src-admin-panel/js/client.js',
+  entry: './client/client.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'client.min.js'
+    filename: 'client.min.js',
+    publicPath: '/'
   },
   module: {
     rules: [
