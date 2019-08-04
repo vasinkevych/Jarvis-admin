@@ -5,10 +5,11 @@
 CREATE DATABASE reactnativess;
 CREATE DATABASE reactnativesstest;
 
+```
 npm i
-
 npm start - start backend;
 npm run dev:frontend - start frontend;
+```
 
 http://localhost:3000/ - backend
 http://localhost:3001/ - frontend
@@ -17,14 +18,18 @@ http://localhost:3001/ - frontend
 Docker & MySQL (optional if you don't want to install MySQL)
 -------------------------------------------------------
 initially:
+
 run docker in windows
-docker build -t koriifua/mysql-react-native .
-docker run -p 3306:3306 -d koriifua/mysql-react-native
+`docker build -t koriifua/mysql-react-native .`
+`docker run -p 3306:3306 -d koriifua/mysql-react-native`
 
 regularly:
-docker start 0872e5cac0bf
-docker stop 0872e5cac0bf
-localhost:3306 - MySQL here
+
+`docker start 0872e5cac0bf`
+
+`docker stop 0872e5cac0bf`
+
+`localhost:3306` - MySQL here
 
 
 
