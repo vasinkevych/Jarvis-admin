@@ -65,3 +65,4 @@ typings/
 credentials.json
 token.json
 dist/
+src/public/*.min.js

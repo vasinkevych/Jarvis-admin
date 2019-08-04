@@ -5,7 +5,3 @@ export const getBaseUrl = () => {
     location.port ? ':3000' : ''
   }`;
 };
-
-export const API = {
-  USERS: '/admin/api/parse'
-};

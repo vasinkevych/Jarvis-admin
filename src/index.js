@@ -3,6 +3,7 @@ const mount = require('koa-mount');
 const bodyParser = require('koa-bodyparser');
 const app = new Koa();
 const serve = require('koa-static');
+const cors = require('@koa/cors');
 const path = require('path');
 
 const graphqlHttp = require('koa-graphql');
@@ -21,10 +22,7 @@ const router = Router();
 // require our external routes and pass in the router
 require('./routes')({ router });
 
-app.use(async (ctx, next) => {
-  ctx.set('Access-Control-Allow-Origin', '*');
-  await next();
-});
+app.use(cors());
 
 app.use(
   mount(
