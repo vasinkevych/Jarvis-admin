@@ -59,7 +59,11 @@ class Users extends React.Component {
                           <div key={index}>{`${car.number} ${car.brand}`}</div>
                         ))}
                       </td>
-                      <td>{mobile}</td>
+                      <td>
+                        {mobile.map((mob, index) => (
+                          <div key={index}>{mob}</div>
+                        ))}
+                      </td>
                       <td>{skype}</td>
                     </tr>
                   ))}
