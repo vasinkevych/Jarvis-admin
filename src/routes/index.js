@@ -7,18 +7,6 @@ const ParseService = require('../services/parser.service');
 const GoogleSheetToJSON = require('../services/google-api.service');
 
 module.exports = ({ router }) => {
-  // probably need to use koa-views or something... but if we have only one index.html.....
-  router.get('/admin-panel', ctx => {
-    const reader = createReadStream(path.join(__dirname, '/public/index.html'));
-    return new Promise(resolve => {
-      reader.on('data', chunk => {
-        ctx.type = 'html';
-        ctx.body = chunk.toString();
-        resolve();
-      });
-    });
-  });
-
   /* admin panel  */
   // TODO: need to add middleware to check permission;
   router.get('/admin/api/execute-sql', ctx => {
@@ -86,5 +74,18 @@ module.exports = ({ router }) => {
     return UsersService.getUserByNumber(number)
       .then(user => (ctx.body = { user }))
       .catch(() => {});
+  });
+
+  router.get('*', ctx => {
+    const reader = createReadStream(
+      path.join(__dirname, '../public/index.html')
+    );
+    return new Promise(resolve => {
+      reader.on('data', chunk => {
+        ctx.type = 'html';
+        ctx.body = chunk.toString();
+        resolve();
+      });
+    });
   });
 };

@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import App from './components/App';
+
+import auth from './services/Auth';
 
 import { getBaseUrl } from './utils';
 
@@ -14,7 +17,15 @@ import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
 const httpLink = createHttpLink({
-  uri: `${getBaseUrl()}/graphql`
+  uri: `${getBaseUrl()}/graphql`,
+  request: operation => {
+    operation.setContext(context => ({
+      headers: {
+        ...context.headers,
+        authorization: auth.getIdToken()
+      }
+    }));
+  }
 });
 
 const client = new ApolloClient({
@@ -24,7 +35,9 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <App />
+    <Router hashType={'noslash'}>
+      <App />
+    </Router>
   </ApolloProvider>,
   document.getElementById('app')
 );

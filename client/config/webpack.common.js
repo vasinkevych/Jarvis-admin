@@ -1,13 +1,10 @@
-// eslint-disable-next-line no-unused-vars
-const webpack = require('webpack');
 const path = require('path');
 
 const config = {
   entry: './client/client.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'client.min.js',
-    publicPath: '/'
+    filename: 'client.min.js'
   },
   module: {
     rules: [
