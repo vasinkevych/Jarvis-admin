@@ -5,6 +5,7 @@ const app = new Koa();
 const serve = require('koa-static');
 const cors = require('@koa/cors');
 const path = require('path');
+const createReadStream = require('fs').createReadStream;
 
 const graphqlHttp = require('koa-graphql');
 const graphqlSchema = require('./graphql/schema');
