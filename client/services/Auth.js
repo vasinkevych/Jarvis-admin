@@ -3,10 +3,10 @@ import auth0 from 'auth0-js';
 class Auth {
   constructor() {
     this.auth0 = new auth0.WebAuth({
-      domain: process.env.AUTH0_DOMAIN,
-      clientID: process.env.AUTH0_CLIENT_ID,
+      domain: environment.AUTH0_DOMAIN,
+      clientID: environment.AUTH0_CLIENT_ID,
       redirectUri: `${window.location.origin}/callback`,
-      audience: `https://${process.env.AUTH0_DOMAIN}/userinfo`,
+      audience: `https://${environment.AUTH0_DOMAIN}/userinfo`,
       responseType: 'token id_token',
       scope: 'openid email'
     });
@@ -48,7 +48,7 @@ class Auth {
     localStorage.setItem(this.authFlag, JSON.stringify(false));
     this.auth0.logout({
       returnTo: window.location.origin,
-      clientID: process.env.AUTH0_CLIENT_ID
+      clientID: environment.AUTH0_CLIENT_ID
     });
   }
 
