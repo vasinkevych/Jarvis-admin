@@ -1,35 +1,11 @@
+const findCar = require('../utils/simple-car-match');
+
 const DatabaseService = require('../services/database.service');
 const CarService = require('../services/cars.servise');
 const ConstantServie = require('../services/constant.servise');
 
-module.exports = {
-  // TODO ....
-  getUserByNumber(number) {
-    return Promise.resolve({
-      name: 'test name',
-      email: 'vivanch@softserveinc.com',
-      skype: 'kori_qwe',
-      phoneNumber: '0685435102'
-    });
-  },
-
-  getAllUsers() {
-    return DatabaseService.runSql(`SELECT * FROM users`);
-  },
-
-  getUserById(id) {
-    return DatabaseService.runSql(`SELECT * from users WHERE id='${id}';`).then(
-      data => {
-        if (data.length) {
-          return data[0];
-        }
-        return null;
-      }
-    );
-  },
-
-  getUserDetails(id) {
-    let sql = `
+const getUserDetails = (id, carId) => {
+  let sql = `
       SELECT 
         users.id AS users_id,
         users.name AS users_name,
@@ -47,11 +23,46 @@ module.exports = {
       LEFT JOIN cars
       ON users_cars.car_id = cars.id
     `;
-    if (id) {
-      sql += ` WHERE users.id='${id}'`;
-    }
-    return DatabaseService.runSql(sql);
+  if (id) {
+    sql += ` WHERE users.id='${id}'`;
+  }
+  if (carId) {
+    sql += ` WHERE users_cars.car_id='${carId}'`;
+  }
+  return DatabaseService.runSql(sql);
+};
+
+module.exports = {
+  // TODO replace it with normal solution
+  getUserByNumber(scans) {
+    return DatabaseService.runSql(`SELECT * FROM cars`)
+      .then(cars => findCar(scans, cars))
+      .then(car => getUserDetails(null, car.id))
+      .then(users => users[0])
+      .then(user => ({
+        ...user,
+        name: user.users_name,
+        tel: user.user_contacts_value,
+        skype: ''
+      }));
   },
+
+  getAllUsers() {
+    return DatabaseService.runSql(`SELECT * FROM users`);
+  },
+
+  getUserById(id) {
+    return DatabaseService.runSql(`SELECT * from users WHERE id='${id}';`).then(
+      data => {
+        if (data.length) {
+          return data[0];
+        }
+        return null;
+      }
+    );
+  },
+
+  getUserDetails,
 
   getUserByName(name) {
     return DatabaseService.runSql(

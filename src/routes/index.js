@@ -66,13 +66,9 @@ module.exports = ({ router }) => {
 
   router.post('/api/v1/process-number', ctx => {
     const data = ctx.request.body;
-    const number = data[0].text;
 
-    // name: "",
-    // tel: "+",
-    // skype: ""
-    return UsersService.getUserByNumber(number)
-      .then(user => (ctx.body = { user }))
+    return UsersService.getUserByNumber(data)
+      .then(user => (ctx.body = user))
       .catch(() => {});
   });
 
