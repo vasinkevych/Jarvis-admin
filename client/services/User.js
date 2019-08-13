@@ -1,11 +1,13 @@
 import auth from '../services/Auth';
 
+import { getBaseUrl } from '../utils';
+
 class User {
   async parseUsers() {
     try {
       const token = auth.getIdToken();
 
-      const response = await fetch('/api/parse', {
+      const response = await fetch(`${getBaseUrl()}/api/parse`, {
         headers: {
           Authorization: `Bearer ${token}`
         }

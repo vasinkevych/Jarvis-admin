@@ -14,7 +14,7 @@ const checkJwt = require('./services/auth');
 
 app.use(bodyParser());
 app.use(serve(path.join(__dirname, '/public')));
-
+app.use(cors());
 app.use(checkJwt());
 
 // TODO need to move routes to separated files;
@@ -22,8 +22,6 @@ const Router = require('koa2-router');
 const router = Router();
 // require our external routes and pass in the router
 require('./routes')({ router });
-
-app.use(cors());
 
 app.use(
   mount(
