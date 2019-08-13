@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import Spinner from 'react-bootstrap/Spinner';
+import Loader from './Loader';
 
 import auth from '../services/Auth';
 
@@ -12,11 +12,7 @@ class Callback extends Component {
   }
 
   render() {
-    return (
-      <Spinner animation="border" role="status" variant="secondary">
-        <span className="sr-only">Loading...</span>
-      </Spinner>
-    );
+    return <Loader />;
   }
 }
 

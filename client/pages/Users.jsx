@@ -1,11 +1,16 @@
 import React from 'react';
 
+import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import Table from 'react-bootstrap/Table';
-import Spinner from 'react-bootstrap/Spinner';
 
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
+
+import Loader from '../components/Loader';
+import UserTable from '../components/UserTable';
+import ReloadButton from '../components/ReloadButton';
+
+import user from '../services/User';
 
 const USERS_QUERY = gql`
   {
@@ -23,53 +28,34 @@ const USERS_QUERY = gql`
 `;
 
 class Users extends React.Component {
+  getLatestUsers = refetch => {
+    return async () => {
+      await user.parseUsers();
+      return refetch();
+    };
+  };
+
   render() {
     return (
       <Query query={USERS_QUERY}>
-        {({ loading, error, data }) => {
-          if (loading)
-            return (
-              <Spinner animation="border" role="status" variant="secondary">
-                <span className="sr-only">Loading...</span>
-              </Spinner>
-            );
+        {({ loading, error, data, refetch }) => {
+          if (loading) return <Loader />;
           if (error) return <div>Error</div>;
 
           const users = data.users || [];
 
           return (
-            <Row className="mt-5">
-              <Table striped bordered hover size="sm">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Cars</th>
-                    <th>Mobile</th>
-                    <th>Skype</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {users.map(({ id, name, cars, mobile, skype }, index) => (
-                    <tr key={id}>
-                      <td>{index + 1}</td>
-                      <td>{name}</td>
-                      <td>
-                        {cars.map((car, index) => (
-                          <div key={index}>{`${car.number} ${car.brand}`}</div>
-                        ))}
-                      </td>
-                      <td>
-                        {mobile.map((mob, index) => (
-                          <div key={index}>{mob}</div>
-                        ))}
-                      </td>
-                      <td>{skype}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </Row>
+            <Container>
+              <Row className="mt-5 justify-content-end">
+                <ReloadButton
+                  title="Reload Users"
+                  onAsyncReload={this.getLatestUsers(refetch)}
+                />
+              </Row>
+              <Row className="mt-2">
+                <UserTable users={users} />
+              </Row>
+            </Container>
           );
         }}
       </Query>
