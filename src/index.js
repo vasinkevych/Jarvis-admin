@@ -36,6 +36,9 @@ app.use(
 
 app.use(router);
 
-app.listen(process.env.PORT || 3000);
+const server = app.listen(process.env.PORT || 3000);
+
+// increased timeout to 10min as /api/parse is not able to complete in 2min
+server.timeout = 10 * 60 * 1000;
 
 console.log('listen ', process.env.PORT || 3000);
