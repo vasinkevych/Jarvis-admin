@@ -14,7 +14,7 @@ const checkJwt = require('./services/auth');
 
 app.use(bodyParser());
 app.use(serve(path.join(__dirname, '/public')));
-
+app.use(cors());
 app.use(checkJwt());
 
 // TODO need to move routes to separated files;
@@ -22,8 +22,6 @@ const Router = require('koa2-router');
 const router = Router();
 // require our external routes and pass in the router
 require('./routes')({ router });
-
-app.use(cors());
 
 app.use(
   mount(
@@ -38,6 +36,9 @@ app.use(
 
 app.use(router);
 
-app.listen(process.env.PORT || 3000);
+const server = app.listen(process.env.PORT || 3000);
+
+// increased timeout to 10min as /api/parse is not able to complete in 2min
+server.timeout = 10 * 60 * 1000;
 
 console.log('listen ', process.env.PORT || 3000);

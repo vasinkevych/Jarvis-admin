@@ -15,7 +15,7 @@ class Auth {
     this.logout = this.logout.bind(this);
     this.handleAuthentication = this.handleAuthentication.bind(this);
     this.isAuthenticated = this.isAuthenticated.bind(this);
-    this.authFlag = 'isLoggedIn';
+    this.idToken = 'idToken';
   }
 
   login() {
@@ -23,7 +23,7 @@ class Auth {
   }
 
   getIdToken() {
-    return this.idToken;
+    return JSON.parse(localStorage.getItem(this.idToken));
   }
 
   handleAuthentication() {
@@ -40,12 +40,11 @@ class Auth {
   }
 
   setSession(authResult) {
-    this.idToken = authResult.idToken;
-    localStorage.setItem(this.authFlag, JSON.stringify(true));
+    localStorage.setItem(this.idToken, JSON.stringify(authResult.idToken));
   }
 
   logout() {
-    localStorage.setItem(this.authFlag, JSON.stringify(false));
+    localStorage.setItem(this.idToken, JSON.stringify(null));
     this.auth0.logout({
       returnTo: window.location.origin,
       clientID: environment.AUTH0_CLIENT_ID
@@ -57,7 +56,7 @@ class Auth {
       return new Promise((resolve, reject) => {
         this.auth0.checkSession({}, (err, authResult) => {
           if (err) {
-            localStorage.removeItem(this.authFlag);
+            localStorage.removeItem(this.idToken);
             return reject(err);
           }
           this.setSession(authResult);
@@ -68,7 +67,7 @@ class Auth {
   }
 
   isAuthenticated() {
-    return JSON.parse(localStorage.getItem(this.authFlag));
+    return !!JSON.parse(localStorage.getItem(this.idToken));
   }
 }
 
