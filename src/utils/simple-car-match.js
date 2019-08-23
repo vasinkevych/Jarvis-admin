@@ -1,10 +1,22 @@
-const findCar = (scans, cars) => {
-  const carsMatches = scans.reduce((acc, { text }) => {
-    const match = cars.filter(car => car.number.includes(text));
-    return [...acc, ...match];
-  }, []);
+const Fuse = require('fuse.js');
 
-  return carsMatches[0];
+const searchOptions = {
+  id: 'id',
+  shouldSort: true,
+  threshold: 0.5,
+  location: 0,
+  distance: 1000,
+  maxPatternLength: 16,
+  minMatchCharLength: 6,
+  keys: ['number']
+};
+
+const findCar = (scans, cars) => {
+  const scan = scans.map(({ text }) => text).join(' ');
+  const fuse = new Fuse(cars, searchOptions);
+  const matches = fuse.search(scan);
+
+  return (matches && matches[0]) || null;
 };
 
 module.exports = findCar;
