@@ -37,7 +37,7 @@ module.exports = {
   getUserByNumber(scans) {
     return DatabaseService.runSql(`SELECT * FROM cars`)
       .then(cars => findCar(scans, cars))
-      .then(car => getUserDetails(null, car.id))
+      .then(userId => getUserDetails(null, userId))
       .then(users => users[0])
       .then(user => ({
         ...user,
