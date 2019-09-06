@@ -5,10 +5,10 @@ const UsersService = require('../services/users.servise');
 const DatabaseService = require('../services/database.service');
 const ParseService = require('../services/parser.service');
 const GoogleSheetToJSON = require('../services/google-api.service');
+const SystemService = require('../services/system.service');
 
 module.exports = ({ router }) => {
   /* admin panel  */
-  // TODO: need to add middleware to check permission;
   router.get('/admin/api/execute-sql', ctx => {
     return DatabaseService.runSql(ctx.query.query)
       .then(result => {
@@ -29,10 +29,16 @@ module.exports = ({ router }) => {
       PRIVATE_KEY: privateKey
     });
 
-    return gSheetToJSON
-      .getJson({
-        spreadsheetId: SPREAD_SHEET_ID,
-        range: 'Список власників автомобілів!A2:I1000'
+    SystemService.getDatabaseDump()
+      .then((sqlDump) => SystemService.saveFileToCloud(sqlDump))
+      .then(() => SystemService.migrationsDown())
+      .then(() => SystemService.migrationsUp())
+      .then(() => {
+        return gSheetToJSON
+          .getJson({
+            spreadsheetId: SPREAD_SHEET_ID,
+            range: 'Список власників автомобілів!A2:I1000'
+          })
       })
       .then(({ data, status = 401, statusText }) => {
         return new ParseService().normalizeRows(data.values);

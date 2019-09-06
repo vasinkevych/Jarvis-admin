@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -45,17 +45,21 @@ class Users extends React.Component {
           const users = data.users || [];
 
           return (
-            <Container>
+            <div>
               <Row className="mt-5 justify-content-end">
-                <ReloadButton
-                  title="Reload Users"
-                  onAsyncReload={this.getLatestUsers(refetch)}
-                />
+                <Col className="d-flex justify-content-end">
+                  <ReloadButton
+                    title="Reload Users"
+                    onAsyncReload={this.getLatestUsers(refetch)}
+                  />
+                </Col>
               </Row>
               <Row className="mt-2">
-                <UserTable users={users} />
+                <Col>
+                  <UserTable users={users} />
+                </Col>
               </Row>
-            </Container>
+            </div>
           );
         }}
       </Query>

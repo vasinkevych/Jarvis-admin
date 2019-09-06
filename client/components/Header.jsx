@@ -19,32 +19,12 @@ class Header extends React.Component {
           <Nav className="mr-auto" activeKey={this.props.location.pathname}>
             <Nav.Item>
               <Nav.Link
-                href="/migrations"
-                as={Link}
-                to="migrations"
-                disabled={!auth.isAuthenticated()}
-              >
-                Migrations
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link
                 href="/users"
                 as={Link}
                 to="users"
                 disabled={!auth.isAuthenticated()}
               >
                 Users
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link
-                href="/mysql"
-                as={Link}
-                to="mysql"
-                disabled={!auth.isAuthenticated()}
-              >
-                MySQL
               </Nav.Link>
             </Nav.Item>
           </Nav>

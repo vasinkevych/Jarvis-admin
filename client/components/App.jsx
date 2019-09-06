@@ -7,9 +7,7 @@ import Header from './Header';
 import Callback from './Callback';
 import GuardedRoute from './GuardedRoute';
 
-import Migrations from '../pages/Migrations.jsx';
 import Users from '../pages/Users.jsx';
-import Sql from '../pages/Sql.jsx';
 
 import auth from '../services/Auth';
 
@@ -35,9 +33,7 @@ class App extends Component {
               exact
               render={() => <h1 className="mt-5">Hello</h1>}
             />
-            <GuardedRoute path="/migrations" component={Migrations} />
             <GuardedRoute path="/users" component={Users} />
-            <GuardedRoute path="/mysql" component={Sql} />
             <Route path="/callback" component={Callback} exact />
           </Switch>
         </Container>

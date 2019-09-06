@@ -21,7 +21,7 @@
     "password": "root",
     "charset": "utf8"
   },
-  "prod": {
+  "production": {
     "driver": "mysql",
     "host": {"ENV": "DATABASE_HOST"},
     "database": {"ENV": "DATABASE_NAME"},
