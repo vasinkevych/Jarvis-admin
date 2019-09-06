@@ -29,7 +29,9 @@ module.exports = ({ router }) => {
       PRIVATE_KEY: privateKey
     });
 
-    SystemService.migrationsDown()
+    SystemService.getDatabaseDump()
+      .then((sqlDump) => SystemService.saveFileToCloud(sqlDump))
+      .then(() => SystemService.migrationsDown())
       .then(() => SystemService.migrationsUp())
       .then(() => {
         console.log('parse excell...');
