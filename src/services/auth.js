@@ -18,6 +18,7 @@ const verify = jwt({
 });
 
 const checkJwt = () => async (ctx, next) => {
+  //if (/^\/api\/(.*)(?:\/|$)/.test(ctx.path) || ctx.path === '/graphql') {
   if (/^\/api\/(.*)(?:\/|$)/.test(ctx.path)) {
     await verify.call(this, ctx, next);
   } else {

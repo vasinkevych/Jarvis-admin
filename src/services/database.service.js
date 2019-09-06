@@ -1,8 +1,6 @@
 const mysql = require('mysql');
 const config = require('../configs/config.json');
 
-// const env = process.argv[2] || 'prod';
-
 module.exports = {
   getConnection() {
     let connection = mysql.createConnection({

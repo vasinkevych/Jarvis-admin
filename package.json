@@ -17,7 +17,7 @@
     "build:frontend": "webpack --config client/config/webpack.prod.js --progress --profile --bail",
     "mup": "node ./node_modules/db-migrate/bin/db-migrate up --config ./src/configs/config.json --migrations-dir ./src/migrations -e dev",
     "mdown": "node ./node_modules/db-migrate/bin/db-migrate down -c 99 --config ./src/configs/config.json --migrations-dir ./src/migrations -e dev",
-    "mup-prod": "node ./node_modules/db-migrate/bin/db-migrate up --config ./src/configs/config.json --migrations-dir ./src/migrations -e prod",
+    "mup-prod": "node ./node_modules/db-migrate/bin/db-migrate up --config ./src/configs/config.json --migrations-dir ./src/migrations -e production",
     "postinstall": "npm run mup-prod && npm run build:frontend"
   },
   "repository": {
@@ -51,6 +51,7 @@
     "koa-static": "^5.0.0",
     "koa2-router": "^1.0.6",
     "mysql": "^2.16.0",
+    "mysqldump": "^3.1.0",
     "nodemailer": "^5.1.1",
     "pm2": "3.4.0",
     "prettier": "1.17.1",
@@ -90,7 +91,7 @@
     "style-loader": "^0.23.1",
     "webpack": "^4.35.0",
     "webpack-cli": "^3.3.5",
-    "webpack-dev-server": "^3.7.2",
+    "webpack-dev-server": "^3.8.0",
     "webpack-merge": "^4.2.1"
   }
 }

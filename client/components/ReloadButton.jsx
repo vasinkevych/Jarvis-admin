@@ -17,7 +17,7 @@ function ReloadButton({ title, onAsyncReload }) {
 
   return (
     <Button
-      variant="dark"
+      variant="light"
       disabled={isLoading}
       onClick={!isLoading ? handleClick : null}
     >
