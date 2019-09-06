@@ -34,7 +34,6 @@ module.exports = ({ router }) => {
       .then(() => SystemService.migrationsDown())
       .then(() => SystemService.migrationsUp())
       .then(() => {
-        console.log('parse excell...');
         return gSheetToJSON
           .getJson({
             spreadsheetId: SPREAD_SHEET_ID,
