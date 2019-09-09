@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 
 import Header from './Header';
 import Callback from './Callback';
+import Policy from './Policy';
 import GuardedRoute from './GuardedRoute';
 
 import Users from '../pages/Users.jsx';
@@ -35,6 +36,7 @@ class App extends Component {
             />
             <GuardedRoute path="/users" component={Users} />
             <Route path="/callback" component={Callback} exact />
+            <Route path="/policy" component={Policy} exact />
           </Switch>
         </Container>
       </div>
