@@ -251,4 +251,4 @@ function Policy() {
   );
 }
 
-export default Loader;
+export default Policy;
