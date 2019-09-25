@@ -29,7 +29,7 @@ module.exports = ({ router }) => {
       PRIVATE_KEY: privateKey
     });
 
-    SystemService.getDatabaseDump()
+    return SystemService.getDatabaseDump()
       .then((sqlDump) => SystemService.saveFileToCloud(sqlDump))
       .then(() => SystemService.migrationsDown())
       .then(() => SystemService.migrationsUp())
