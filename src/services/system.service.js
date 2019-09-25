@@ -24,17 +24,7 @@ module.exports = {
 
   migrationsUp() {
     return new Promise((resolve, reject) => {
-      exec('npm run mup-prod', (error, stdout, stderr) => {
-        if (error) {
-          reject(error);
-          return;
-        }
-        resolve(stdout || stderr);
-      });
-    });
-
-    return new Promise((resolve, reject) => {
-      const cmd = `node ./node_modules/db-migrate/bin/db-migrate up --config ./src/configs/config.json --migrations-dir ./src/migrations -e ${env}`;
+      const cmd = `node ../node_modules/db-migrate/bin/db-migrate up --config ./src/configs/config.json --migrations-dir ./src/migrations -e ${env}`;
       exec(cmd, (error, stdout, stderr) => {
         if (error) {
           reject(error);
@@ -47,17 +37,7 @@ module.exports = {
 
   migrationsDown() {
     return new Promise((resolve, reject) => {
-      exec('npm run mdown-prod', (error, stdout, stderr) => {
-        if (error) {
-          reject(error);
-          return;
-        }
-        resolve(stdout || stderr);
-      });
-    });
-
-    return new Promise((resolve, reject) => {
-      const cmd = `node ./node_modules/db-migrate/bin/db-migrate down -c 99 --config ./src/configs/config.json --migrations-dir ./src/migrations -e ${env}`;
+      const cmd = `node ../node_modules/db-migrate/bin/db-migrate down -c 99 --config ./src/configs/config.json --migrations-dir ./src/migrations -e ${env}`;
       exec(cmd, (error, stdout, stderr) => {
         if (error) {
           reject(error);
