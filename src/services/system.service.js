@@ -37,7 +37,7 @@ module.exports = {
 
   migrationsDown() {
     return new Promise((resolve, reject) => {
-      const cmd = `node ../node_modules/db-migrate/bin/db-migrate down -c 99 --config ./src/configs/config.json --migrations-dir ./src/migrations -e ${env}`;
+      const cmd = `node ${process.env.PATH}/../db-migrate/bin/db-migrate down -c 99 --config ./src/configs/config.json --migrations-dir ./src/migrations -e ${env}`;
       exec(cmd, (error, stdout, stderr) => {
         if (error) {
           reject(error);
