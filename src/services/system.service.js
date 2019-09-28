@@ -1,19 +1,16 @@
 const exec = require('child_process').exec;
 const mysqldump = require('mysqldump');
-const config = require('../configs/config.json');
-
-const env = process.env.NODE_ENV || 'dev';
+const configs = require('../configs');
 
 module.exports = {
-
   getDatabaseDump() {
     return mysqldump({
       connection: {
-        host: process.env.DATABASE_HOST || config.dev.host,
-        database: process.env.DATABASE_NAME || config.dev.database,
-        user: process.env.DATABASE_USER || config.dev.user,
-        password: process.env.DATABASE_PASSWORD || config.dev.password,
-      },
+        host: configs.DATABASE_HOST,
+        database: configs.DATABASE_NAME,
+        user: configs.DATABASE_USER,
+        password: configs.DATABASE_PASSWORD
+      }
     });
   },
 
@@ -37,7 +34,11 @@ module.exports = {
 
   migrationsDown() {
     return new Promise((resolve, reject) => {
-      const cmd = `node ${process.env.PATH}/db-migrate down -c 99 --config ./src/configs/config.json --migrations-dir ./src/migrations -e ${env}`;
+      const cmd = `node ${
+        process.env.PATH
+      }/db-migrate down -c 99 --config ./src/configs/config.json --migrations-dir ./src/migrations -e ${
+        configs.NODE_ENV
+      }`;
       exec(cmd, (error, stdout, stderr) => {
         if (error) {
           reject(error);
