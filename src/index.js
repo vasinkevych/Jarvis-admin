@@ -12,7 +12,7 @@ const graphqlSchema = require('./graphql/schema');
 const graphqlResolver = require('./graphql/resolvers');
 const checkJwt = require('./services/auth');
 
-const configs = require('../configs');
+const configs = require('./configs');
 
 app.use(bodyParser());
 app.use(serve(path.join(__dirname, '/public')));
