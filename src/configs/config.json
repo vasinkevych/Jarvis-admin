@@ -1,10 +1,4 @@
 {
-  "email": {
-    "service": "gmail",
-    "user": "react.native.softserveinc@gmail.com",
-    "password": "test12345qwe",
-    "from": "react.native.softserveinc@gmail.com"
-  },
   "dev": {
     "driver": "mysql",
     "host": "localhost",
@@ -23,10 +17,10 @@
   },
   "production": {
     "driver": "mysql",
-    "host": {"ENV": "DATABASE_HOST"},
-    "database": {"ENV": "DATABASE_NAME"},
-    "user": {"ENV": "DATABASE_USER"},
-    "password": {"ENV": "DATABASE_PASSWORD"},
+    "host": { "ENV": "DATABASE_HOST" },
+    "database": { "ENV": "DATABASE_NAME" },
+    "user": { "ENV": "DATABASE_USER" },
+    "password": { "ENV": "DATABASE_PASSWORD" },
     "charset": "utf8"
   }
 }

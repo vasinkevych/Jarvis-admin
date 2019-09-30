@@ -1,13 +1,13 @@
 const nodemailer = require('nodemailer');
-const config = require('../configs/config.json');
+const configs = require('../configs');
 
 module.exports = {
   getTransporter() {
     return nodemailer.createTransport({
-      service: config.email.service,
+      service: configs.SEND_SERVICE,
       auth: {
-        user: config.email.user,
-        pass: config.email.password
+        user: configs.SEND_EMAIL_USER,
+        pass: configs.SEND_EMAIL_PASSWORD
       }
     });
   },
