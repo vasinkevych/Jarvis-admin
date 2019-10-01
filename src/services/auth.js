@@ -18,7 +18,7 @@ const verify = jwt({
 });
 
 const checkJwt = () => async (ctx, next) => {
-  console.log('-------------', 1);
+  console.log('-------------', 1, configs.AUTH0_AUDIENCE);
   // if (/^\/api\/(.*)(?:\/|$)/.test(ctx.path) || ctx.path === '/graphql') {
   if (/^\/api\/(.*)(?:\/|$)/.test(ctx.path)) {
     console.log('-------------', 2);
