@@ -20,7 +20,8 @@ const verify = jwt({
 const checkJwt = () => async (ctx, next) => {
   // if (/^\/api\/(.*)(?:\/|$)/.test(ctx.path) || ctx.path === '/graphql') {
   if (/^\/api\/(.*)(?:\/|$)/.test(ctx.path)) {
-    await verify.call(this, ctx, next);
+    await verify.call(this, ctx, next)
+      .catch(e => console.log('e=====', e));
   } else {
     await next();
   }
