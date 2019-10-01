@@ -6,8 +6,8 @@ class Auth {
       domain: environment.AUTH0_DOMAIN,
       clientID: environment.AUTH0_CLIENT_ID,
       redirectUri: `${window.location.origin}/callback`,
-      audience: `https://${environment.AUTH0_DOMAIN}/userinfo`,
-      responseType: 'token id_token',
+      audience: environment.AUTH0_AUDIENCE,
+      responseType: 'token',
       scope: 'openid email'
     });
 
@@ -15,7 +15,7 @@ class Auth {
     this.logout = this.logout.bind(this);
     this.handleAuthentication = this.handleAuthentication.bind(this);
     this.isAuthenticated = this.isAuthenticated.bind(this);
-    this.idToken = 'idToken';
+    this.accessToken = 'accessToken';
   }
 
   login() {
@@ -23,14 +23,14 @@ class Auth {
   }
 
   getIdToken() {
-    return JSON.parse(localStorage.getItem(this.idToken));
+    return JSON.parse(localStorage.getItem(this.accessToken));
   }
 
   handleAuthentication() {
     return new Promise((resolve, reject) => {
       this.auth0.parseHash((err, authResult) => {
         if (err) return reject(err);
-        if (!authResult || !authResult.idToken) {
+        if (!authResult || !authResult.accessToken) {
           return reject(err);
         }
         this.setSession(authResult);
@@ -40,11 +40,11 @@ class Auth {
   }
 
   setSession(authResult) {
-    localStorage.setItem(this.idToken, JSON.stringify(authResult.idToken));
+    localStorage.setItem(this.accessToken, JSON.stringify(authResult.accessToken));
   }
 
   logout() {
-    localStorage.setItem(this.idToken, JSON.stringify(null));
+    localStorage.setItem(this.accessToken, JSON.stringify(null));
     this.auth0.logout({
       returnTo: window.location.origin,
       clientID: environment.AUTH0_CLIENT_ID
@@ -56,7 +56,7 @@ class Auth {
       return new Promise((resolve, reject) => {
         this.auth0.checkSession({}, (err, authResult) => {
           if (err) {
-            localStorage.removeItem(this.idToken);
+            localStorage.removeItem(this.accessToken);
             return reject(err);
           }
           this.setSession(authResult);
@@ -67,7 +67,7 @@ class Auth {
   }
 
   isAuthenticated() {
-    return !!JSON.parse(localStorage.getItem(this.idToken));
+    return !!JSON.parse(localStorage.getItem(this.accessToken));
   }
 }
 
