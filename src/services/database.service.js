@@ -1,14 +1,14 @@
 const mysql = require('mysql');
-const config = require('../configs/config.json');
+const configs = require('../configs');
 
 module.exports = {
   getConnection() {
     let connection = mysql.createConnection({
-      host: process.env.DATABASE_HOST || config.dev.host,
-      database: process.env.DATABASE_NAME || config.dev.database,
-      user: process.env.DATABASE_USER || config.dev.user,
-      password: process.env.DATABASE_PASSWORD || config.dev.password,
-      charset: config.dev.charset
+      host: configs.DATABASE_HOST,
+      database: configs.DATABASE_NAME,
+      user: configs.DATABASE_USER,
+      password: configs.DATABASE_PASSWORD,
+      charset: configs.CHARSET
     });
     connection.connect(err => {
       if (err) {

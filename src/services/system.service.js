@@ -1,20 +1,17 @@
 const exec = require('child_process').exec;
 const mysqldump = require('mysqldump');
-const config = require('../configs/config.json');
+const configs = require('../configs');
 const DatabaseService = require('../services/database.service');
 
-const env = process.env.NODE_ENV || 'dev';
-
 module.exports = {
-
   getDatabaseDump() {
     return mysqldump({
       connection: {
-        host: process.env.DATABASE_HOST || config.dev.host,
-        database: process.env.DATABASE_NAME || config.dev.database,
-        user: process.env.DATABASE_USER || config.dev.user,
-        password: process.env.DATABASE_PASSWORD || config.dev.password,
-      },
+        host: configs.DATABASE_HOST,
+        database: configs.DATABASE_NAME,
+        user: configs.DATABASE_USER,
+        password: configs.DATABASE_PASSWORD
+      }
     });
   },
 

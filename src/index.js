@@ -12,6 +12,8 @@ const graphqlSchema = require('./graphql/schema');
 const graphqlResolver = require('./graphql/resolvers');
 const checkJwt = require('./services/auth');
 
+const configs = require('./configs');
+
 app.use(bodyParser());
 app.use(serve(path.join(__dirname, '/public')));
 app.use(cors());
@@ -36,9 +38,9 @@ app.use(
 
 app.use(router);
 
-const server = app.listen(process.env.PORT || 3000);
+const server = app.listen(configs.PORT);
 
 // increased timeout to 10min as /api/parse is not able to complete in 2min
 server.timeout = 10 * 60 * 1000;
 
-console.log('listen ', process.env.PORT || 3000);
+console.log('listen ', configs.PORT);
