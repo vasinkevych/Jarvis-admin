@@ -1,6 +1,7 @@
 const exec = require('child_process').exec;
 const mysqldump = require('mysqldump');
 const configs = require('../configs');
+const DatabaseService = require('../services/database.service');
 
 module.exports = {
   getDatabaseDump() {
@@ -19,33 +20,22 @@ module.exports = {
     return Promise.resolve();
   },
 
-  migrationsUp() {
-    return new Promise((resolve, reject) => {
-      const cmd = `node ../node_modules/db-migrate/bin/db-migrate up --config ./src/configs/config.json --migrations-dir ./src/migrations -e ${env}`;
-      exec(cmd, (error, stdout, stderr) => {
-        if (error) {
-          reject(error);
-          return;
-        }
-        resolve(stdout || stderr);
-      });
-    });
+  clearUsersTable() {
+    return DatabaseService.runSql('TRUNCATE TABLE users;');
   },
 
-  migrationsDown() {
-    return new Promise((resolve, reject) => {
-      const cmd = `node ${
-        process.env.PATH
-      }/db-migrate down -c 99 --config ./src/configs/config.json --migrations-dir ./src/migrations -e ${
-        configs.NODE_ENV
-      }`;
-      exec(cmd, (error, stdout, stderr) => {
-        if (error) {
-          reject(error);
-          return;
-        }
-        resolve(stdout || stderr);
-      });
-    });
+  clearCarsTable() {
+    return DatabaseService.runSql('TRUNCATE TABLE cars;');
+  },
+
+  clearUsersCarsTable() {
+    return DatabaseService.runSql('TRUNCATE TABLE users_cars;');
+  },
+
+  clearDatabase() {
+    return this.clearUsersCarsTable()
+      .then(() => this.clearCarsTable())
+      .then(() => this.clearUsersTable())
   }
+
 };

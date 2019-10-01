@@ -31,8 +31,7 @@ module.exports = ({ router }) => {
 
     return SystemService.getDatabaseDump()
       .then((sqlDump) => SystemService.saveFileToCloud(sqlDump))
-      .then(() => SystemService.migrationsDown())
-      .then(() => SystemService.migrationsUp())
+      .then(() => SystemService.clearDatabase())
       .then(() => {
         return gSheetToJSON
           .getJson({
