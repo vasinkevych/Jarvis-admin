@@ -18,11 +18,14 @@ const verify = jwt({
 });
 
 const checkJwt = () => async (ctx, next) => {
+  console.log('-------------', 1);
   // if (/^\/api\/(.*)(?:\/|$)/.test(ctx.path) || ctx.path === '/graphql') {
   if (/^\/api\/(.*)(?:\/|$)/.test(ctx.path)) {
+    console.log('-------------', 2);
     await verify.call(this, ctx, next)
       .catch(e => console.log('e=====', e));
   } else {
+    console.log('-------------', 3);
     await next();
   }
 };
