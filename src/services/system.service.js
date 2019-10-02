@@ -32,8 +32,13 @@ module.exports = {
     return DatabaseService.runSql('TRUNCATE TABLE users_cars;');
   },
 
+  clearUserContacts() {
+    return DatabaseService.runSql('TRUNCATE TABLE user_contacts;');
+  },
+
   clearDatabase() {
     return this.clearUsersCarsTable()
+      .then(() => this.clearUserContacts())
       .then(() => this.clearCarsTable())
       .then(() => this.clearUsersTable())
   }
