@@ -1,24 +1,5 @@
-import auth from '../services/Auth';
-import { getBaseUrl } from '../utils';
-
-let SystemQuery = "";
-let tableData = [];
-
-export function setTableData(data) {
-  tableData = data;
-};
-
-export function getTableData() {
-  return tableData;
-}
-
-export function setQuery(query) {
-  SystemQuery = query;
-}
-
-export function getQuery() {
-  return SystemQuery;
-}
+import auth from "../services/Auth";
+import { getBaseUrl } from "../utils";
 
 export async function fetchTableData(query) {
   try {
@@ -32,8 +13,7 @@ export async function fetchTableData(query) {
         }
       }
     );
-    let res = await response.json();
-    return res;
+    return await response.json();
   } catch (err) {
     console.error(err);
   }

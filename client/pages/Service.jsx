@@ -3,62 +3,48 @@ import * as systemService from "../services/System";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import DataTable from "../components/DataTable";
-
-let tableData = [];
+import Form from "react-bootstrap/Form";
 
 export default props => {
   const [tableData, setTableData] = useState([]);
+  const [query, setQuery] = useState("");
+
+  function setQueryData(e) {
+    setQuery(e.target.value);
+  }
 
   return (
     <Container>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          alignItems: "center",
-          marginTop: "20px"
-        }}
-      >
-        <p
-          onClick={() => {
-            console.log(tableData);
-          }}
-          style={{
-            display: "block",
-            alightItems: "baseline"
-          }}
-        >
-          Enter sql query
-        </p>
-        <textarea
-          style={{
-            width: 300,
-            resize: "none",
-            padding: 8
-          }}
-          placeholder={"enter sql query"}
-          onChange={setSequelValue}
-        />
-        <Button
-          variant="primary"
-          onClick={async () => {
-            let temp = await sendData();
-            setTableData(temp.result);
-          }}
-        >
-          Send
-        </Button>
-      </div>
+      <Form>
+        <Form.Group>
+          <Form.Control
+            as="textarea"
+            rows="3"
+            placeholder={"enter sql query"}
+            onChange={setQueryData}
+            style={{
+              marginTop: 10,
+              resize: "none"
+            }}
+          />
+          <Button
+            type={"submit"}
+            variant="primary"
+            onClick={async e => {
+              e.preventDefault();
+              let temp = await systemService.fetchTableData(query);
+              setTableData(temp.result);
+            }}
+            style={{
+              marginTop: 10
+            }}
+          >
+            Send
+          </Button>
+        </Form.Group>
+      </Form>
+
       {tableData.length > 0 && <DataTable data={tableData} />}
     </Container>
   );
 };
-
-function setSequelValue(e) {
-  systemService.setQuery(e.target.value);
-}
-
-async function sendData() {
-  tableData = await systemService.fetchTableData(systemService.getQuery());
-  return tableData;
-}

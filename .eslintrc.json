@@ -1,6 +1,6 @@
 {
   "parser": "babel-eslint",
-  "parserOptions": { "ecmaVersion": 2018 },
+  "parserOptions": { "ecmaVersion": 2019 },
   "extends": ["koa", "plugin:prettier/recommended"],
   "plugins": ["mocha"],
   "rules": {
@@ -8,6 +8,7 @@
     //"prettier/prettier": ["error", { "singleQuote": true }]
   },
   "env": {
-    "mocha": true
+    "mocha": true,
+    "es6": true
   }
 }
