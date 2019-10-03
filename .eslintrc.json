@@ -1,10 +1,11 @@
 {
   "parser": "babel-eslint",
+  "parserOptions": { "ecmaVersion": 2018 },
   "extends": ["koa", "plugin:prettier/recommended"],
   "plugins": ["mocha"],
   "rules": {
-    "mocha/no-exclusive-tests": "error",
-    "prettier/prettier": ["error", { "singleQuote": true }]
+    "mocha/no-exclusive-tests": "error"
+    //"prettier/prettier": ["error", { "singleQuote": true }]
   },
   "env": {
     "mocha": true

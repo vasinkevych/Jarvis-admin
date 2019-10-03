@@ -9,6 +9,7 @@ import Policy from './Policy';
 import GuardedRoute from './GuardedRoute';
 
 import Users from '../pages/Users.jsx';
+import Service from '../pages/Service.jsx';
 
 import auth from '../services/Auth';
 
@@ -35,6 +36,7 @@ class App extends Component {
               render={() => <h1 className="mt-5">Hello</h1>}
             />
             <GuardedRoute path="/users" component={Users} />
+            <GuardedRoute path="/service" component={Service} />
             <Route path="/callback" component={Callback} exact />
             <Route path="/policy" component={Policy} exact />
           </Switch>
