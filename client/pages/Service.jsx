@@ -5,13 +5,11 @@ import Container from "react-bootstrap/Container";
 import DataTable from "../components/DataTable";
 import Form from "react-bootstrap/Form";
 
-export default props => {
+export default function Service() {
   const [tableData, setTableData] = useState([]);
   const [query, setQuery] = useState("");
 
-  function setQueryData(e) {
-    setQuery(e.target.value);
-  }
+  const setQueryData = e => setQuery(e.target.value);
 
   return (
     <Container>
@@ -47,4 +45,4 @@ export default props => {
       {tableData.length > 0 && <DataTable data={tableData} />}
     </Container>
   );
-};
+}
