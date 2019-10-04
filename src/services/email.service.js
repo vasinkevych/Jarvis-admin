@@ -16,7 +16,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       const transporter = this.getTransporter();
       const options = Object.assign({}, mailOptions, {
-        from: config.email.from
+        from: configs.email.from
       });
       transporter.sendMail(options, (err, info) => {
         if (err) {

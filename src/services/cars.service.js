@@ -34,6 +34,7 @@ module.exports = {
     });
   },
 
+  /* eslint-disable camelcase */
   getCarsLikeNumber(number) {
     return DatabaseService.runSql(
       `SELECT * FROM cars WHERE number LIKE '%${number}%';`

@@ -40,7 +40,10 @@ class Auth {
   }
 
   setSession(authResult) {
-    localStorage.setItem(this.accessToken, JSON.stringify(authResult.accessToken));
+    localStorage.setItem(
+      this.accessToken,
+      JSON.stringify(authResult.accessToken)
+    );
   }
 
   logout() {

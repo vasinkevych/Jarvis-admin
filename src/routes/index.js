@@ -1,11 +1,12 @@
 const path = require('path');
 const createReadStream = require('fs').createReadStream;
 const EmailService = require('../services/email.service');
-const UsersService = require('../services/users.servise');
+const UsersService = require('../services/users.service');
 const DatabaseService = require('../services/database.service');
 const ParseService = require('../services/parser.service');
 const GoogleSheetToJSON = require('../services/google-api.service');
 const SystemService = require('../services/system.service');
+const configs = require('../configs');
 
 module.exports = ({ router }) => {
   /* admin panel  */
@@ -21,23 +22,26 @@ module.exports = ({ router }) => {
   });
 
   router.get('/api/parse', ctx => {
-    const { CLIENT_EMAIL, PRIVATE_KEY, SPREAD_SHEET_ID } = process.env;
-    const privateKey = PRIVATE_KEY.replace(/\\n/g, '\n');
+    const {
+      CLIENT_EMAIL,
+      PRIVATE_KEY,
+      SPREAD_SHEET_ID,
+      SPREAD_SHEET_RANGE
+    } = configs;
 
     const gSheetToJSON = new GoogleSheetToJSON({
       CLIENT_EMAIL,
-      PRIVATE_KEY: privateKey
+      PRIVATE_KEY
     });
 
     return SystemService.getDatabaseDump()
-      .then((sqlDump) => SystemService.saveFileToCloud(sqlDump))
+      .then(sqlDump => SystemService.saveFileToCloud(sqlDump))
       .then(() => SystemService.clearDatabase())
       .then(() => {
-        return gSheetToJSON
-          .getJson({
-            spreadsheetId: SPREAD_SHEET_ID,
-            range: 'Список власників автомобілів!A2:I1000'
-          })
+        return gSheetToJSON.getJson({
+          spreadsheetId: SPREAD_SHEET_ID,
+          range: SPREAD_SHEET_RANGE
+        });
       })
       .then(({ data, status = 401, statusText }) => {
         return new ParseService().normalizeRows(data.values);

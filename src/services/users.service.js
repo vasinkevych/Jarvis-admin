@@ -1,8 +1,8 @@
 const findCar = require('../utils/simple-car-match');
 
 const DatabaseService = require('../services/database.service');
-const CarService = require('../services/cars.servise');
-const ConstantServie = require('../services/constant.servise');
+const CarService = require('../services/cars.service');
+const ConstantService = require('../services/constant.service');
 
 const getUserDetails = (id, carId) => {
   let sql = `
@@ -37,14 +37,17 @@ module.exports = {
   getUserByNumber(scans) {
     return DatabaseService.runSql(`SELECT * FROM cars`)
       .then(cars => findCar(scans, cars))
-      .then(userId => getUserDetails(null, userId))
-      .then(users => users[0])
-      .then(user => ({
-        ...user,
-        name: user.users_name,
-        tel: user.user_contacts_value,
-        skype: ''
-      }));
+      .then(userId => (userId ? getUserDetails(null, userId) : []))
+      .then(([user]) =>
+        user
+          ? {
+              ...user,
+              name: user.users_name,
+              tel: user.user_contacts_value,
+              skype: ''
+            }
+          : {}
+      );
   },
 
   getAllUsers() {
@@ -62,8 +65,7 @@ module.exports = {
     );
   },
 
-  getUserDetails,
-
+  /* eslint-disable camelcase */
   getUserByName(name) {
     return DatabaseService.runSql(
       `SELECT * from users WHERE name='${name}';`
@@ -95,7 +97,7 @@ module.exports = {
       `SELECT * from user_contacts WHERE 
         user_id=${user_id} AND 
         value='${mobilePhone}' AND 
-        type=${ConstantServie.MOBILE_PHONE};
+        type=${ConstantService.MOBILE_PHONE};
     `
     ).then(data => {
       if (data.length) {
@@ -113,7 +115,7 @@ module.exports = {
         }
         return DatabaseService.runSql(`INSERT INTO user_contacts (user_id, type, value) 
           VALUES ('${user_id}', '${
-          ConstantServie.MOBILE_PHONE
+          ConstantService.MOBILE_PHONE
         }', '${mobilePhone}');`);
       }
     );
@@ -123,7 +125,7 @@ module.exports = {
     return DatabaseService.runSql(
       `SELECT * from user_contacts WHERE 
         user_id=${user_id} AND 
-        type=${ConstantServie.MOBILE_PHONE};
+        type=${ConstantService.MOBILE_PHONE};
     `
     ).then(data => {
       if (data.length) {
@@ -137,7 +139,7 @@ module.exports = {
     return DatabaseService.runSql(
       `SELECT * from user_contacts WHERE 
         user_id=${user_id} AND 
-        type=${ConstantServie.SKYPE};
+        type=${ConstantService.SKYPE};
     `
     ).then(data => {
       if (data.length) {
@@ -152,7 +154,7 @@ module.exports = {
       `SELECT * from user_contacts WHERE 
         user_id=${user_id} AND 
         value='${skype}' AND 
-        type=${ConstantServie.SKYPE};
+        type=${ConstantService.SKYPE};
     `
     ).then(data => {
       if (data.length) {
@@ -168,7 +170,7 @@ module.exports = {
         return skype;
       }
       return DatabaseService.runSql(`INSERT INTO user_contacts (user_id, type, value) 
-          VALUES ('${user_id}', '${ConstantServie.SKYPE}', '${skype}');`);
+          VALUES ('${user_id}', '${ConstantService.SKYPE}', '${skype}');`);
     });
   },
 
@@ -231,11 +233,11 @@ module.exports = {
       if (!usersMap[row.users_id].mobile) {
         usersMap[row.users_id].mobile = {};
       }
-      if (parseInt(row.user_contacts_type) === ConstantServie.MOBILE_PHONE) {
+      if (parseInt(row.user_contacts_type) === ConstantService.MOBILE_PHONE) {
         usersMap[row.users_id].mobile[row.user_contacts_id] =
           row.user_contacts_value;
       }
-      if (parseInt(row.user_contacts_type) === ConstantServie.SKYPE) {
+      if (parseInt(row.user_contacts_type) === ConstantService.SKYPE) {
         usersMap[row.users_id].skype = row.user_contacts_value;
       }
       if (!usersMap[row.users_id].cars) {
