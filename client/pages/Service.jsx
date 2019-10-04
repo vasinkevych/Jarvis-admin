@@ -7,7 +7,7 @@ import Form from "react-bootstrap/Form";
 import "../styles/Service.css";
 import QueryModal from "../components/QueryModal";
 
-export default function Service() {
+const Service = () => {
   const [tableData, setTableData] = useState([]);
   const [query, setQuery] = useState("");
   const [show, setShow] = useState(false);
@@ -55,4 +55,6 @@ export default function Service() {
       {tableData.length > 0 && <DataTable data={tableData} />}
     </Container>
   );
-}
+};
+
+export default Service;

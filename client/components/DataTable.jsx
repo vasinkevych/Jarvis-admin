@@ -2,7 +2,7 @@ import React from "react";
 import Table from "react-bootstrap/Table";
 import PropTypes from "prop-types";
 
-export default function DataTable(props) {
+const DataTable = props => {
   return (
     <Table striped bordered hover>
       <thead>
@@ -23,8 +23,10 @@ export default function DataTable(props) {
       </tbody>
     </Table>
   );
-}
+};
 
 DataTable.propTypes = {
   data: PropTypes.array
 };
+
+export default DataTable;
