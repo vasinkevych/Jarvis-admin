@@ -33,6 +33,7 @@ const getUserDetails = (id, carId) => {
 };
 
 module.exports = {
+  getUserDetails,
   // TODO replace it with normal solution
   getUserByNumber(scans) {
     return DatabaseService.runSql(`SELECT * FROM cars`)
