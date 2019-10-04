@@ -1,47 +1,57 @@
 import React, { useState } from "react";
-import * as systemService from "../services/System";
+import { fetchTableData } from "../services/System";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import DataTable from "../components/DataTable";
 import Form from "react-bootstrap/Form";
+import "../styles/Service.css";
+import QueryModal from "../components/QueryModal";
 
 export default function Service() {
   const [tableData, setTableData] = useState([]);
   const [query, setQuery] = useState("");
+  const [show, setShow] = useState(false);
 
   const setQueryData = e => setQuery(e.target.value);
 
+  const submitQueryForm = async e => {
+    e.preventDefault();
+    setShow(true);
+  };
+
+  const createTable = async () => {
+    let temp = await fetchTableData(query);
+    setTableData(temp.result);
+    setQuery("");
+  };
+
   return (
     <Container>
-      <Form>
+      <Form onSubmit={submitQueryForm}>
         <Form.Group>
           <Form.Control
             as="textarea"
             rows="3"
             placeholder={"enter sql query"}
             onChange={setQueryData}
-            style={{
-              marginTop: 10,
-              resize: "none"
-            }}
+            value={query}
+            className={"query-field"}
           />
           <Button
             type={"submit"}
             variant="primary"
-            onClick={async e => {
-              e.preventDefault();
-              let temp = await systemService.fetchTableData(query);
-              setTableData(temp.result);
-            }}
-            style={{
-              marginTop: 10
-            }}
+            className={"query-submit-btn"}
           >
             Send
           </Button>
         </Form.Group>
       </Form>
-
+      <QueryModal
+        showModal={show}
+        handleModal={setShow}
+        userQuery={query}
+        createTable={createTable}
+      />
       {tableData.length > 0 && <DataTable data={tableData} />}
     </Container>
   );
