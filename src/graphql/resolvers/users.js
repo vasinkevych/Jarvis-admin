@@ -1,5 +1,4 @@
-const UsersService = require('../../services/users.servise');
-const CarsService = require('../../services/cars.servise');
+const UsersService = require('../../services/users.service');
 const HelpersGraphQLService = require('../helpers');
 
 module.exports = {
