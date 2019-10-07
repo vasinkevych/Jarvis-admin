@@ -1,4 +1,3 @@
-const exec = require('child_process').exec;
 const mysqldump = require('mysqldump');
 const configs = require('../configs');
 const DatabaseService = require('../services/database.service');
@@ -35,7 +34,6 @@ module.exports = {
   clearDatabase() {
     return this.clearUsersCarsTable()
       .then(() => this.clearCarsTable())
-      .then(() => this.clearUsersTable())
+      .then(() => this.clearUsersTable());
   }
-
 };

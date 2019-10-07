@@ -13,7 +13,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Node",
+      "name": "Jarvis debug",
       "program": "${workspaceFolder}/src/index.js"
     },
     {

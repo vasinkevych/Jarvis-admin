@@ -1,5 +1,5 @@
-const UsersService = require('../services/users.servise');
-const CarsService = require('../services/cars.servise');
+const UsersService = require('../services/users.service');
+const CarsService = require('../services/cars.service');
 
 module.exports = {
   getAllCarsByUser(userId) {

@@ -3,6 +3,7 @@ const Fuse = require('fuse.js');
 const searchOptions = {
   id: 'id',
   shouldSort: true,
+  // includeScore: true,
   threshold: 0.5,
   location: 0,
   distance: 1000,
