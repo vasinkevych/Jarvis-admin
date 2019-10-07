@@ -3,9 +3,8 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import PropTypes from "prop-types";
 
-const QueryModal = props => {
-  const { userQuery, showModal, handleModal, createTable } = props;
-  const handleClose = () => props.handleModal(false);
+const ConfirmModal = ({ bodyText, showModal, handleModal, confirmModal }) => {
+  const handleClose = () => handleModal(false);
   const handleAccept = callback => {
     callback();
     handleModal(false);
@@ -18,7 +17,7 @@ const QueryModal = props => {
       </Modal.Header>
 
       <Modal.Body>
-        <p>{userQuery}</p>
+        <p>{bodyText}</p>
       </Modal.Body>
 
       <Modal.Footer>
@@ -27,7 +26,7 @@ const QueryModal = props => {
         </Button>
         <Button
           variant="primary"
-          onClick={handleAccept.bind(this, createTable)}
+          onClick={handleAccept.bind(this, confirmModal)}
         >
           Accept
         </Button>
@@ -36,11 +35,11 @@ const QueryModal = props => {
   );
 };
 
-QueryModal.propTypes = {
-  userQuery: PropTypes.string,
+ConfirmModal.propTypes = {
+  bodyText: PropTypes.string,
   showModal: PropTypes.bool,
   handleModal: PropTypes.func,
-  createTable: PropTypes.func
+  confirmModal: PropTypes.func
 };
 
-export default QueryModal;
+export default ConfirmModal;
