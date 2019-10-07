@@ -3,17 +3,18 @@ import Table from "react-bootstrap/Table";
 import PropTypes from "prop-types";
 
 const DataTable = props => {
+  const { data } = props;
   return (
     <Table striped bordered hover>
       <thead>
         <tr>
-          {Object.keys(props.data[0]).map(key => (
-            <th key={props.data[0][key]}>{key}</th>
+          {Object.keys(data[0]).map(key => (
+            <th key={data[0][key]}>{key}</th>
           ))}
         </tr>
       </thead>
       <tbody>
-        {props.data.map((dataObj, index) => (
+        {data.map((dataObj, index) => (
           <tr key={dataObj.id + 1 ? dataObj.id : index}>
             {Object.keys(dataObj).map(dataKey => (
               <td key={dataObj[dataKey]}>{dataObj[dataKey]}</td>
