@@ -15,21 +15,24 @@ import { ApolloProvider } from 'react-apollo';
 import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloLink } from 'apollo-boost';
+
+const authLink = new ApolloLink((operation, forward) => {
+  const token = auth.getIdToken();
+  operation.setContext({
+    headers: {
+      authorization: token ? `Bearer ${token}` : ''
+    }
+  });
+  return forward(operation);
+});
 
 const httpLink = createHttpLink({
-  uri: `${getBaseUrl()}/graphql`,
-  request: operation => {
-    operation.setContext(context => ({
-      headers: {
-        ...context.headers,
-        authorization: auth.getIdToken()
-      }
-    }));
-  }
+  uri: `${getBaseUrl()}/graphql`
 });
 
 const client = new ApolloClient({
-  link: httpLink,
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache()
 });
 
