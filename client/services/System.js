@@ -18,3 +18,25 @@ export async function fetchTableData(query) {
     console.error(err);
   }
 }
+
+export const filterTable = (tableData, pattern) => {
+  if (!pattern) return tableData;
+
+  // in case data includes only numbers then search by phone field (if it exists)
+  if (/^\d+$/.test(pattern) && "mobile" in tableData[0]) {
+    return tableData.filter(dataObj => {
+      let searchValReg = new RegExp(`${pattern}`, "g");
+      return searchValReg.test(dataObj.mobile);
+    });
+  }
+
+  // in case data includes field name then search by name field
+  if ("name" in tableData[0]) {
+    return tableData.filter(dataObj => {
+      let searchValReg = new RegExp(`${pattern}`, "gi");
+      return searchValReg.test(dataObj.name);
+    });
+  }
+
+  return tableData;
+};
