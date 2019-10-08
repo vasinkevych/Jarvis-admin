@@ -44,7 +44,20 @@ export const filterTable = (tableData, pattern) => {
   return tableData;
 };
 
-//
+// this function called first, with array of all fields
+// if some set of fields got occurrences wi stop filter
+// and return result
+function getFilteredByFields(fieldsList, arrayToFilter, pattern) {
+  return fieldsList.reduce((acc, field) => {
+    if (acc.length === 0)
+      acc = [...filterByField(field, arrayToFilter, pattern)];
+    return acc;
+  }, []);
+}
+
+// if some of the fields of dataArray is Array of objects
+// we searching by every nested field
+// while there are any fields or we got some result
 function filterByField(field, array, pattern) {
   if (array.length === 0) return [];
   if (Array.isArray(array[0][field])) {
@@ -61,12 +74,4 @@ function filterByField(field, array, pattern) {
     let searchValReg = new RegExp(`${pattern}`, "gi");
     return searchValReg.test(dataObj[field]);
   });
-}
-
-function getFilteredByFields(fieldsList, arrayToFilter, pattern) {
-  return fieldsList.reduce((acc, field) => {
-    if (acc.length === 0)
-      acc = [...filterByField(field, arrayToFilter, pattern)];
-    return acc;
-  }, []);
 }

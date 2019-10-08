@@ -10,7 +10,6 @@
   "plugins": ["mocha", "react"],
   "rules": {
     "mocha/no-exclusive-tests": "error"
-    //"prettier/prettier": ["error", { "singleQuote": true }]
   },
   "env": {
     "mocha": true,
