@@ -5,7 +5,7 @@ import Container from "react-bootstrap/Container";
 import DataTable from "../components/DataTable";
 import Form from "react-bootstrap/Form";
 import "../styles/Service.css";
-import QueryModal from "../components/QueryModal";
+import ConfirmModal from "../components/ConfirmModal";
 
 const Service = () => {
   const [tableData, setTableData] = useState([]);
@@ -46,11 +46,11 @@ const Service = () => {
           </Button>
         </Form.Group>
       </Form>
-      <QueryModal
+      <ConfirmModal
         showModal={show}
         handleModal={setShow}
-        userQuery={query}
-        createTable={createTable}
+        bodyText={query}
+        confirmModal={createTable}
       />
       {tableData.length > 0 && <DataTable data={tableData} />}
     </Container>
