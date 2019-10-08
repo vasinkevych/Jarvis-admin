@@ -28,44 +28,42 @@ const USERS_QUERY = gql`
   }
 `;
 
-class Users extends React.Component {
-  getLatestUsers = refetch => {
+const Users = () => {
+  const getLatestUsers = refetch => {
     return async () => {
       await user.parseUsers();
       return refetch();
     };
   };
 
-  render() {
-    return (
-      <Query query={USERS_QUERY}>
-        {({ loading, error, data, refetch }) => {
-          if (loading) return <Loader />;
-          if (error) return <div>Error</div>;
+  return (
+    <Query query={USERS_QUERY}>
+      {({ loading, error, data, refetch }) => {
+        if (loading) return <Loader />;
+        if (error) return <div>Error</div>;
 
-          const users = data.users || [];
+        const users = data.users || [];
 
-          return (
-            <div>
-              <Row className="mt-5 justify-content-end">
-                <Col className="d-flex justify-content-end">
-                  <ReloadButton
-                    title="Reload Users"
-                    onAsyncReload={this.getLatestUsers(refetch)}
-                  />
-                </Col>
-              </Row>
-              <Row className="mt-2">
-                <Col>
-                  <UserTable users={users} />
-                </Col>
-              </Row>
-            </div>
-          );
-        }}
-      </Query>
-    );
-  }
+        return (
+          <div>
+            <Row className="mt-5 justify-content-end">
+              <Col className="d-flex justify-content-end">
+                <ReloadButton
+                  title="Reload Users"
+                  onAsyncReload={getLatestUsers(refetch)}
+                />
+              </Col>
+            </Row>
+            <Row className="mt-2">
+              <Col>
+                <UserTable users={users} />
+              </Col>
+            </Row>
+          </div>
+        );
+      }}
+    </Query>
+  );
 }
 
 export default Users;

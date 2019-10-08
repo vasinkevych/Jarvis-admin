@@ -5,8 +5,8 @@ import PropTypes from "prop-types";
 
 const ConfirmModal = ({ bodyText, showModal, handleModal, confirmModal }) => {
   const handleClose = () => handleModal(false);
-  const handleAccept = callback => {
-    callback();
+  const handleAccept = () => {
+    confirmModal();
     handleModal(false);
   };
 
@@ -26,7 +26,7 @@ const ConfirmModal = ({ bodyText, showModal, handleModal, confirmModal }) => {
         </Button>
         <Button
           variant="primary"
-          onClick={handleAccept.bind(this, confirmModal)}
+          onClick={handleAccept}
         >
           Accept
         </Button>

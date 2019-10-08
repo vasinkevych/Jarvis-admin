@@ -5,7 +5,7 @@ import Container from 'react-bootstrap/Container';
 
 import Header from './Header';
 import Callback from './Callback';
-import Policy from './Policy';
+import Policy from '../pages/Policy';
 import GuardedRoute from './GuardedRoute';
 
 import Users from '../pages/Users.jsx';
