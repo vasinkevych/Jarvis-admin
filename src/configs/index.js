@@ -19,5 +19,6 @@ module.exports = {
   SEND_FROM: process.env.SEND_FROM || '',
   SEND_SERVICE: process.env.SEND_SERVICE || 'gmail',
   PORT: process.env.PORT || 3000,
-  NODE_ENV: process.env.PORT || 'dev'
+  NODE_ENV: process.env.NODE_ENV || 'dev',
+  ADMIN_URL: process.env.ADMIN_URL || ''
 };
