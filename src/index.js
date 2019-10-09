@@ -6,6 +6,21 @@ const serve = require('koa-static');
 const cors = require('@koa/cors');
 const path = require('path');
 const createReadStream = require('fs').createReadStream;
+require("dotenv").config();
+const winston = require("winston");
+const { Loggly } = require("winston-loggly-bulk");
+const logger = require('koa-logger');
+const stripAnsi = require("strip-ansi");
+
+winston.add(
+  new Loggly({
+    token: process.env.CUSTOMER_TOKEN,
+    subdomain: process.env.SUBDOMAIN,
+    tags: ["Winston-NodeJS"],
+    json: true
+  })
+);
+
 
 const graphqlHttp = require('koa-graphql');
 const graphqlSchema = require('./graphql/schema');
@@ -18,6 +33,10 @@ app.use(bodyParser());
 app.use(serve(path.join(__dirname, '/public')));
 app.use(cors());
 app.use(checkJwt());
+app.use(
+  logger((str, args) => winston.log("info", stripAnsi(str))
+  )
+);
 
 // TODO need to move routes to separated files;
 const Router = require('koa2-router');
