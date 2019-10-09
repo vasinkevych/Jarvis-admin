@@ -26,7 +26,7 @@ const graphqlHttp = require('koa-graphql');
 const graphqlSchema = require('./graphql/schema');
 const graphqlResolver = require('./graphql/resolvers');
 const checkJwt = require('./services/auth');
-
+const https = require('https');
 const configs = require('./configs');
 
 app.use(bodyParser());
@@ -43,6 +43,13 @@ const Router = require('koa2-router');
 const router = Router();
 // require our external routes and pass in the router
 require('./routes')({ router });
+
+const delayInMinutes = 20;
+
+setInterval(function() {
+  // TODO add logger action here
+  https.get(configs.ADMIN_URL);
+}, 1000 * 60 * delayInMinutes);
 
 app.use(
   mount(
