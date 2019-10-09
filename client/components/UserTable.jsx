@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { filterTable } from "../services/System";
-import SearchForm from "./SerachForm";
-import PropTypes from "prop-types";
+import React, { useState } from 'react';
+import { filterTable } from '../services/System';
+import SearchForm from './SerachForm';
+import PropTypes from 'prop-types';
 
-import Table from "react-bootstrap/Table";
+import Table from 'react-bootstrap/Table';
 
 function UserTable({ users }) {
-  const [searchVal, setSearchVal] = useState("");
+  const [searchVal, setSearchVal] = useState('');
 
   const handleSearchChange = e => setSearchVal(e.target.value);
 

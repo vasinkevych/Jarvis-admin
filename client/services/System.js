@@ -1,5 +1,5 @@
-import auth from "../services/Auth";
-import { getBaseUrl } from "../utils";
+import auth from '../services/Auth';
+import { getBaseUrl } from '../utils';
 
 export async function fetchTableData(query) {
   try {
@@ -24,9 +24,9 @@ export const filterTable = (tableData, pattern) => {
   if (tableData.length === 0) return tableData;
 
   // in case data includes only numbers then search by phone field (if it exists)
-  if (/^\d+$/.test(pattern) && "mobile" in tableData[0]) {
+  if (/^\d+$/.test(pattern) && 'mobile' in tableData[0]) {
     return tableData.filter(dataObj => {
-      let searchValReg = new RegExp(`${pattern}`, "g");
+      let searchValReg = new RegExp(`${pattern}`, 'g');
       return searchValReg.test(dataObj.mobile);
     });
   }
@@ -71,7 +71,7 @@ function filterByField(field, array, pattern) {
     });
   }
   return array.filter(dataObj => {
-    let searchValReg = new RegExp(`${pattern}`, "gi");
+    let searchValReg = new RegExp(`${pattern}`, 'gi');
     return searchValReg.test(dataObj[field]);
   });
 }

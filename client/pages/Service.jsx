@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { fetchTableData } from "../services/System";
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
-import DataTable from "../components/DataTable";
-import Form from "react-bootstrap/Form";
-import "../styles/Service.css";
-import ConfirmModal from "../components/ConfirmModal";
+import React, { useState } from 'react';
+import { fetchTableData } from '../services/System';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import DataTable from '../components/DataTable';
+import Form from 'react-bootstrap/Form';
+import '../styles/Service.css';
+import ConfirmModal from '../components/ConfirmModal';
 
 const Service = () => {
   const [tableData, setTableData] = useState([]);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const [show, setShow] = useState(false);
 
   const setQueryData = e => setQuery(e.target.value);
@@ -22,7 +22,7 @@ const Service = () => {
   const createTable = async () => {
     let temp = await fetchTableData(query);
     setTableData(temp.result);
-    setQuery("");
+    setQuery('');
   };
 
   return (
@@ -32,15 +32,15 @@ const Service = () => {
           <Form.Control
             as="textarea"
             rows="3"
-            placeholder={"enter sql query"}
+            placeholder={'enter sql query'}
             onChange={setQueryData}
             value={query}
-            className={"query-field"}
+            className={'query-field'}
           />
           <Button
-            type={"submit"}
+            type={'submit'}
             variant="primary"
-            className={"query-submit-btn"}
+            className={'query-submit-btn'}
           >
             Send
           </Button>

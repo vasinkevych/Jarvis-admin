@@ -1,15 +1,15 @@
-import React from "react";
-import Form from "react-bootstrap/Form";
-import PropTypes from "prop-types";
-import "../styles/Service.css";
+import React from 'react';
+import Form from 'react-bootstrap/Form';
+import PropTypes from 'prop-types';
+import '../styles/Service.css';
 
 const SearchForm = ({ searchVal, setSearchVal }) => (
   <Form>
     <Form.Control
-      className={"search-field"}
+      className={'search-field'}
       value={searchVal}
       onChange={setSearchVal}
-      placeholder={"Search"}
+      placeholder={'Search'}
     />
   </Form>
 );

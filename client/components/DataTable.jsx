@@ -1,6 +1,6 @@
-import React from "react";
-import Table from "react-bootstrap/Table";
-import PropTypes from "prop-types";
+import React from 'react';
+import Table from 'react-bootstrap/Table';
+import PropTypes from 'prop-types';
 
 const DataTable = ({ data }) => {
   return (
