@@ -6,20 +6,12 @@ const serve = require('koa-static');
 const cors = require('@koa/cors');
 const path = require('path');
 const createReadStream = require('fs').createReadStream;
-require('dotenv').config();
-const winston = require('winston');
-const { Loggly } = require('winston-loggly-bulk');
+const loggingService = require('./services/logging.service');
 const logger = require('koa-logger');
 const stripAnsi = require('strip-ansi');
+const winston = require('winston');
 
-winston.add(
-  new Loggly({
-    token: process.env.CUSTOMER_TOKEN,
-    subdomain: process.env.SUBDOMAIN,
-    tags: ['Winston-NodeJS'],
-    json: true
-  })
-);
+loggingService.initializeLogger();
 
 const graphqlHttp = require('koa-graphql');
 const graphqlSchema = require('./graphql/schema');
@@ -41,13 +33,12 @@ app.use(async (ctx, next) => {
   }
 });
 
-app.on('error', (err, ctx) => {
+app.on('error', err => {
   winston.log('error', JSON.stringify(err));
 });
 app.use(checkJwt());
 
 app.use(logger((str, args) => winston.log('info', stripAnsi(str))));
-
 
 // TODO need to move routes to separated files;
 const Router = require('koa2-router');
@@ -61,6 +52,10 @@ setInterval(function() {
   // TODO add logger action here
   https.get(configs.ADMIN_URL);
 }, 1000 * 60 * delayInMinutes);
+
+app.use(function*(next) {
+  this.throw('Error Message', 500);
+});
 
 app.use(
   mount(
