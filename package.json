@@ -34,6 +34,7 @@
   "dependencies": {
     "@koa/cors": "^2.2.3",
     "apollo-boost": "^0.4.3",
+    "array-flat-polyfill": "^1.0.1",
     "auth0-js": "^9.11.2",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
