@@ -1,3 +1,4 @@
+const configs = require('../configs');
 const findCar = require('../utils/simple-car-match');
 
 const DatabaseService = require('../services/database.service');
@@ -38,8 +39,15 @@ module.exports = {
   getUserByNumber(scans) {
     return DatabaseService.runSql(`SELECT * FROM cars`)
       .then(cars => findCar(scans, cars))
-      .then(userId => (userId ? getUserDetails(null, userId) : []))
-      .then(([user]) =>
+      .then(
+        userIds =>
+          userIds &&
+          userIds
+            .slice(0, configs.SEARCH_RESULT_COUNT - 1)
+            .map(({ item }) => getUserDetails(null, item))
+      )
+      .then(promises => (promises ? Promise.all(promises) : null))
+      .then(user =>
         user
           ? {
               ...user,
