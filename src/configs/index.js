@@ -21,5 +21,7 @@ module.exports = {
   PORT: process.env.PORT || 3000,
   NODE_ENV: process.env.NODE_ENV || 'dev',
   ADMIN_URL: process.env.ADMIN_URL || '',
-  SEARCH_RESULT_COUNT: process.env.SEARCH_RESULT_COUNT || 3
+  SEARCH_RESULT_COUNT: process.env.SEARCH_RESULT_COUNT || 3,
+  LOGGLY_CUSTOMER_TOKEN: process.env.LOGGLY_CUSTOMER_TOKEN,
+  LOGGLY_SUBDOMAIN: process.env.LOGGLY_SUBDOMAIN
 };
