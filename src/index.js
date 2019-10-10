@@ -34,7 +34,7 @@ app.use(async (ctx, next) => {
 });
 
 app.on('error', err => {
-  winston.log('error', JSON.stringify(err));
+  winston.log('error', err);
 });
 app.use(checkJwt());
 
