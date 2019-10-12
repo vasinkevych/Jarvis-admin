@@ -16,7 +16,7 @@ const SearchForm = ({ searchVal, setSearchVal }) => (
 
 SearchForm.propTypes = {
   searchVal: PropTypes.string,
-  setSearchVal: PropTypes.func
+  setSearchVal: PropTypes.func,
 };
 
 export default SearchForm;
