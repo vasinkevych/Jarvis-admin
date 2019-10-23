@@ -53,10 +53,6 @@ setInterval(function() {
   https.get(configs.ADMIN_URL);
 }, 1000 * 60 * delayInMinutes);
 
-app.use(function*(next) {
-  this.throw('Error Message', 500);
-});
-
 app.use(
   mount(
     '/graphql',
