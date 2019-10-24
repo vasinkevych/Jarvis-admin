@@ -12,6 +12,7 @@ import Users from '../pages/Users.jsx';
 import Service from '../pages/Service.jsx';
 
 import auth from '../services/Auth';
+import About from '../pages/About';
 
 class App extends Component {
   async componentDidMount() {
@@ -39,6 +40,7 @@ class App extends Component {
             <GuardedRoute path="/service" component={Service} />
             <Route path="/callback" component={Callback} exact />
             <Route path="/policy" component={Policy} exact />
+            <Route path="/about" component={About} exact />
           </Switch>
         </Container>
       </div>
