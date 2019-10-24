@@ -50,7 +50,7 @@ function UserTable({ users }) {
 }
 
 UserTable.propTypes = {
-  users: PropTypes.array,
+  users: PropTypes.array
 };
 
 export default UserTable;
