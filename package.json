@@ -41,6 +41,7 @@
     "bootstrap-css-only": "^4.1.1",
     "classnames": "^2.2.5",
     "dotenv": "7.0.0",
+    "firebase-admin": "^8.7.0",
     "fuse.js": "^3.4.5",
     "googleapis": "^40.0.0",
     "graphql": "^14.4.2",
