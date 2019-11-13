@@ -10,6 +10,9 @@ const loggingService = require('./services/logging.service');
 const logger = require('koa-logger');
 const stripAnsi = require('strip-ansi');
 const winston = require('winston');
+const dataStore = require('./services/storage.service');
+
+dataStore();
 
 loggingService.initializeLogger();
 
