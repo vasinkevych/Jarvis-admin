@@ -3,8 +3,7 @@ const configs = require('../configs');
 const DatabaseService = require('../services/database.service');
 const path = require('path');
 const appDir = path.dirname(require.main.filename);
-const admin = require('firebase-admin');
-const fs = require('fs').promises;
+const sendDumpToStorage = require('./storage.service');
 
 module.exports = {
   async getDatabaseDump() {
@@ -28,27 +27,7 @@ module.exports = {
   },
 
   async saveFileToCloud(filePath) {
-    let serviceAccount = configs.FIREBASE_ACCOUNT_CREDITS;
-    let bucket;
-
-    try {
-      await admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount),
-        storageBucket: 'gs://react-native-33df6.appspot.com'
-      });
-
-      bucket = await admin.storage().bucket();
-    } catch (e) {
-      throw new Error('Storage connection error: ' + e.message);
-    }
-
-    try {
-      await bucket.upload(filePath);
-
-      await fs.unlink(filePath);
-    } catch (e) {
-      throw e;
-    }
+    await sendDumpToStorage(filePath);
   },
 
   clearUsersTable() {
