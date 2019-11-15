@@ -68,4 +68,3 @@ dist/
 src/public/*.min.js
 package-lock.json
 yarn.lock
-../src/react-native-node/react-native-33df6-firebase-adminsdk-t170o-37b9fe7653.json
