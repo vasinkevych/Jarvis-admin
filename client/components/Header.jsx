@@ -41,6 +41,11 @@ class Header extends React.Component {
                 Service
               </Nav.Link>
             </Nav.Item>
+            <Nav.Item>
+              <Nav.Link as={Link} to="dumps" disabled={!auth.isAuthenticated()}>
+                Dumps
+              </Nav.Link>
+            </Nav.Item>
           </Nav>
           <Nav.Item>
             <Login />

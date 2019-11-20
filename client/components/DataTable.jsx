@@ -2,7 +2,7 @@ import React from 'react';
 import Table from 'react-bootstrap/Table';
 import PropTypes from 'prop-types';
 
-const DataTable = ({ data }) => {
+const DataTable = ({ data, action }) => {
   return (
     <Table striped bordered hover>
       <thead>
@@ -14,7 +14,10 @@ const DataTable = ({ data }) => {
       </thead>
       <tbody>
         {data.map((dataObj, index) => (
-          <tr key={dataObj.id + 1 ? dataObj.id : index}>
+          <tr
+            key={dataObj.id + 1 ? dataObj.id : index}
+            onClick={action ? action.bind(null, dataObj) : () => ''}
+          >
             {Object.keys(dataObj).map(dataKey => (
               <td key={dataObj[dataKey]}>{dataObj[dataKey]}</td>
             ))}
@@ -26,7 +29,8 @@ const DataTable = ({ data }) => {
 };
 
 DataTable.propTypes = {
-  data: PropTypes.array
+  data: PropTypes.array,
+  action: PropTypes.func
 };
 
 export default DataTable;

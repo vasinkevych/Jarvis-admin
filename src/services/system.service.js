@@ -3,7 +3,7 @@ const configs = require('../configs');
 const DatabaseService = require('../services/database.service');
 const path = require('path');
 const appDir = path.dirname(require.main.filename);
-const sendDumpToStorage = require('./storage.service');
+const { sendDumpToStorage } = require('./storage.service');
 
 module.exports = {
   async getDatabaseDump() {
