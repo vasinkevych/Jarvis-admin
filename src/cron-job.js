@@ -1,1 +1,8 @@
-console.log('here you are....  cron is working....  uhu!!!');
+const SystemService = require('./services/system.service');
+
+console.log('start cron...');
+SystemService.saveDumpPublishToCloudAndParceXLS()
+  .then(() => {
+    console.log('end cron...');
+  });
+
