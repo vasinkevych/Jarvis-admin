@@ -13,7 +13,7 @@ import Service from '../pages/Service.jsx';
 
 import auth from '../services/Auth';
 import About from '../pages/About';
-import { Dumps } from '../pages/Dumps';
+import Dumps from '../pages/Dumps';
 
 class App extends Component {
   async componentDidMount() {

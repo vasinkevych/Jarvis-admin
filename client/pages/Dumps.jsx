@@ -5,6 +5,7 @@ import gql from 'graphql-tag';
 import Loader from '../components/Loader';
 import DataTable from '../components/DataTable';
 import ConfirmModal from '../components/ConfirmModal';
+import { client } from '../client';
 
 const DUMPS_QUERY = gql`
   {
@@ -16,7 +17,13 @@ const DUMPS_QUERY = gql`
   }
 `;
 
-export const Dumps = () => {
+const SEND_DUMP = gql`
+  mutation restoreFromDumpMutation($name: String!) {
+    restoreFromDump(name: $name)
+  }
+`;
+
+const Dumps = () => {
   const [show, setShow] = useState(false);
   const [dump, setDump] = useState('');
 
@@ -25,8 +32,12 @@ export const Dumps = () => {
     setDump(metadata.name);
   };
 
-  const sendDump = () => {
-    alert(dump + ' was sent');
+  const sendDump = async () => {
+    const isDone = await client.mutate({
+      variables: { name: dump },
+      mutation: SEND_DUMP
+    });
+    alert(isDone + ' : response');
   };
 
   return (
@@ -52,3 +63,5 @@ export const Dumps = () => {
     </Fragment>
   );
 };
+
+export default Dumps;

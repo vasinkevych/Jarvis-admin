@@ -1,4 +1,7 @@
-const { getDumpsMetadata } = require('../../services/storage.service');
+const {
+  getDumpsMetadata,
+  importDatabase
+} = require('../../services/storage.service');
 
 module.exports = {
   async dumps() {
@@ -13,5 +16,14 @@ module.exports = {
     } catch (e) {
       console.log(e);
     }
+  },
+
+  async restoreFromDump({ name }) {
+    try {
+      await importDatabase(name);
+    } catch (e) {
+      console.log(e);
+    }
+    return true;
   }
 };
