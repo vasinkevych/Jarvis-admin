@@ -22,34 +22,8 @@ module.exports = ({ router }) => {
   });
 
   router.get('/api/parse', ctx => {
-    const {
-      CLIENT_EMAIL,
-      PRIVATE_KEY,
-      SPREAD_SHEET_ID,
-      SPREAD_SHEET_RANGE
-    } = configs;
-
-    const gSheetToJSON = new GoogleSheetToJSON({
-      CLIENT_EMAIL,
-      PRIVATE_KEY
-    });
-
-    return SystemService.getDatabaseDump()
-      .then(filePath => SystemService.saveFileToCloud(filePath))
-      .then(() => SystemService.clearDatabase())
+    return SystemService.saveDumpPublishToCloudAndParceXLS()
       .then(() => {
-        return gSheetToJSON.getJson({
-          spreadsheetId: SPREAD_SHEET_ID,
-          range: SPREAD_SHEET_RANGE
-        });
-      })
-      .then(({ data, status = 401, statusText }) => {
-        return new ParseService().normalizeRows(data.values);
-      })
-      .then(data => {
-        return UsersService.bulkAddUsers(data);
-      })
-      .then(data => {
         ctx.status = 200;
         // ctx.statusText = statusText;
         ctx.body = 'ok';
