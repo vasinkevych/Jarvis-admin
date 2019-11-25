@@ -21,8 +21,8 @@ const Service = () => {
   };
 
   const createTable = async () => {
-    let temp = await fetchTableData(query);
-    setTableData(temp.result);
+    let resultObj = await fetchTableData(query);
+    setTableData(resultObj ? resultObj.result : []);
     setQuery('');
   };
 

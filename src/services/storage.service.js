@@ -3,7 +3,6 @@ const fsp = require('fs').promises;
 const fs = require('fs');
 const path = require('path');
 const configs = require('../configs');
-const systemService = require('./system.service');
 const appDir = path.dirname(require.main.filename);
 const dbService = require('./database.service');
 
@@ -50,26 +49,39 @@ module.exports = {
     }
   },
 
-  importDatabase: async fileName => {
+  downloadFileFromStorage(fileRef, targetPath) {
+    return new Promise((resolve, reject) => {
+      fileRef
+        .createReadStream()
+        .on('end', () => console.log('Read stream has been finished'))
+        .pipe(fs.createWriteStream(targetPath))
+        .on('finish', () => resolve())
+        .on('error', err => reject(err));
+    });
+  },
+
+  async importDatabase(fileName) {
+    const dumpPath = path.join(appDir, 'tmp', 'imported-dump.sql');
+
     try {
       let fileData = '';
       let bucket = await admin.storage().bucket();
-      const file = bucket.file(fileName);
-      const dumpPath = path.join(appDir, 'tmp', 'imported-dump.sql');
+      const file = await bucket.file(fileName);
 
-      await file
-        .createReadStream()
-        .on('end', async () => {
-          await systemService.clearDatabase();
-        })
-        .pipe(fs.createWriteStream(dumpPath));
+      console.log('Start of reading file from storage');
+      await this.downloadFileFromStorage(file, dumpPath);
+      console.log('Write stream has been finished');
+      await dbService.clearDatabase();
+      console.log('Database clearing has been finished');
 
       fileData = await fsp.readFile(dumpPath);
+      console.log('FileData: ', !!fileData);
       await dbService.runSql(fileData.toString());
-
-      await fsp.unlink(dumpPath);
+      console.log('data was imported successfully');
     } catch (e) {
-      throw new Error('Restoring file error: ' + e.message);
+      throw new Error('Importing dump error: ' + e.message);
+    } finally {
+      await fsp.unlink(dumpPath);
     }
   }
 };

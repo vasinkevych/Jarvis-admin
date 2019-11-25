@@ -5,10 +5,12 @@ import PropTypes from 'prop-types';
 
 import Table from 'react-bootstrap/Table';
 
-function UserTable({ users }) {
+function UserTable({ users, loading }) {
   const [searchVal, setSearchVal] = useState('');
 
   const handleSearchChange = e => setSearchVal(e.target.value);
+
+  if (!users && !users.length) return <h1>No users</h1>;
 
   return (
     <>
@@ -50,7 +52,8 @@ function UserTable({ users }) {
 }
 
 UserTable.propTypes = {
-  users: PropTypes.array
+  users: PropTypes.array,
+  loading: PropTypes.bool
 };
 
 export default UserTable;

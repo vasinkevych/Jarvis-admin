@@ -4,7 +4,7 @@ const DatabaseService = require('./database.service');
 const path = require('path');
 const appDir = path.dirname(require.main.filename);
 
-const sendDumpToStorage = require('./storage.service');
+const StorageService = require('./storage.service');
 const GoogleSheetToJSON = require('./google-api.service');
 const UsersService = require('./users.service');
 const ParseService = require('./parser.service');
@@ -31,25 +31,7 @@ module.exports = {
   },
 
   async saveFileToCloud(filePath) {
-    await sendDumpToStorage(filePath);
-  },
-
-  clearUsersTable() {
-    return DatabaseService.runSql('TRUNCATE TABLE users;');
-  },
-
-  clearCarsTable() {
-    return DatabaseService.runSql('TRUNCATE TABLE cars;');
-  },
-
-  clearUsersCarsTable() {
-    return DatabaseService.runSql('TRUNCATE TABLE users_cars;');
-  },
-
-  clearDatabase() {
-    return this.clearUsersCarsTable()
-      .then(() => this.clearCarsTable())
-      .then(() => this.clearUsersTable());
+    await StorageService.sendDumpToStorage(filePath);
   },
 
   saveDumpPublishToCloudAndParceXLS() {
@@ -67,7 +49,7 @@ module.exports = {
 
     return this.getDatabaseDump()
       .then(filePath => this.saveFileToCloud(filePath))
-      .then(() => this.clearDatabase())
+      .then(() => DatabaseService.clearDatabase())
       .then(() => {
         return gSheetToJSON.getJson({
           spreadsheetId: SPREAD_SHEET_ID,

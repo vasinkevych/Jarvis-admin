@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table';
 import PropTypes from 'prop-types';
 
 const DataTable = ({ data, action }) => {
+  if (!data && !data.length) return <h1>No data</h1>;
   return (
     <Table striped bordered hover>
       <thead>

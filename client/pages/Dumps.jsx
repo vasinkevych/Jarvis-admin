@@ -33,11 +33,11 @@ const Dumps = () => {
   };
 
   const sendDump = async () => {
-    const isDone = await client.mutate({
+    const res = await client.mutate({
       variables: { name: dump },
       mutation: SEND_DUMP
     });
-    alert(isDone + ' : response');
+    alert(res.data ? 'Successfully restored' : 'Restoring has been failed');
   };
 
   return (

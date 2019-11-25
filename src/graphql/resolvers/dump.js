@@ -1,12 +1,9 @@
-const {
-  getDumpsMetadata,
-  importDatabase
-} = require('../../services/storage.service');
+const StorageService = require('../../services/storage.service');
 
 module.exports = {
   async dumps() {
     try {
-      const metadata = await getDumpsMetadata();
+      const metadata = await StorageService.getDumpsMetadata();
 
       return metadata.map(data => ({
         id: data.generation,
@@ -20,9 +17,10 @@ module.exports = {
 
   async restoreFromDump({ name }) {
     try {
-      await importDatabase(name);
+      await StorageService.importDatabase(name);
     } catch (e) {
       console.log(e);
+      return false;
     }
     return true;
   }

@@ -55,7 +55,7 @@ const Users = () => {
             </Row>
             <Row className="mt-2">
               <Col>
-                <UserTable users={users} />
+                <UserTable users={users} loading={loading} />
               </Col>
             </Row>
           </div>
