@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 
 function ReloadButton({ title, onAsyncReload }) {
@@ -25,5 +25,10 @@ function ReloadButton({ title, onAsyncReload }) {
     </Button>
   );
 }
+
+ReloadButton.propTypes = {
+  title: PropTypes.string,
+  onAsyncReload: PropTypes.func
+};
 
 export default ReloadButton;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import Button from 'react-bootstrap/Button';
 
@@ -23,5 +24,9 @@ class Login extends React.Component {
     );
   }
 }
+
+Login.propTypes = {
+  history: PropTypes.object
+};
 
 export default withRouter(Login);

@@ -7,6 +7,7 @@ import Nav from 'react-bootstrap/Nav';
 import Login from './Login';
 
 import auth from '../services/Auth';
+import PropTypes from 'prop-types';
 
 class Header extends React.Component {
   publicLinks = ['/about', '/policy'];
@@ -50,5 +51,9 @@ class Header extends React.Component {
     );
   }
 }
+
+Header.propTypes = {
+  location: PropTypes.object
+};
 
 export default withRouter(Header);

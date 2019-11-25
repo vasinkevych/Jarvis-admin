@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import auth from '../services/Auth';
+import PropTypes from 'prop-types';
 
 function GuardedRoute(props) {
   const { component: Component, path } = props;
@@ -15,5 +16,10 @@ function GuardedRoute(props) {
     />
   );
 }
+
+GuardedRoute.propTypes = {
+  component: PropTypes.element,
+  path: PropTypes.string
+};
 
 export default GuardedRoute;

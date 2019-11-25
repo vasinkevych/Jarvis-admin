@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import Container from 'react-bootstrap/Container';
 
@@ -47,5 +48,9 @@ class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  location: PropTypes.object
+};
 
 export default withRouter(App);

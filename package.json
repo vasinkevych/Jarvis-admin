@@ -45,6 +45,7 @@
     "fuse.js": "^3.4.5",
     "googleapis": "^40.0.0",
     "graphql": "^14.4.2",
+    "graphql-tag": "^2.10.1",
     "jwks-rsa": "^1.6.0",
     "koa": "2.7.0",
     "koa-bodyparser": "^4.2.1",
