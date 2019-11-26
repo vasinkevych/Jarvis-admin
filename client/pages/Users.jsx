@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -11,6 +11,7 @@ import UserTable from '../components/UserTable';
 import ReloadButton from '../components/ReloadButton';
 
 import user from '../services/User';
+import NotificationContext from '../context/alert/notificationContext';
 
 const USERS_QUERY = gql`
   {
@@ -28,9 +29,17 @@ const USERS_QUERY = gql`
 `;
 
 const Users = () => {
+  const { notifyError, notifySuccess } = useContext(NotificationContext);
+
   const getLatestUsers = refetch => {
     return async () => {
-      await user.parseUsers();
+      try {
+        await user.parseUsers();
+        notifySuccess('Users were parsed successfully');
+      } catch (e) {
+        console.error(e);
+        notifyError(e.message);
+      }
       return refetch();
     };
   };
@@ -39,7 +48,10 @@ const Users = () => {
     <Query query={USERS_QUERY}>
       {({ loading, error, data, refetch }) => {
         if (loading) return <Loader />;
-        if (error) return <div>Error</div>;
+        if (error) {
+          notifyError(error.message);
+          return <div>Error</div>;
+        }
 
         const users = data.users || [];
 

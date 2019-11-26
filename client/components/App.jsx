@@ -13,6 +13,7 @@ import Service from '../pages/Service.jsx';
 
 import auth from '../services/Auth';
 import About from '../pages/About';
+import { NotificationContainer } from './NotificationContainer';
 
 class App extends Component {
   async componentDidMount() {
@@ -30,6 +31,7 @@ class App extends Component {
       <div>
         <Header />
         <Container>
+          <NotificationContainer />
           <Switch>
             <Route
               path="/"
