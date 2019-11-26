@@ -27,7 +27,7 @@ export const filterTable = (tableData, pattern) => {
 
   return tableData.reduce((acc, dataItem) => {
     const values = getValues({ ...dataItem, id: '', __typename: '' }).join('');
-    console.log(values);
+
     if (reg.test(values)) {
       acc.push(dataItem);
     }
@@ -37,19 +37,18 @@ export const filterTable = (tableData, pattern) => {
 
 function getValues(targetObj) {
   let result = [];
-  const tempObj = Object.assign({}, targetObj);
-  Object.keys(tempObj).forEach(key => {
-    if (Array.isArray(tempObj[key])) {
+  Object.keys(targetObj).forEach(key => {
+    if (Array.isArray(targetObj[key])) {
       result = result.concat(
-        tempObj[key].reduce((acc, item) => {
+        targetObj[key].reduce((acc, item) => {
           acc = acc.concat(getValues(item));
           return acc;
         }, [])
       );
-    } else if (tempObj[key] instanceof Object) {
-      result = result.concat(getValues(tempObj[key]));
+    } else if (targetObj[key] instanceof Object) {
+      result = result.concat(getValues(targetObj[key]));
     } else {
-      result.push(tempObj[key]);
+      result.push(targetObj[key]);
     }
   });
   return result;
