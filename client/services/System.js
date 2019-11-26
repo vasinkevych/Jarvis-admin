@@ -1,7 +1,7 @@
 import auth from '../services/Auth';
 import { getBaseUrl } from '../utils';
 
-export async function fetchTableData(query) {
+export async function fetchTableData(query, notifyError) {
   try {
     const token = auth.getIdToken();
 
@@ -16,6 +16,7 @@ export async function fetchTableData(query) {
     return await response.json();
   } catch (err) {
     console.error(err);
+    notifyError(err.message);
   }
 }
 
