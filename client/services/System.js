@@ -26,9 +26,31 @@ export const filterTable = (tableData, pattern) => {
   const reg = new RegExp(`${pattern}`, 'gi');
 
   return tableData.reduce((acc, dataItem) => {
-    if (reg.test(JSON.stringify(dataItem))) {
+    const values = getValues({ ...dataItem, id: '', __typename: '' }).join('');
+    console.log(values);
+    if (reg.test(values)) {
       acc.push(dataItem);
     }
     return acc;
   }, []);
 };
+
+function getValues(targetObj) {
+  let result = [];
+  const tempObj = Object.assign({}, targetObj);
+  Object.keys(tempObj).forEach(key => {
+    if (Array.isArray(tempObj[key])) {
+      result = result.concat(
+        tempObj[key].reduce((acc, item) => {
+          acc = acc.concat(getValues(item));
+          return acc;
+        }, [])
+      );
+    } else if (tempObj[key] instanceof Object) {
+      result = result.concat(getValues(tempObj[key]));
+    } else {
+      result.push(tempObj[key]);
+    }
+  });
+  return result;
+}
