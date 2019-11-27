@@ -1,6 +1,6 @@
 class ParseService {
   parsePhoneNumbers(phones) {
-    const COUNTRY_CODE_UA = '380';
+    const COUNTRY_CODE_UA = '+380';
     const PHONE_LENGTH = 9; // length of normalized phone like 971234567
 
     let phoneCell = phones

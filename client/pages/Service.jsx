@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { fetchTableData } from '../services/System';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form';
 import '../styles/Service.css';
 import ConfirmModal from '../components/ConfirmModal';
 import user from '../services/User';
+import NotificationContext from '../context/alert/notificationContext';
 
 const Service = () => {
   const [tableData, setTableData] = useState([]);
@@ -20,10 +21,17 @@ const Service = () => {
     setShow(true);
   };
 
+  const { notifyError } = useContext(NotificationContext);
+
   const createTable = async () => {
-    let resultObj = await fetchTableData(query);
-    setTableData(resultObj ? resultObj.result : []);
-    setQuery('');
+    try {
+      let fetchedData = await fetchTableData(query, notifyError);
+      setTableData(fetchedData ? fetchedData.result : []);
+      setQuery('');
+    } catch (e) {
+      console.error(e);
+      notifyError(e.message);
+    }
   };
 
   return (
