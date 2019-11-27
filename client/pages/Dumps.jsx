@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useContext, useState } from 'react';
 
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -6,6 +6,7 @@ import Loader from '../components/Loader';
 import DataTable from '../components/DataTable';
 import ConfirmModal from '../components/ConfirmModal';
 import { client } from '../client';
+import NotificationContext from '../context/alert/notificationContext';
 
 const DUMPS_QUERY = gql`
   {
@@ -26,6 +27,7 @@ const SEND_DUMP = gql`
 const Dumps = () => {
   const [show, setShow] = useState(false);
   const [dump, setDump] = useState('');
+  const { notifySuccess, notifyError } = useContext(NotificationContext);
 
   const modalAction = async metadata => {
     setShow(true);
@@ -37,7 +39,9 @@ const Dumps = () => {
       variables: { name: dump },
       mutation: SEND_DUMP
     });
-    alert(res.data ? 'Successfully restored' : 'Restoring has been failed');
+    res.data
+      ? notifySuccess('Successfully restored')
+      : notifyError('Restoring has been failed');
   };
 
   return (
@@ -45,7 +49,10 @@ const Dumps = () => {
       <Query query={DUMPS_QUERY}>
         {({ loading, error, data }) => {
           if (loading) return <Loader />;
-          if (error || !data) return <div>Error</div>;
+          if (error || !data) {
+            notifyError(error.message);
+            return <div>Error</div>;
+          }
 
           const dumps = (data && data.dumps) || [];
 
