@@ -1,0 +1,23 @@
+.notification__container {
+  position: fixed;
+  top: 3rem;
+  right: 4rem;
+  color: white
+}
+
+.notification__item {
+  min-width: 300px;
+  font-size: 1.1rem;
+}
+
+.notification__item_error {
+  background-color: red;
+}
+
+.notification__item_warning {
+  background-color: orange;
+}
+
+.notification__item_success {
+  background-color: green;
+}

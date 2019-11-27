@@ -16,6 +16,7 @@ import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloLink } from 'apollo-boost';
+import { NotificationState } from './context/alert/NotificationState';
 
 const authLink = new ApolloLink((operation, forward) => {
   const token = auth.getIdToken();
@@ -38,9 +39,11 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <Router hashType={'noslash'}>
-      <App />
-    </Router>
+    <NotificationState>
+      <Router hashType={'noslash'}>
+        <App />
+      </Router>
+    </NotificationState>
   </ApolloProvider>,
   document.getElementById('app')
 );
