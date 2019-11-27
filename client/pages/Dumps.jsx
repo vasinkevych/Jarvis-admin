@@ -7,6 +7,7 @@ import DataTable from '../components/DataTable';
 import ConfirmModal from '../components/ConfirmModal';
 import { client } from '../client';
 import NotificationContext from '../context/alert/notificationContext';
+import QueryBoundary from '../components/QueryBoundary';
 
 const DUMPS_QUERY = gql`
   {
@@ -46,21 +47,25 @@ const Dumps = () => {
 
   return (
     <Fragment>
-      <Query query={DUMPS_QUERY}>
-        {({ loading, error, data }) => {
-          if (loading) return <Loader />;
-          if (error || !data) {
-            notifyError(error.message);
-            return <div>Error</div>;
-          }
+      <QueryBoundary>
+        <Query query={DUMPS_QUERY}>
+          {({ loading, error, data, networkStatus }) => {
+            if (networkStatus === 8) throw new Error('No network connection');
 
-          const dumps = (data && data.dumps) || [];
+            if (loading) return <Loader />;
+            if (error || !data) {
+              notifyError(error.message);
+              return <div>Error</div>;
+            }
 
-          return (
-            <DataTable data={dumps} action={modalAction} className="mt-3" />
-          );
-        }}
-      </Query>
+            const dumps = (data && data.dumps) || [];
+
+            return (
+              <DataTable data={dumps} action={modalAction} className="mt-3" />
+            );
+          }}
+        </Query>
+      </QueryBoundary>
       <ConfirmModal
         showModal={show}
         handleModal={setShow}

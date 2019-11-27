@@ -39,7 +39,7 @@ const Paginator = ({ data, step, children }) => {
 Paginator.propTypes = {
   data: PropTypes.array.isRequired,
   step: PropTypes.number.isRequired,
-  children: PropTypes.element.isRequired
+  children: PropTypes.any
 };
 
 export default Paginator;

@@ -5,7 +5,7 @@ import '../styles/Notification.css';
 
 export const Notification = ({ type, text, id, hideNotification }) => {
   useEffect(() => {
-    setTimeout(() => hideNotification({ id }), 5000);
+    setTimeout(() => hideNotification({ id }), 6000);
   }, []);
 
   return (

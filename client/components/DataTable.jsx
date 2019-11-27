@@ -12,8 +12,8 @@ const DataTable = ({ data, action }) => {
         <Table striped bordered hover className={'mt-2'}>
           <thead>
             <tr>
-              {Object.keys(data[0]).map(key => (
-                <th key={data[0][key]}>{key}</th>
+              {Object.keys(paginatedData[0]).map(key => (
+                <th key={paginatedData[0][key]}>{key}</th>
               ))}
             </tr>
           </thead>

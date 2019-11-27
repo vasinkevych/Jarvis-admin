@@ -9,6 +9,7 @@ import gql from 'graphql-tag';
 import Loader from '../components/Loader';
 import UserTable from '../components/UserTable';
 import ReloadButton from '../components/ReloadButton';
+import QueryBoundary from '../components/QueryBoundary';
 
 import user from '../services/User';
 import NotificationContext from '../context/alert/notificationContext';
@@ -45,35 +46,38 @@ const Users = () => {
   };
 
   return (
-    <Query query={USERS_QUERY}>
-      {({ loading, error, data, refetch }) => {
-        if (loading) return <Loader />;
-        if (error) {
-          notifyError(error.message);
-          return <div>Error</div>;
-        }
+    <QueryBoundary>
+      <Query query={USERS_QUERY}>
+        {({ loading, error, data, refetch, networkStatus }) => {
+          if (loading) return <Loader />;
+          if (networkStatus === 8) throw new Error('Network connection error');
+          if (error) {
+            notifyError(error.message);
+            return <div>Error</div>;
+          }
 
-        const users = data.users || [];
+          const users = data.users || [];
 
-        return (
-          <div>
-            <Row className="mt-5 justify-content-end">
-              <Col className="d-flex justify-content-end">
-                <ReloadButton
-                  title="Reload Users"
-                  onAsyncReload={getLatestUsers(refetch)}
-                />
-              </Col>
-            </Row>
-            <Row className="mt-2">
-              <Col>
-                <UserTable users={users} />
-              </Col>
-            </Row>
-          </div>
-        );
-      }}
-    </Query>
+          return (
+            <div>
+              <Row className="mt-5 justify-content-end">
+                <Col className="d-flex justify-content-end">
+                  <ReloadButton
+                    title="Reload Users"
+                    onAsyncReload={getLatestUsers(refetch)}
+                  />
+                </Col>
+              </Row>
+              <Row className="mt-2">
+                <Col>
+                  <UserTable users={users} />
+                </Col>
+              </Row>
+            </div>
+          );
+        }}
+      </Query>
+    </QueryBoundary>
   );
 };
 
