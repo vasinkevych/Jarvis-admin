@@ -53,7 +53,6 @@ module.exports = {
     return new Promise((resolve, reject) => {
       fileRef
         .createReadStream()
-        .on('end', () => console.log('Read stream has been finished'))
         .pipe(fs.createWriteStream(targetPath))
         .on('finish', () => resolve())
         .on('error', err => reject(err));
@@ -68,20 +67,18 @@ module.exports = {
       let bucket = await admin.storage().bucket();
       const file = await bucket.file(fileName);
 
-      console.log('Start of reading file from storage');
       await this.downloadFileFromStorage(file, dumpPath);
-      console.log('Write stream has been finished');
+
       await dbService.clearDatabase();
-      console.log('Database clearing has been finished');
 
       fileData = await fsp.readFile(dumpPath);
-      console.log('FileData: ', !!fileData);
+
       await dbService.runSql(fileData.toString());
-      console.log('data was imported successfully');
     } catch (e) {
       throw new Error('Importing dump error: ' + e.message);
     } finally {
-      await fsp.unlink(dumpPath);
+      const exists = await fsp.access(dumpPath);
+      if (exists) await fsp.unlink(dumpPath);
     }
   }
 };
