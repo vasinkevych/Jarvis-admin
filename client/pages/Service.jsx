@@ -6,7 +6,6 @@ import DataTable from '../components/DataTable';
 import Form from 'react-bootstrap/Form';
 import '../styles/Service.css';
 import ConfirmModal from '../components/ConfirmModal';
-import user from '../services/User';
 import NotificationContext from '../context/alert/notificationContext';
 
 const Service = () => {
@@ -55,7 +54,6 @@ const Service = () => {
           </Button>
         </Form.Group>
       </Form>
-      <Button onClick={user.parseUsers}>Refetch</Button>
       <ConfirmModal
         showModal={show}
         handleModal={setShow}

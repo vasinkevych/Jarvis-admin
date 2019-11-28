@@ -2,7 +2,7 @@
   position: fixed;
   top: 3rem;
   right: 4rem;
-  color: white
+  color: white;
 }
 
 .notification__item {
@@ -11,7 +11,7 @@
 }
 
 .notification__item_error {
-  background-color: red;
+  background-color: darkred;
 }
 
 .notification__item_warning {
@@ -19,5 +19,5 @@
 }
 
 .notification__item_success {
-  background-color: green;
+  background-color: darkgreen;
 }

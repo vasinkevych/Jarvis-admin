@@ -8,7 +8,8 @@ module.exports = {
       database: configs.DATABASE_NAME,
       user: configs.DATABASE_USER,
       password: configs.DATABASE_PASSWORD,
-      charset: configs.CHARSET
+      charset: configs.CHARSET,
+      multipleStatements: true
     });
     connection.connect(err => {
       if (err) {
@@ -30,5 +31,35 @@ module.exports = {
       });
       connection.end();
     });
+  },
+
+  clearUsersTable() {
+    return this.runSql('TRUNCATE TABLE users;');
+  },
+
+  clearCarsTable() {
+    return this.runSql('TRUNCATE TABLE cars;');
+  },
+
+  clearUsersCarsTable() {
+    return this.runSql('TRUNCATE TABLE users_cars;');
+  },
+
+  clearUserContactsTable() {
+    return this.runSql('TRUNCATE TABLE user_contacts;');
+  },
+
+  clearMigrationsTable() {
+    return this.runSql('TRUNCATE TABLE migrations;');
+  },
+
+  clearDatabase() {
+    return Promise.all([
+      this.clearUsersTable(),
+      this.clearCarsTable(),
+      this.clearUsersCarsTable(),
+      this.clearUserContactsTable(),
+      this.clearMigrationsTable()
+    ]);
   }
 };

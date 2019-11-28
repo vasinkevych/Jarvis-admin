@@ -13,6 +13,7 @@ import Service from '../pages/Service.jsx';
 
 import auth from '../services/Auth';
 import About from '../pages/About';
+import Dumps from '../pages/Dumps';
 import { NotificationContainer } from './NotificationContainer';
 
 class App extends Component {
@@ -40,6 +41,7 @@ class App extends Component {
             />
             <GuardedRoute path="/users" component={Users} />
             <GuardedRoute path="/service" component={Service} />
+            <GuardedRoute path="/dumps" component={Dumps} />
             <Route path="/callback" component={Callback} exact />
             <Route path="/policy" component={Policy} exact />
             <Route path="/about" component={About} exact />

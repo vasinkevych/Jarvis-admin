@@ -32,7 +32,7 @@ const httpLink = createHttpLink({
   uri: `${getBaseUrl()}/graphql`
 });
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache()
 });
