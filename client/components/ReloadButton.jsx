@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 
 import Button from 'react-bootstrap/Button';
+import ConfirmModal from './ConfirmModal';
+import PropTypes from 'prop-types';
 
 function ReloadButton({ title, onAsyncReload }) {
   const [isLoading, setLoading] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const showModal = () => {
+    setShow(!show);
+  };
 
   useEffect(() => {
     if (isLoading) {
@@ -16,14 +23,23 @@ function ReloadButton({ title, onAsyncReload }) {
   const handleClick = () => setLoading(true);
 
   return (
-    <Button
-      variant="light"
-      disabled={isLoading}
-      onClick={!isLoading ? handleClick : null}
-    >
-      {isLoading ? 'Loading…' : title}
-    </Button>
+    <Fragment>
+      <Button variant="light" disabled={isLoading} onClick={showModal}>
+        {isLoading ? 'Loading…' : title}
+      </Button>
+      <ConfirmModal
+        bodyText={'Do you want to reload users? Its limited function!'}
+        showModal={show}
+        handleModal={!isLoading ? showModal : null}
+        confirmModal={handleClick}
+      />
+    </Fragment>
   );
 }
+
+ReloadButton.propTypes = {
+  title: PropTypes.string,
+  onAsyncReload: PropTypes.func
+};
 
 export default ReloadButton;
