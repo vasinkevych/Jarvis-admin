@@ -60,7 +60,7 @@ module.exports = {
   },
 
   async importDatabase(fileName) {
-    const dumpPath = path.join(appDir, 'tmp', 'imported-dump.sql');
+    const dumpPath = path.join(appDir, 'tmp', fileName);
 
     try {
       let fileData = '';
@@ -77,8 +77,12 @@ module.exports = {
     } catch (e) {
       throw new Error('Importing dump error: ' + e.message);
     } finally {
-      const exists = await fsp.access(dumpPath);
-      if (exists) await fsp.unlink(dumpPath);
+      try {
+        await fsp.access(dumpPath);
+        await fsp.unlink(dumpPath);
+      } catch (e) {
+        console.log('Nothing to delete. Probably download process had failed.');
+      }
     }
   }
 };
