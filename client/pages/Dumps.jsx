@@ -8,6 +8,7 @@ import ConfirmModal from '../components/ConfirmModal';
 import { client } from '../client';
 import NotificationContext from '../context/alert/notificationContext';
 import QueryBoundary from '../components/QueryBoundary';
+import { dateToView } from '../utils';
 
 const DUMPS_QUERY = gql`
   {
@@ -45,6 +46,17 @@ const Dumps = () => {
       : notifyError('Restoring has been failed');
   };
 
+  const prepareDumpsData = dumpsData =>
+    dumpsData
+      .sort(
+        (a, b) => new Date(b.created).valueOf() - new Date(a.created).valueOf()
+      )
+      .map(({ id, name, created }) => ({
+        id,
+        name,
+        created: dateToView(created)
+      }));
+
   return (
     <Fragment>
       <QueryBoundary>
@@ -58,7 +70,7 @@ const Dumps = () => {
               return <div>Error</div>;
             }
 
-            const dumps = (data && data.dumps) || [];
+            const dumps = prepareDumpsData(data.dumps);
 
             return (
               <DataTable data={dumps} action={modalAction} className="mt-3" />
