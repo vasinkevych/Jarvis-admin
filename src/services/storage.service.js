@@ -70,6 +70,7 @@ module.exports = {
       await this.downloadFileFromStorage(file, dumpPath);
 
       await dbService.clearDatabase();
+      await dbService.clearMigrationsTable();
 
       fileData = await fsp.readFile(dumpPath);
 
