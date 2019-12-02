@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import { Pagination } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
@@ -10,6 +10,12 @@ const Paginator = ({ data, step, children }) => {
   };
 
   let paginationLength = Math.ceil(data.length / step);
+
+  useEffect(() => {
+    if (paginationLength < active) {
+      setActive(1);
+    }
+  }, [data]);
 
   let items = [];
   for (let number = 1; number <= paginationLength; number++) {
