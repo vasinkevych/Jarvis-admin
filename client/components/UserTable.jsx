@@ -3,6 +3,7 @@ import { filterTable } from '../services/System';
 import SearchForm from './SerachForm';
 import PropTypes from 'prop-types';
 import Paginator from './Paginator';
+import Highlighter from 'react-highlight-words';
 
 import Table from 'react-bootstrap/Table';
 
@@ -32,18 +33,46 @@ function UserTable({ users }) {
               {paginatedData.map(({ id, name, cars, mobile, skype }) => (
                 <tr key={id}>
                   <td>{id}</td>
-                  <td>{name}</td>
+                  <td>
+                    <Highlighter
+                      searchWords={[searchVal]}
+                      highlightClassName={'search-marker'}
+                      caseSensitive={false}
+                      textToHighlight={name}
+                    />
+                  </td>
                   <td>
                     {cars.map((car, index) => (
-                      <div key={index}>{`${car.number} ${car.brand}`}</div>
+                      <div key={index}>
+                        <Highlighter
+                          searchWords={[searchVal]}
+                          highlightClassName={'search-marker'}
+                          caseSensitive={false}
+                          textToHighlight={`${car.number} ${car.brand}`}
+                        />
+                      </div>
                     ))}
                   </td>
                   <td>
                     {mobile.map((mob, index) => (
-                      <div key={index}>{mob}</div>
+                      <div key={index}>
+                        <Highlighter
+                          searchWords={[searchVal]}
+                          highlightClassName={'search-marker'}
+                          caseSensitive={false}
+                          textToHighlight={mob}
+                        />
+                      </div>
                     ))}
                   </td>
-                  <td>{skype}</td>
+                  <td>
+                    <Highlighter
+                      searchWords={[searchVal]}
+                      highlightClassName={'search-marker'}
+                      caseSensitive={false}
+                      textToHighlight={skype}
+                    />
+                  </td>
                 </tr>
               ))}
             </tbody>
