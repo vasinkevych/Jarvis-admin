@@ -11,3 +11,8 @@
   max-width: 300px;
   margin: 0 auto 15px;
 }
+
+.search-marker {
+  padding: 0;
+  background-color: yellow;
+}
