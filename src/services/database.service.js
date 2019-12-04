@@ -58,8 +58,7 @@ module.exports = {
       this.clearUsersTable(),
       this.clearCarsTable(),
       this.clearUsersCarsTable(),
-      this.clearUserContactsTable(),
-      this.clearMigrationsTable()
+      this.clearUserContactsTable()
     ]);
   }
 };
