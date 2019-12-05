@@ -1,0 +1,8 @@
+.car-chart rect {
+  fill: steelblue;
+}
+
+.car-chart text {
+  font-size: 1.1rem;
+  color: darkgray;
+}

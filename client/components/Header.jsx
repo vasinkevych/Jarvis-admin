@@ -16,7 +16,7 @@ class Header extends React.Component {
 
     return this.publicLinks.includes(pathname) ? null : (
       <Navbar collapseOnSelect bg="light" expand="lg">
-        <Navbar.Brand href="#">ARSS Admin Panel</Navbar.Brand>
+        <Navbar.Brand to={''} as={Link}>ARSS Admin Panel</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
         <Navbar.Collapse id="responsive-navbar-nav">
