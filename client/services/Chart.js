@@ -5,9 +5,9 @@ import {
   max,
   scaleBand,
   scaleLinear,
-  select
+  select,
+  selectAll
 } from 'd3';
-import {selectAll} from "d3-selection";
 
 export const parseCarsModels = carsData => {
   return carsData
@@ -40,7 +40,7 @@ export const parseCarsModels = carsData => {
     .sort((a, b) => b.quantity - a.quantity);
 };
 
-export const generateChart = (svg, data) => {
+export const generateChart = ({ svg, data, title = 'Chart title' }) => {
   const svgWidth = +svg.attr('width');
   const svgHeight = +svg.attr('height');
 
@@ -48,8 +48,8 @@ export const generateChart = (svg, data) => {
   const yValue = d => d.brand;
 
   const margin = {
-    left: 120,
-    top: 20,
+    left: 140,
+    top: 70,
     bottom: 40,
     right: 20
   };
@@ -70,9 +70,29 @@ export const generateChart = (svg, data) => {
     .append('g')
     .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
+  const titleText = svg
+    .append('text')
+    // .attr('x', `${innerWidth / 2}`)
+    .attr('y', 50)
+    .attr('class', 'chart-title')
+    .attr('fill', 'black')
+    .text(title);
+
+  const titlePosition = titleText.node().getBBox();
+
+  titleText.attr(
+    'transform',
+    `translate(${innerWidth / 2 - titlePosition.width / 2 + margin.left})`
+  );
+
   const xAxis = axisBottom(xScale).tickSize(-innerHeight);
 
   g.append('g').call(axisLeft(yScale));
+
+  g.selectAll('.tick')
+    .data(data)
+    .attr('data-brand', d => d.brand);
+
   g.append('g')
     .attr('class', 'chart-body')
     .call(xAxis)
@@ -81,7 +101,7 @@ export const generateChart = (svg, data) => {
   const container = select('.svg-container');
   const tooltip = container
     .append('div')
-    .attr('class', 'tooltip')
+    .attr('class', 'chart-tooltip')
     .style('visibility', 'hidden');
 
   selectAll('.chart-body .tick text').attr('transform', 'translate(0, 12)');
@@ -95,8 +115,13 @@ export const generateChart = (svg, data) => {
     .attr('width', d => xScale(xValue(d)))
     .attr('fill', 'steelblue')
     .attr('title', xValue)
+    .attr('data-car', d => d.brand)
     .on('mouseover', function() {
       const el = select(this);
+      select(`[data-brand="${el.attr('data-car')}"]`).attr(
+        'class',
+        'tick tick-active'
+      );
       el.attr('fill', 'yellow');
       const value = el.attr('title');
       tooltip.style('visibility', 'visible').text(value);
@@ -106,7 +131,12 @@ export const generateChart = (svg, data) => {
       tooltip.style('top', offsetY + 'px').style('left', offsetX + 'px');
     })
     .on('mouseout', function() {
-      select(this).attr('fill', 'steelblue');
+      const el = select(this);
+      el.attr('fill', 'steelblue');
+      select(`[data-brand="${el.attr('data-car')}"]`).attr(
+        'class',
+        'tick'
+      );
       tooltip.style('visibility', 'hidden');
     });
 };

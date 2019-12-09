@@ -34,12 +34,12 @@ const Dashboard = () => {
   useEffect(() => {
     if (!cars.length) return;
     const svg = select('svg');
-    generateChart(svg, cars);
+    generateChart({ svg, data: cars, title: 'Cars quantity stat' });
   }, [cars]);
 
   return (
     <div className={'svg-container'}>
-      <svg className={'car-chart'} width="1000" height="700" />
+      <svg className={'car-chart'} width="1000" height="750" />
     </div>
   );
 };
