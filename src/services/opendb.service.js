@@ -2,12 +2,13 @@ const config = require('../configs/index');
 const axios = require('axios');
 
 module.exports = {
-  async getCarBotIds(carNumber) {
+  async getCarBotIds({ carNumber }) {
     const botURL = encodeURI(
       `https://opendatabot.com/api/v2/transport?apiKey=${
         config.OPENDATABOT_API_KEY
       }&number=${carNumber}`
     );
+    console.log(botURL);
     const carsInDatabase = await axios({
       method: 'get',
       url: botURL,
@@ -19,25 +20,28 @@ module.exports = {
 
   async getCarRegistrations(carNumber) {
     const carsIdList = await this.getCarBotIds(carNumber);
-    const carRegistrations = [];
 
-    for (let i = 0; i < carsIdList.length; i++) {
-      let carObj = carsIdList[i];
-      const botIdURL = encodeURI(
-        `https://opendatabot.com/api/v2/transport/${carObj.id}?apiKey=${
-          config.OPENDATABOT_API_KEY
-        }`
-      );
-      const carInfo = await axios({
-        method: 'get',
-        url: botIdURL,
-        responseType: 'application/json'
-      });
-      carRegistrations.push(carInfo.data);
-    }
+    const carRegistrations = await Promise.all(
+      carsIdList.map(item => {
+        const botIdURL = encodeURI(
+          `https://opendatabot.com/api/v2/transport/${item.id}?apiKey=${
+            config.OPENDATABOT_API_KEY
+          }`
+        );
+        return axios({
+          method: 'get',
+          url: botIdURL,
+          responseType: 'application/json'
+        });
+      })
+    )
+      .then(resArray => resArray.map(res => res.data))
+      .catch(e => console.error(e));
 
     // TODO define result type
-    if (carRegistrations.length) return carRegistrations;
+    if (carRegistrations.length) {
+      return carRegistrations;
+    }
     return null;
   }
 };
