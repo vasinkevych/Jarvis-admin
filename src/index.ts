@@ -1,3 +1,4 @@
+import { Context, Next } from 'koa';
 const Koa = require('koa');
 const mount = require('koa-mount');
 const bodyParser = require('koa-bodyparser');
@@ -22,7 +23,7 @@ const configs = require('./configs');
 app.use(bodyParser());
 app.use(serve(path.join(__dirname, '/public')));
 app.use(cors());
-app.use(async (ctx, next) => {
+app.use(async (ctx: Context, next: Next) => {
   try {
     await next();
   } catch (err) {
@@ -32,12 +33,12 @@ app.use(async (ctx, next) => {
   }
 });
 
-app.on('error', err => {
+app.on('error', (err: Error) => {
   winston.log('error', err);
 });
 app.use(checkJwt());
 
-app.use(logger((str, args) => winston.log('info', stripAnsi(str))));
+app.use(logger((str: string) => winston.log('info', stripAnsi(str))));
 
 // TODO need to move routes to separated files;
 const Router = require('koa2-router');
