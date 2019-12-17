@@ -5,21 +5,23 @@ const dumpSchemas = require('./schemas/dumps');
 
 module.exports = buildSchema(`
   ${usersSchemas.User}
-  
+
   ${carsSchemas.Car}
-  
+
   ${dumpSchemas.Dump}
+
+  ${carsSchemas.CarRegistration}
 
   type RootQuery {
     ${usersSchemas.UserQueries}
     ${carsSchemas.CarQueries}
     ${dumpSchemas.DumpQueries}
   }
-  
+
   type RootMutation {
     restoreFromDump(name: String!): Boolean
   }
-  
+
   schema {
     query: RootQuery
     mutation: RootMutation

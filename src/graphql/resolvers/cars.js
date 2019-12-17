@@ -1,4 +1,5 @@
 const CarsService = require('../../services/cars.service');
+const OpenDBService = require('../../services/openDataBot.service');
 const HelpersGraphQLService = require('../helpers');
 
 module.exports = {
@@ -17,5 +18,9 @@ module.exports = {
     return CarsService.getCarsLikeNumber(args.number).then(cars =>
       HelpersGraphQLService.resolverAttachUsersToCars(cars)
     );
+  },
+
+  carRegistrations(carNumber) {
+    return OpenDBService.getCarRegistrations(carNumber);
   }
 };
