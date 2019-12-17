@@ -31,3 +31,16 @@ export const dateToView = value => {
     date.getMonth() + 1
   )}-${date.getFullYear()} [${date.getHours()}:${needZero(date.getMinutes())}]`;
 };
+
+export const throttler = (fn, delay) => {
+  let active = true;
+  return (...args) => {
+    if (active) {
+      active = false;
+      fn(...args);
+      setTimeout(() => {
+        active = true;
+      }, delay);
+    }
+  };
+};
