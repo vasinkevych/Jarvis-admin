@@ -5,6 +5,7 @@ import { parseCarsModels, generateChart } from '../services/Chart';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import NotificationContext from '../context/alert/notificationContext';
+import { throttler } from '../utils/index';
 
 const CARS_QUERY = gql`
   query getCars {
@@ -19,12 +20,16 @@ const CARS_QUERY = gql`
 const Dashboard = () => {
   const [cars, setCars] = useState([]);
 
-  const { error, data } = useQuery(CARS_QUERY);
+  const { error, data, refetch } = useQuery(CARS_QUERY);
   const { notifyError } = useContext(NotificationContext);
+  const refetchCars = throttler(async () => {
+    notifyError('Cars fetch error');
+    await refetch();
+  }, 500);
 
   useEffect(() => {
     if (error) {
-      notifyError('Cars fetch error');
+      refetchCars();
       return;
     }
     if (!data) return;
