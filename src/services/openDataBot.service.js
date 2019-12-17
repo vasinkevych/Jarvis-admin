@@ -8,7 +8,6 @@ module.exports = {
         config.OPENDATABOT_API_KEY
       }&number=${carNumber}`
     );
-    console.log(botURL);
     const carsInDatabase = await axios({
       method: 'get',
       url: botURL,
