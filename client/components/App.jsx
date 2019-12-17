@@ -14,6 +14,7 @@ import Service from '../pages/Service.jsx';
 import auth from '../services/Auth';
 import About from '../pages/About';
 import Dumps from '../pages/Dumps';
+import Dashboard from '../pages/Dashboard';
 import { NotificationContainer } from './NotificationContainer';
 
 class App extends Component {
@@ -34,11 +35,7 @@ class App extends Component {
         <Container>
           <NotificationContainer />
           <Switch>
-            <Route
-              path="/"
-              exact
-              render={() => <h1 className="mt-5">Hello</h1>}
-            />
+            <Route path="/" exact component={Dashboard} />
             <GuardedRoute path="/users" component={Users} />
             <GuardedRoute path="/service" component={Service} />
             <GuardedRoute path="/dumps" component={Dumps} />
