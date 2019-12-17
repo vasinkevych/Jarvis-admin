@@ -1,14 +1,14 @@
 const config = require('../configs/index');
 const axios = require('axios');
+const { OPEN_DATA_BOT_ENDPOINT } = require('./constant.service');
 
 module.exports = {
   async getCarBotIds({ carNumber }) {
     const botURL = encodeURI(
-      `https://opendatabot.com/api/v2/transport?apiKey=${
+      `${OPEN_DATA_BOT_ENDPOINT}/transport?apiKey=${
         config.OPENDATABOT_API_KEY
       }&number=${carNumber}`
     );
-    console.log(botURL);
     const carsInDatabase = await axios({
       method: 'get',
       url: botURL,
@@ -24,7 +24,7 @@ module.exports = {
     const carRegistrations = await Promise.all(
       carsIdList.map(item => {
         const botIdURL = encodeURI(
-          `https://opendatabot.com/api/v2/transport/${item.id}?apiKey=${
+          `${OPEN_DATA_BOT_ENDPOINT}/transport/${item.id}?apiKey=${
             config.OPENDATABOT_API_KEY
           }`
         );

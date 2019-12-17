@@ -1,5 +1,5 @@
 const CarsService = require('../../services/cars.service');
-const OpenDBService = require('../../services/opendb.service');
+const OpenDBService = require('../../services/openDataBot.service');
 const HelpersGraphQLService = require('../helpers');
 
 module.exports = {
