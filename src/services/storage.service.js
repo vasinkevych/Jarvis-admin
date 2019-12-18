@@ -3,7 +3,8 @@ const fsp = require('fs').promises;
 const fs = require('fs');
 const path = require('path');
 const configs = require('../configs');
-const appDir = path.dirname(require.main.filename);
+// const appDir = path.dirname(require.main.filename);
+const appDir = '../';
 const dbService = require('./database.service');
 
 let serviceAccount = configs.FIREBASE_ACCOUNT_CREDITS;

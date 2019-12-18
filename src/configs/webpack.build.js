@@ -4,15 +4,17 @@ const path = require('path');
 // const { NODE_ENV = 'production' } = process.env;
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: {
     index: './src/index.ts'
   },
   target: 'node',
   output: {
     path: path.resolve(__dirname, '../../dist'),
-    filename: '[name].bundle.js',
-    publicPath: ''
+    filename: '[name].bundle.js'
+  },
+  optimization: {
+    minimize: false
   },
   // optimization: {
   //   minimizer: [

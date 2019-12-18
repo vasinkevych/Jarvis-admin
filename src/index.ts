@@ -10,6 +10,7 @@ const loggingService = require('./services/logging.service');
 const logger = require('koa-logger');
 const stripAnsi = require('strip-ansi');
 const winston = require('winston');
+// const router = require('./routes');
 
 loggingService.initializeLogger();
 
@@ -41,10 +42,8 @@ app.use(checkJwt());
 app.use(logger((str: string) => winston.log('info', stripAnsi(str))));
 
 // TODO need to move routes to separated files;
-const Router = require('koa2-router');
-const router = Router();
+
 // require our external routes and pass in the router
-require('./routes')({ router });
 
 const delayInMinutes = 20;
 
@@ -64,7 +63,7 @@ app.use(
   )
 );
 
-app.use(router);
+// app.use(router);
 
 const server = app.listen(configs.PORT);
 

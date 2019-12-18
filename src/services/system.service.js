@@ -2,7 +2,8 @@ const mysqldump = require('mysqldump');
 const configs = require('../configs');
 const DatabaseService = require('./database.service');
 const path = require('path');
-const appDir = path.dirname(require.main.filename);
+// const appDir = path.dirname(require.main.filename);
+const appDir = '../';
 
 const StorageService = require('./storage.service');
 const GoogleSheetToJSON = require('./google-api.service');
