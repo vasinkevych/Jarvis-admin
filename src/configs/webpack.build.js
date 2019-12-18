@@ -1,39 +1,40 @@
-const TerserPlugin = require('terser-webpack-plugin');
+// const TerserPlugin = require('terser-webpack-plugin');
 const path = require('path');
 
+// const { NODE_ENV = 'production' } = process.env;
+
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   entry: {
     index: './src/index.ts'
   },
+  target: 'node',
   output: {
-    path: path.resolve(__dirname, '../dist'),
-    filename: '[name].js',
-    libraryTarget: 'umd',
-    globalObject: 'this'
+    path: path.resolve(__dirname, '../../dist'),
+    filename: '[name].bundle.js',
+    publicPath: ''
   },
-  externals: {
-    axios: 'axios'
-  },
-  optimization: {
-    minimizer: [
-      new TerserPlugin({
-        parallel: true,
-        extractComments: true,
-        terserOptions: {
-          keep_classnames: true,
-          keep_fnames: true
-        }
-      })
-    ]
-  },
-  resolve: { extensions: ['.js', '.ts'], modules: ['node_modules'] },
+  // optimization: {
+  //   minimizer: [
+  //     new TerserPlugin({
+  //       parallel: true,
+  //       extractComments: true,
+  //       terserOptions: {
+  //         keep_classnames: true,
+  //         keep_fnames: true
+  //       }
+  //     })
+  //   ]
+  // },
+  resolve: { extensions: ['.js', '.ts', '.json', '.mjs'] },
   module: {
-    rules: [{ test: /\.ts$/, loader: 'ts-loader' }]
-  },
-  node: {
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty'
+    rules: [
+      { test: /\.ts$/, loader: 'ts-loader' },
+      {
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto'
+      }
+    ]
   }
 };
