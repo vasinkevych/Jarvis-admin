@@ -3,7 +3,7 @@ const path = require('path');
 const config = {
   entry: './client/client.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '../../dist/public'),
     filename: 'client.min.js'
   },
   module: {

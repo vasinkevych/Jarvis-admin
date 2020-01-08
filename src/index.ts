@@ -1,28 +1,33 @@
-import { Context, Next } from 'koa';
+import Koa, { Context, Next } from 'koa';
 import { resolve } from 'path';
-const Koa = require('koa');
-const mount = require('koa-mount');
-const bodyParser = require('koa-bodyparser');
-const app = new Koa();
-const serve = require('koa-static');
-const cors = require('@koa/cors');
-const loggingService = require('./services/logging.service');
-const logger = require('koa-logger');
-const stripAnsi = require('strip-ansi');
-const winston = require('winston');
-// const router = require('./routes');
+import mount from 'koa-mount';
+import bodyParser from 'koa-bodyparser';
+import serve from 'koa-static';
+import cors from '@koa/cors';
+import logger from 'koa-logger';
+import stripAnsi from 'strip-ansi';
+import graphqlHTTP from 'koa-graphql';
+import https from 'https';
 
-loggingService.initializeLogger();
-
-const graphqlHttp = require('koa-graphql');
 const graphqlSchema = require('./graphql/schema');
 const graphqlResolver = require('./graphql/resolvers');
 const checkJwt = require('./services/auth');
-const https = require('https');
 const configs = require('./configs');
+const winston = require('winston');
+const loggingService = require('./services/logging.service');
+const router = require('./routes');
+
+loggingService.initializeLogger();
+
+const app = new Koa();
+
+const staticPath =
+  configs.NODE_ENV === 'production'
+    ? resolve('dist', 'public')
+    : resolve(__dirname, 'public');
 
 app.use(bodyParser());
-app.use(serve(resolve(__dirname, '/public')));
+app.use(serve(staticPath));
 app.use(cors());
 app.use(async (ctx: Context, next: Next) => {
   try {
@@ -55,7 +60,7 @@ setInterval(function() {
 app.use(
   mount(
     '/graphql',
-    graphqlHttp({
+    graphqlHTTP({
       schema: graphqlSchema,
       rootValue: graphqlResolver,
       graphiql: true
@@ -63,7 +68,7 @@ app.use(
   )
 );
 
-// app.use(router);
+app.use(router);
 
 const server = app.listen(configs.PORT);
 

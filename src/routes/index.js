@@ -57,7 +57,11 @@ router.post('/api/v1/process-number', ctx => {
 });
 
 router.get('*', ctx => {
-  const reader = createReadStream(path.join(__dirname, '../public/index.html'));
+  const indexPath =
+    configs.NODE_ENV === 'production'
+      ? path.resolve('dist', 'public', 'index.html')
+      : path.resolve(__dirname, '../', 'public', 'index.html');
+  const reader = createReadStream(indexPath);
   return new Promise(resolve => {
     reader.on('data', chunk => {
       ctx.type = 'html';

@@ -65,6 +65,7 @@ typings/
 credentials.json
 token.json
 dist/
+!dist/public/index.html
 src/public/*.min.js
 package-lock.json
 yarn.lock

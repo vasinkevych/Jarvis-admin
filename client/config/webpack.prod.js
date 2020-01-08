@@ -14,7 +14,7 @@ const prodConfig = () => {
     mode: 'production',
     entry: './client/client.js',
     output: {
-      path: path.resolve(__dirname, '../../src/public'),
+      path: path.resolve(__dirname, '../../dist/public'),
       publicPath: '/',
       filename: 'client.min.js'
     },
