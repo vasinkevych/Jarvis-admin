@@ -70,4 +70,4 @@ const server = app.listen(configs.PORT);
 // increased timeout to 10min as /api/parse is not able to complete in 2min
 server.timeout = 10 * 60 * 1000;
 
-console.log('listen ', configs.PORT);
+console.warn('listen ', configs.PORT);

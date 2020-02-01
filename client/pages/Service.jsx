@@ -28,7 +28,6 @@ const Service = () => {
       setTableData(fetchedData ? fetchedData.result : []);
       setQuery('');
     } catch (e) {
-      console.error(e);
       notifyError(e.message);
     }
   };

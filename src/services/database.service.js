@@ -13,7 +13,7 @@ module.exports = {
     });
     connection.connect(err => {
       if (err) {
-        console.log('database error...', err);
+        console.error('database error...', err);
       }
     });
     return connection;
@@ -24,7 +24,7 @@ module.exports = {
       let connection = this.getConnection();
       connection.query(sql, (err, results, fields) => {
         if (err) {
-          console.log('err', err);
+          console.error('err', err);
           return reject(err);
         }
         resolve(results);

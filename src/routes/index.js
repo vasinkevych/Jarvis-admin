@@ -3,10 +3,7 @@ const createReadStream = require('fs').createReadStream;
 const EmailService = require('../services/email.service');
 const UsersService = require('../services/users.service');
 const DatabaseService = require('../services/database.service');
-const ParseService = require('../services/parser.service');
-const GoogleSheetToJSON = require('../services/google-api.service');
 const SystemService = require('../services/system.service');
-const configs = require('../configs');
 
 module.exports = ({ router }) => {
   /* admin panel  */
@@ -22,7 +19,7 @@ module.exports = ({ router }) => {
   });
 
   router.get('/api/parse', ctx => {
-    return SystemService.saveDumpPublishToCloudAndParceXLS()
+    return SystemService.saveDumpPublishToCloudAndParseXLS()
       .then(() => {
         ctx.status = 200;
         // ctx.statusText = statusText;

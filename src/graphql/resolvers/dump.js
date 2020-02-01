@@ -11,7 +11,7 @@ module.exports = {
         created: new Date(data.timeCreated).toISOString()
       }));
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   },
 
@@ -19,7 +19,7 @@ module.exports = {
     try {
       await StorageService.importDatabase(name);
     } catch (e) {
-      console.log(e);
+      console.warn(e);
       return false;
     }
     return true;

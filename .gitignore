@@ -68,3 +68,4 @@ dist/
 src/public/*.min.js
 package-lock.json
 yarn.lock
+src/tmp

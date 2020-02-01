@@ -82,7 +82,9 @@ module.exports = {
         await fsp.access(dumpPath);
         await fsp.unlink(dumpPath);
       } catch (e) {
-        console.log('Nothing to delete. Probably download process had failed.');
+        console.warn(
+          'Nothing to delete. Probably download process had failed.'
+        );
       }
     }
   }

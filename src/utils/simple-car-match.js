@@ -35,7 +35,7 @@ const findCar = (scans, cars) => {
     );
   } catch (e) {
     // a few bits tried to escape, but we caught them (by https://whatthecommit.com/)
-    console.log(e);
+    console.error(e);
 
     return null;
   }

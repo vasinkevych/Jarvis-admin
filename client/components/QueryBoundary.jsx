@@ -15,6 +15,7 @@ class ErrorBoundary extends React.Component {
   static contextType = NotificationContext;
 
   componentDidCatch(error, errorInfo) {
+    // eslint-disable-next-line no-console
     console.error(error, errorInfo);
     this.context.notifyError(error.message);
   }

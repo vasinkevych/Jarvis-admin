@@ -1,4 +1,4 @@
-const config = require('../configs/index');
+const config = require('../configs');
 const axios = require('axios');
 const { OPEN_DATA_BOT_ENDPOINT } = require('./constant.service');
 

@@ -15,7 +15,6 @@ export async function fetchTableData(query, notifyError) {
     );
     return await response.json();
   } catch (err) {
-    console.error(err);
     notifyError(err.message);
   }
 }

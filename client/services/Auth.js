@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import auth0 from 'auth0-js';
 
 class Auth {

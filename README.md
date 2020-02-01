@@ -14,9 +14,8 @@ npm run dev:frontend - start frontend;
 http://localhost:3000/ - backend
 http://localhost:3001/ - frontend
 
+## Docker & MySQL (optional if you don't want to install MySQL)
 
-Docker & MySQL (optional if you don't want to install MySQL)
--------------------------------------------------------
 initially:
 
 run docker
@@ -27,13 +26,11 @@ run docker
 
 regularly:
 
-`docker start 0872e5cac0bf`
+`docker start <your container id>`
 
-`docker stop 0872e5cac0bf`
+`docker stop <your container id>`
 
 `localhost:3306` - MySQL here
-
-
 
 ## Db-migrate:
 

@@ -1,0 +1,4 @@
+node_modules
+public
+*.min.js
+src/migrations/*
