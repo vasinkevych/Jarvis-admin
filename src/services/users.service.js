@@ -1,5 +1,5 @@
 const configs = require('../configs');
-const findCar = require('../utils/simple-car-match');
+const carMatch = require('../utils/simple-car-match');
 
 const DatabaseService = require('../services/database.service');
 const CarService = require('../services/cars.service');
@@ -38,12 +38,12 @@ module.exports = {
   // TODO replace it with normal solution
   getUserByNumber(scans) {
     return DatabaseService.runSql(`SELECT * FROM cars`)
-      .then(cars => findCar(scans, cars))
+      .then(cars => carMatch.find(scans, cars, carMatch.carSearchOptions))
       .then(
         userIds =>
           userIds &&
           userIds
-            .slice(0, configs.SEARCH_RESULT_COUNT - 1)
+            .slice(0, configs.SEARCH_RESULT_COUNT)
             .map(({ item }) => getUserDetails(null, item))
       )
       .then(promises => (promises ? Promise.all(promises) : null))
@@ -57,6 +57,24 @@ module.exports = {
             }
           : {}
       );
+  },
+
+  findUsers(scans) {
+    return getUserDetails()
+      .then(users => {
+        return carMatch.find(scans, users, carMatch.userSearchOptions);
+      })
+      .then(users =>
+        users.slice(0, configs.SEARCH_RESULT_COUNT).map(({ item, score }) => ({
+          name: item.users_name,
+          tel: item.user_contacts_value,
+          carNumber: item.cars_number,
+          carBrand: item.cars_brand,
+          skype: '',
+          complianceScore: 1 - score
+        }))
+      )
+      .catch(e => console.error(e));
   },
 
   getAllUsers() {

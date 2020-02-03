@@ -49,7 +49,19 @@ module.exports = ({ router }) => {
 
     return UsersService.getUserByNumber(data)
       .then(user => (ctx.body = user))
-      .catch(() => {});
+      .catch(e => {
+        console.error(e);
+      });
+  });
+
+  router.post('/api/v1/find', ctx => {
+    const data = ctx.request.body;
+
+    return UsersService.findUsers(data)
+      .then(user => (ctx.body = user))
+      .catch(e => {
+        console.error(e);
+      });
   });
 
   router.get('*', ctx => {
