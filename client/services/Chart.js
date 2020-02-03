@@ -133,10 +133,7 @@ export const generateChart = ({ svg, data, title = 'Chart title' }) => {
     .on('mouseout', function() {
       const el = select(this);
       el.attr('fill', 'steelblue');
-      select(`[data-brand="${el.attr('data-car')}"]`).attr(
-        'class',
-        'tick'
-      );
+      select(`[data-brand="${el.attr('data-car')}"]`).attr('class', 'tick');
       tooltip.style('visibility', 'hidden');
     });
 };

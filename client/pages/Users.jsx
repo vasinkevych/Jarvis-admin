@@ -38,7 +38,6 @@ const Users = () => {
         await user.parseUsers();
         notifySuccess('Users were parsed successfully');
       } catch (e) {
-        console.error(e);
         notifyError(e.message);
       }
       return refetch();

@@ -15,7 +15,6 @@ class ErrorBoundary extends React.Component {
   static contextType = NotificationContext;
 
   componentDidCatch(error, errorInfo) {
-    console.error(error, errorInfo);
     this.context.notifyError(error.message);
   }
 

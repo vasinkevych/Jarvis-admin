@@ -34,7 +34,7 @@ module.exports = {
     await StorageService.sendDumpToStorage(filePath);
   },
 
-  saveDumpPublishToCloudAndParceXLS() {
+  saveDumpPublishToCloudAndParseXLS() {
     const {
       CLIENT_EMAIL,
       PRIVATE_KEY,
