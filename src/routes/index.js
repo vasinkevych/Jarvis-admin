@@ -4,6 +4,7 @@ const EmailService = require('../services/email.service');
 const UsersService = require('../services/users.service');
 const DatabaseService = require('../services/database.service');
 const SystemService = require('../services/system.service');
+const getCurrentUserRoles = require('../services/roles');
 
 module.exports = ({ router }) => {
   /* admin panel  */
@@ -62,6 +63,15 @@ module.exports = ({ router }) => {
       .catch(e => {
         console.error(e);
       });
+  });
+
+  router.get('/api/v1/roles', ctx => {
+    const { authorization } = ctx.request.headers;
+
+    return getCurrentUserRoles({ authorization }).then(roles => {
+      ctx.status = 200;
+      ctx.body = roles;
+    });
   });
 
   router.get('*', ctx => {
