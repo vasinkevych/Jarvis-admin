@@ -16,9 +16,7 @@ const getManagementToken = () => {
       grant_type: 'client_credentials'
     }
   })
-    .then(response => {
-      return response.data.access_token;
-    })
+    .then(response => response.data.access_token)
     .catch(error => {
       console.error('error', error);
     });
