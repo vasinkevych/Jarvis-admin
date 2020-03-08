@@ -7,7 +7,7 @@ const ConstantService = require('../services/constant.service');
 
 const getUserDetails = (id, carId) => {
   let sql = `
-      SELECT 
+      SELECT
         users.id AS users_id,
         users.name AS users_name,
         user_contacts.id AS user_contacts_id,
@@ -61,9 +61,7 @@ module.exports = {
 
   findUsers(scans) {
     return getUserDetails()
-      .then(users => {
-        return carMatch.find(scans, users, carMatch.userSearchOptions);
-      })
+      .then(users => carMatch.find(scans, users, carMatch.userSearchOptions))
       .then(users =>
         users.slice(0, configs.SEARCH_RESULT_COUNT).map(({ item, score }) => ({
           name: item.users_name,
@@ -121,9 +119,9 @@ module.exports = {
 
   getMobilePhoneByUserIdAndPhone({ user_id, mobilePhone }) {
     return DatabaseService.runSql(
-      `SELECT * from user_contacts WHERE 
-        user_id=${user_id} AND 
-        value='${mobilePhone}' AND 
+      `SELECT * from user_contacts WHERE
+        user_id=${user_id} AND
+        value='${mobilePhone}' AND
         type=${ConstantService.MOBILE_PHONE};
     `
     ).then(data => {
@@ -140,7 +138,7 @@ module.exports = {
         if (mobile) {
           return mobile;
         }
-        return DatabaseService.runSql(`INSERT INTO user_contacts (user_id, type, value) 
+        return DatabaseService.runSql(`INSERT INTO user_contacts (user_id, type, value)
           VALUES ('${user_id}', '${
           ConstantService.MOBILE_PHONE
         }', '${mobilePhone}');`);
@@ -150,8 +148,8 @@ module.exports = {
 
   getMobilePhonesByUser(user_id) {
     return DatabaseService.runSql(
-      `SELECT * from user_contacts WHERE 
-        user_id=${user_id} AND 
+      `SELECT * from user_contacts WHERE
+        user_id=${user_id} AND
         type=${ConstantService.MOBILE_PHONE};
     `
     ).then(data => {
@@ -164,8 +162,8 @@ module.exports = {
 
   getSkypeByUser(user_id) {
     return DatabaseService.runSql(
-      `SELECT * from user_contacts WHERE 
-        user_id=${user_id} AND 
+      `SELECT * from user_contacts WHERE
+        user_id=${user_id} AND
         type=${ConstantService.SKYPE};
     `
     ).then(data => {
@@ -178,9 +176,9 @@ module.exports = {
 
   getSkypeByUserIdAndSkypeValue({ user_id, skype }) {
     return DatabaseService.runSql(
-      `SELECT * from user_contacts WHERE 
-        user_id=${user_id} AND 
-        value='${skype}' AND 
+      `SELECT * from user_contacts WHERE
+        user_id=${user_id} AND
+        value='${skype}' AND
         type=${ConstantService.SKYPE};
     `
     ).then(data => {
@@ -196,7 +194,7 @@ module.exports = {
       if (skype) {
         return skype;
       }
-      return DatabaseService.runSql(`INSERT INTO user_contacts (user_id, type, value) 
+      return DatabaseService.runSql(`INSERT INTO user_contacts (user_id, type, value)
           VALUES ('${user_id}', '${ConstantService.SKYPE}', '${skype}');`);
     });
   },
